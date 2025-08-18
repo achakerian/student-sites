@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Sites</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+  <header>
+    <div class="brand">Student Sites</div>
+    <nav>
+      <button id="theme-toggle" aria-label="Toggle light/dark mode">🌙</button>
+      <a href="#">Home</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Category Filters -->
+    <section class="filters filters--wrap" aria-label="Categories">
+      <input type="radio" name="cat" id="f-all" checked>
+      <label for="f-all">All</label>
+
+      <input type="radio" name="cat" id="f-popular">
+      <label for="f-popular">Popular</label>
+    </section>
+
+    <!-- Student Grid -->
+    <section class="container">
+      <ul class="grid" role="list">
+        <li class="card" data-cat="popular a">
+          <a href="./achillichanga/index.html">
+            <h3>achillichanga</h3>
+            <p class="muted">Personal portfolio (Popular)</p>
+          </a>
+        </li>
+        <li class="card" data-cat="a">
+          <a href="./alice/index.html">
+            <h3>alice</h3>
+            <p class="muted">Responsive layout demo</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const btn = document.getElementById("theme-toggle");
+    btn.addEventListener("click", () => {
+      const body = document.body;
+      const isDark = body.getAttribute("data-theme") === "dark";
+      body.setAttribute("data-theme", isDark ? "light" : "dark");
+      btn.textContent = isDark ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>
