@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Student Sites</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="api.js"></script>
 </head>
 <body data-theme="dark">
   <header>
@@ -28,21 +29,41 @@
 
     <!-- Student Grid -->
     <section class="container">
-      <ul class="grid" role="list">
+      <ul class="grid" role="list" id="sites-grid">
+        <!-- Static sites (manually curated) -->
         <li class="card" data-cat="popular a">
-          <a href="https://achakerian.com/">
+          <a href="https://achakerian.com/" data-iframe="true">
             <h3>achillichanga</h3>
             <p class="muted">Personal portfolio (Popular)</p>
           </a>
         </li>
-        <li class="card" data-cat="a">
-          <a href="./alice/index.html">
-            <h3>alice</h3>
-            <p class="muted">Responsive layout demo</p>
-          </a>
-        </li>
+        <!-- Dynamic sites will be loaded here -->
       </ul>
+
+      <!-- Loading indicator -->
+      <div id="loading-indicator" class="loading-indicator">
+        <p>Loading student sites...</p>
+      </div>
+
+      <!-- Error message -->
+      <div id="error-message" class="error-message hidden">
+        <p>Could not load some student sites. Check console for details.</p>
+      </div>
     </section>
+
+    <!-- iframe Viewer Modal -->
+    <div id="iframe-modal" class="iframe-modal hidden">
+      <div class="iframe-container">
+        <div class="iframe-header">
+          <h3 id="iframe-title">Site Preview</h3>
+          <div class="iframe-controls">
+            <button id="open-new-tab" class="btn-secondary" title="Open in new tab">↗️</button>
+            <button id="close-iframe" class="btn-close" title="Close preview">✕</button>
+          </div>
+        </div>
+        <iframe id="site-iframe" src="" frameborder="0"></iframe>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -53,6 +74,101 @@
       body.setAttribute("data-theme", isDark ? "light" : "dark");
       btn.textContent = isDark ? "☀️" : "🌙";
     });
+
+    // iframe Navigation System
+    const iframeModal = document.getElementById("iframe-modal");
+    const siteIframe = document.getElementById("site-iframe");
+    const iframeTitle = document.getElementById("iframe-title");
+    const closeIframeBtn = document.getElementById("close-iframe");
+    const openNewTabBtn = document.getElementById("open-new-tab");
+    let currentUrl = "";
+
+    // Handle clicks on student site cards
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest("a");
+      if (!link) return;
+
+      // Check if this should open in iframe
+      if (link.hasAttribute("data-iframe")) {
+        e.preventDefault();
+        currentUrl = link.href;
+        const siteName = link.querySelector("h3").textContent;
+        openIframe(currentUrl, siteName);
+      }
+      // External links open normally (data-external="true")
+    });
+
+    function openIframe(url, title) {
+      iframeTitle.textContent = title;
+      siteIframe.src = url;
+      iframeModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeIframe() {
+      iframeModal.classList.add("hidden");
+      siteIframe.src = "";
+      document.body.style.overflow = "auto";
+      currentUrl = "";
+    }
+
+    // Close iframe when clicking close button
+    closeIframeBtn.addEventListener("click", closeIframe);
+
+    // Open current site in new tab
+    openNewTabBtn.addEventListener("click", () => {
+      if (currentUrl) {
+        window.open(currentUrl, "_blank");
+      }
+    });
+
+    // Close iframe when clicking outside the container
+    iframeModal.addEventListener("click", (e) => {
+      if (e.target === iframeModal) {
+        closeIframe();
+      }
+    });
+
+    // Close iframe with Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !iframeModal.classList.contains("hidden")) {
+        closeIframe();
+      }
+    });
+
+    // Handle iframe loading
+    siteIframe.addEventListener("load", () => {
+      // Optional: Add loading state handling here
+      console.log("Site loaded in iframe");
+    });
+
+    // Dynamic site loading
+    async function loadStudentSites() {
+      const sitesGrid = document.getElementById("sites-grid");
+      const loadingIndicator = document.getElementById("loading-indicator");
+      const errorMessage = document.getElementById("error-message");
+
+      try {
+        const api = new StudentSitesAPI();
+        const sites = await api.loadSites();
+
+        // Generate and append dynamic sites
+        const dynamicSitesHTML = api.generateSiteGrid(sites);
+        sitesGrid.insertAdjacentHTML('beforeend', dynamicSitesHTML);
+
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+
+        console.log(`Loaded ${sites.length} student sites`);
+      } catch (error) {
+        console.error('Error loading student sites:', error);
+        loadingIndicator.style.display = 'none';
+        errorMessage.classList.remove('hidden');
+      }
+    }
+
+    // Load sites when page loads
+    document.addEventListener('DOMContentLoaded', loadStudentSites);
   </script>
 </body>
 </html>

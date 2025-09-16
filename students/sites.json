@@ -1,0 +1,36 @@
+{
+  "sites": [
+    {
+      "name": "portfolio-site",
+      "title": "Portfolio Template",
+      "description": "Professional portfolio showcase",
+      "category": "template",
+      "path": "./students/portfolio-site/index.html",
+      "popular": false
+    },
+    {
+      "name": "blog-template",
+      "title": "Blog Template",
+      "description": "Personal blog with articles",
+      "category": "template",
+      "path": "./students/blog-template/index.html",
+      "popular": false
+    },
+    {
+      "name": "docs-site",
+      "title": "Documentation Site",
+      "description": "API documentation template",
+      "category": "template",
+      "path": "./students/docs-site/index.html",
+      "popular": false
+    },
+    {
+      "name": "landing-page",
+      "title": "Landing Page",
+      "description": "Product landing page template",
+      "category": "template",
+      "path": "./students/landing-page/index.html",
+      "popular": false
+    }
+  ]
+}
