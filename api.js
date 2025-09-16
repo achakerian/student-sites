@@ -64,7 +64,9 @@ class StudentSitesAPI {
       title: this.formatSiteName(siteName),
       description: 'Student site',
       category: 'a',
-      popular: false
+      popular: false,
+      thumbnail: `./thumbnails/${siteName}.jpg`,
+      tags: ['HTML', 'CSS']
     };
 
     try {
@@ -100,22 +102,26 @@ class StudentSitesAPI {
       'portfolio-site': {
         title: 'Portfolio Template',
         description: 'Professional portfolio showcase',
-        category: 'template'
+        category: 'template',
+        tags: ['HTML', 'CSS', 'Portfolio']
       },
       'blog-template': {
         title: 'Blog Template',
         description: 'Personal blog with articles',
-        category: 'template'
+        category: 'template',
+        tags: ['HTML', 'CSS', 'Blog', 'Articles']
       },
       'docs-site': {
         title: 'Documentation Site',
         description: 'API documentation template',
-        category: 'template'
+        category: 'template',
+        tags: ['HTML', 'CSS', 'Documentation', 'API']
       },
       'landing-page': {
         title: 'Landing Page',
         description: 'Product landing page template',
-        category: 'template'
+        category: 'template',
+        tags: ['HTML', 'CSS', 'Landing', 'Marketing']
       }
     };
 
@@ -143,8 +149,22 @@ class StudentSitesAPI {
       return `
         <li class="card" data-cat="${categories.join(' ')}">
           <a href="${site.path}" data-iframe="true">
-            <h3>${site.title}</h3>
-            <p class="muted">${site.description}</p>
+            <div class="card-thumbnail" data-site-url="${site.path}">
+              <img src="${site.thumbnail}" alt="${site.title} thumbnail" onerror="this.parentElement.classList.add('fallback-preview')">
+              <div class="live-preview-fallback">
+                <iframe src="${site.path}" frameborder="0" scrolling="no"></iframe>
+                <div class="preview-overlay">
+                  <span>Live Preview</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-content">
+              <h3>${site.title}</h3>
+              <p class="muted">${site.description}</p>
+              <div class="card-tags">
+                ${(site.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+            </div>
           </a>
         </li>
       `;

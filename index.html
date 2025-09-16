@@ -19,12 +19,20 @@
 
   <main>
     <!-- Category Filters -->
-    <section class="filters filters--wrap" aria-label="Categories">
-      <input type="radio" name="cat" id="f-all" checked>
-      <label for="f-all">All</label>
+    <section class="filters" aria-label="Categories">
+      <div class="filter-group">
+        <input type="radio" name="cat" id="f-all" checked>
+        <label for="f-all">
+          <span class="filter-icon">🌟</span>
+          <span class="filter-text">All Sites</span>
+        </label>
 
-      <input type="radio" name="cat" id="f-popular">
-      <label for="f-popular">Popular</label>
+        <input type="radio" name="cat" id="f-popular">
+        <label for="f-popular">
+          <span class="filter-icon">🔥</span>
+          <span class="filter-text">Popular</span>
+        </label>
+      </div>
     </section>
 
     <!-- Student Grid -->
@@ -33,8 +41,24 @@
         <!-- Static sites (manually curated) -->
         <li class="card" data-cat="popular a">
           <a href="https://achakerian.com/" data-iframe="true">
-            <h3>achillichanga</h3>
-            <p class="muted">Personal portfolio (Popular)</p>
+            <div class="card-thumbnail" data-site-url="https://achakerian.com/">
+              <img src="./thumbnails/achakerian.jpg" alt="achillichanga thumbnail" onerror="this.parentElement.classList.add('fallback-preview')">
+              <div class="live-preview-fallback">
+                <iframe src="https://achakerian.com/" frameborder="0" scrolling="no"></iframe>
+                <div class="preview-overlay">
+                  <span>Live Preview</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-content">
+              <h3>achillichanga</h3>
+              <p class="muted">Personal portfolio (Popular)</p>
+              <div class="card-tags">
+                <span class="tag">React</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Portfolio</span>
+              </div>
+            </div>
           </a>
         </li>
         <!-- Dynamic sites will be loaded here -->
