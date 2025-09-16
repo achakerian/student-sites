@@ -10,167 +10,71 @@
 <body data-theme="dark">
   <header>
     <div class="brand">Student Sites</div>
-    <nav>
-      <button id="theme-toggle" aria-label="Toggle light/dark mode">🌙</button>
-      <a href="#">Home</a>
-      <a href="#">Contact</a>
+    <nav class="navbar">
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search sites..." />
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="nav-buttons">
+        <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+        <button id="index-btn" aria-label="View all sites">📋</button>
+      </div>
     </nav>
   </header>
 
   <main>
-    <!-- Category Filters -->
-    <section class="filters" aria-label="Categories">
-      <div class="filter-group">
-        <input type="radio" name="cat" id="f-all" checked>
-        <label for="f-all">
-          <span class="filter-icon">🌟</span>
-          <span class="filter-text">All Sites</span>
-        </label>
-
-        <input type="radio" name="cat" id="f-popular">
-        <label for="f-popular">
-          <span class="filter-icon">🔥</span>
-          <span class="filter-text">Popular</span>
-        </label>
-      </div>
-    </section>
-
     <!-- Student Grid -->
     <section class="container">
       <ul class="grid" role="list" id="sites-grid">
-        <!-- Static sites (manually curated) -->
-        <li class="card" data-cat="popular a">
-          <a href="https://achakerian.com/" data-iframe="true">
-            <div class="card-thumbnail" data-site-url="https://achakerian.com/">
-              <img src="./thumbnails/achakerian.jpg" alt="achillichanga thumbnail" onerror="this.parentElement.classList.add('fallback-preview')">
-              <div class="live-preview-fallback">
-                <iframe src="https://achakerian.com/" frameborder="0" scrolling="no"></iframe>
-                <div class="preview-overlay">
-                  <span>Live Preview</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3>achillichanga</h3>
-              <p class="muted">Personal portfolio (Popular)</p>
-              <div class="card-tags">
-                <span class="tag">React</span>
-                <span class="tag">TypeScript</span>
-                <span class="tag">Portfolio</span>
-              </div>
-            </div>
-          </a>
-        </li>
-        <!-- Dynamic sites will be loaded here -->
+        <!-- Sites will be loaded here -->
       </ul>
 
       <!-- Loading indicator -->
       <div id="loading-indicator" class="loading-indicator">
         <p>Loading student sites...</p>
       </div>
-
-      <!-- Error message -->
-      <div id="error-message" class="error-message hidden">
-        <p>Could not load some student sites. Check console for details.</p>
-      </div>
     </section>
-
-    <!-- iframe Viewer Modal -->
-    <div id="iframe-modal" class="iframe-modal hidden">
-      <div class="iframe-container">
-        <div class="iframe-header">
-          <h3 id="iframe-title">Site Preview</h3>
-          <div class="iframe-controls">
-            <button id="open-new-tab" class="btn-secondary" title="Open in new tab">↗️</button>
-            <button id="close-iframe" class="btn-close" title="Close preview">✕</button>
-          </div>
-        </div>
-        <iframe id="site-iframe" src="" frameborder="0"></iframe>
-      </div>
-    </div>
   </main>
 
   <script>
-    const btn = document.getElementById("theme-toggle");
-    btn.addEventListener("click", () => {
-      const body = document.body;
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    themeToggle.addEventListener("click", () => {
       const isDark = body.getAttribute("data-theme") === "dark";
       body.setAttribute("data-theme", isDark ? "light" : "dark");
-      btn.textContent = isDark ? "☀️" : "🌙";
+      themeToggle.textContent = isDark ? "🌙" : "☀️";
     });
 
-    // iframe Navigation System
-    const iframeModal = document.getElementById("iframe-modal");
-    const siteIframe = document.getElementById("site-iframe");
-    const iframeTitle = document.getElementById("iframe-title");
-    const closeIframeBtn = document.getElementById("close-iframe");
-    const openNewTabBtn = document.getElementById("open-new-tab");
-    let currentUrl = "";
-
-    // Handle clicks on student site cards
-    document.addEventListener("click", (e) => {
-      const link = e.target.closest("a");
-      if (!link) return;
-
-      // Check if this should open in iframe
-      if (link.hasAttribute("data-iframe")) {
-        e.preventDefault();
-        currentUrl = link.href;
-        const siteName = link.querySelector("h3").textContent;
-        openIframe(currentUrl, siteName);
-      }
-      // External links open normally (data-external="true")
+    // Index button functionality
+    const indexBtn = document.getElementById("index-btn");
+    indexBtn.addEventListener("click", () => {
+      alert("Index of all websites - functionality to be implemented");
     });
 
-    function openIframe(url, title) {
-      iframeTitle.textContent = title;
-      siteIframe.src = url;
-      iframeModal.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-    }
+    // Search functionality
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
 
-    function closeIframe() {
-      iframeModal.classList.add("hidden");
-      siteIframe.src = "";
-      document.body.style.overflow = "auto";
-      currentUrl = "";
-    }
+      cards.forEach(card => {
+        const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+        const description = card.querySelector(".muted")?.textContent.toLowerCase() || "";
 
-    // Close iframe when clicking close button
-    closeIframeBtn.addEventListener("click", closeIframe);
-
-    // Open current site in new tab
-    openNewTabBtn.addEventListener("click", () => {
-      if (currentUrl) {
-        window.open(currentUrl, "_blank");
-      }
-    });
-
-    // Close iframe when clicking outside the container
-    iframeModal.addEventListener("click", (e) => {
-      if (e.target === iframeModal) {
-        closeIframe();
-      }
-    });
-
-    // Close iframe with Escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !iframeModal.classList.contains("hidden")) {
-        closeIframe();
-      }
-    });
-
-    // Handle iframe loading
-    siteIframe.addEventListener("load", () => {
-      // Optional: Add loading state handling here
-      console.log("Site loaded in iframe");
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
     });
 
     // Dynamic site loading
     async function loadStudentSites() {
       const sitesGrid = document.getElementById("sites-grid");
       const loadingIndicator = document.getElementById("loading-indicator");
-      const errorMessage = document.getElementById("error-message");
 
       try {
         const api = new StudentSitesAPI();
@@ -187,7 +91,6 @@
       } catch (error) {
         console.error('Error loading student sites:', error);
         loadingIndicator.style.display = 'none';
-        errorMessage.classList.remove('hidden');
       }
     }
 

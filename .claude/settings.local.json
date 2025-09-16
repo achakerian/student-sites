@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git restore:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:www.foodandwine.com)",
+      "WebSearch",
+      "WebFetch(domain:studiobaked.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

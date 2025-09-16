@@ -1,0 +1,18 @@
+{
+  "title": "Chakerian Recipes",
+  "description": "Traditional family recipes from 1892 with vintage cookbook styling",
+  "category": "showcase",
+  "popular": true,
+  "thumbnail": "./thumbnails/vintage-cookbook.jpg",
+  "tags": ["HTML", "CSS", "JavaScript", "Vintage", "Cookbook", "Recipes"],
+  "author": "Student Showcase",
+  "year": "2024",
+  "subdomain": "chakerian-recipes",
+  "features": [
+    "Vintage paper design",
+    "Interactive recipe filtering",
+    "Responsive layout",
+    "Traditional typography",
+    "Ornamental decorations"
+  ]
+}

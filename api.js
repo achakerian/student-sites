@@ -29,6 +29,8 @@ class StudentSitesAPI {
   // Fallback method that checks each known site
   async getFallbackSites() {
     const potentialSites = [
+      'vintage-cookbook',
+      'futuristic-constructivist',
       'portfolio-site',
       'blog-template',
       'docs-site',
@@ -122,6 +124,20 @@ class StudentSitesAPI {
         description: 'Product landing page template',
         category: 'template',
         tags: ['HTML', 'CSS', 'Landing', 'Marketing']
+      },
+      'vintage-cookbook': {
+        title: 'Chakerian Recipes',
+        description: 'Traditional family recipes from 1892',
+        category: 'showcase',
+        popular: true,
+        tags: ['HTML', 'CSS', 'JavaScript', 'Vintage', 'Recipes']
+      },
+      'futuristic-constructivist': {
+        title: 'Futuristic Constructivist',
+        description: 'Geometric design inspired by constructivist art movement',
+        category: 'showcase',
+        popular: true,
+        tags: ['HTML', 'CSS', 'JavaScript', 'Constructivist', 'Futuristic', 'Geometric']
       }
     };
 
