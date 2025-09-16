@@ -5,7 +5,8 @@
       "Bash(mkdir:*)",
       "WebFetch(domain:www.foodandwine.com)",
       "WebSearch",
-      "WebFetch(domain:studiobaked.com)"
+      "WebFetch(domain:studiobaked.com)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

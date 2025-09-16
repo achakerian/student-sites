@@ -1,0 +1,58 @@
+{
+  "recipes": [
+    {
+      "id": "hazelnut-chocolate-meringue-cake",
+      "title": "Hazelnut Chocolate Meringue Cake",
+      "year": "Est. 2019s",
+      "category": "desserts",
+      "image": "./hazelnut-meringue-cake.jpg",
+      "prepTime": "Bake: 3 hrs",
+      "serves": "Serves 10-12",
+      "servingSize": "1 slice (1/12 cake)",
+      "ingredients": [
+        "6 large egg whites",
+        "300g caster sugar",
+        "150g toasted hazelnuts, chopped",
+        "100g dark chocolate, melted",
+        "50g mini chocolate chips",
+        "500ml heavy cream",
+        "50g icing sugar",
+        "Dark chocolate shavings for garnish"
+      ],
+      "instructions": [
+        {
+          "step": 1,
+          "text": "Preheat oven to 110°C. Line 3 large baking sheets with baking paper, drawing 20cm circles as guides."
+        },
+        {
+          "step": 2,
+          "text": "Toast hazelnuts at 180°C for 8-10 minutes until golden. Cool completely, then roughly chop."
+        },
+        {
+          "step": 3,
+          "text": "In a spotlessly clean bowl, whisk egg whites to soft peaks. Gradually add caster sugar, 1 tablespoon at a time, whisking well after each addition until thick and glossy."
+        },
+        {
+          "step": 4,
+          "text": "Gently fold in chopped hazelnuts and chocolate chips. Drizzle melted chocolate over mixture and marble through with a knife."
+        },
+        {
+          "step": 5,
+          "text": "Divide mixture between prepared baking sheets, spreading within the circles. Bake for 2.5 hours until crisp and easily lifted from parchment."
+        },
+        {
+          "step": 6,
+          "text": "Cool completely on trays. Whip cream with icing sugar to soft peaks. Layer meringue discs with cream, finishing with chocolate shavings. Chill 2 hours before serving."
+        }
+      ],
+      "nutrition": {
+        "calories": 405,
+        "protein": "6.8g",
+        "carbs": "43g",
+        "fat": "23g",
+        "sugar": "40g",
+        "fiber": "2.6g"
+      }
+    }
+  ]
+}
