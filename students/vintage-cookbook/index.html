@@ -3,25 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chakerian Recipes</title>
+    <title>Whiley Recipes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="cookbook-wrapper">
         <header class="cookbook-header">
             <div class="ornamental-border">
-                <h1>Chakerian Recipes</h1>
-                <p class="subtitle">Traditional Family Recipes Since 1892</p>
+                <h1>Whiley Recipes</h1>
+                <p class="subtitle">Family Eaten Recipes Since 1963</p>
                 <div class="decorative-line"></div>
             </div>
         </header>
 
         <nav class="recipe-tabs">
-            <button class="tab active" data-category="all">All Recipes</button>
-            <button class="tab" data-category="appetizers">Appetizers</button>
-            <button class="tab" data-category="mains">Main Courses</button>
-            <button class="tab" data-category="desserts">Desserts</button>
-            <button class="tab" data-category="drinks">Beverages</button>
+            <div class="tab-container" id="tab-container">
+                <button class="tab active" data-category="all">All Recipes</button>
+                <button class="tab" data-category="appetizers">Appetizers</button>
+                <button class="tab" data-category="mains">Main Courses</button>
+                <button class="tab" data-category="desserts">Desserts</button>
+                <button class="tab" data-category="drinks">Beverages</button>
+                <button class="tab search-tab" id="search-toggle">🔍 Search</button>
+            </div>
+            <div class="search-container hidden" id="search-container">
+                <input type="text" id="search-input" placeholder="Search recipes by name, ingredient, or tag..." class="search-input">
+                <button id="clear-search" class="clear-search">×</button>
+                <button class="tab" id="close-search">✕ Close</button>
+            </div>
         </nav>
 
         <main class="recipe-grid" id="recipe-container">
@@ -30,7 +38,7 @@
 
         <footer class="cookbook-footer">
             <div class="ornamental-border">
-                <p>"Cooking is love made visible" - Grandma Rose</p>
+                <p>Tastes different when Grandma does it</p>
                 <div class="decorative-line"></div>
             </div>
         </footer>
@@ -45,7 +53,7 @@
                 const container = document.getElementById('recipe-container');
 
                 container.innerHTML = data.recipes.map(recipe => `
-                    <article class="recipe-card" data-category="${recipe.category}">
+                    <article class="recipe-card" data-category="${recipe.category}" data-tags="${recipe.tags ? recipe.tags.join(',') : ''}" data-ingredients="${recipe.ingredients.join(',').toLowerCase()}" data-title="${recipe.title.toLowerCase()}">
                         <div class="card-inner">
                             <!-- Front of card -->
                             <div class="card-front">
@@ -61,7 +69,6 @@
                                         <span class="prep-time">${recipe.prepTime}</span>
                                         <span class="serves">${recipe.serves}</span>
                                     </div>
-                                    <div class="flip-hint">Click to view recipe</div>
                                 </div>
                             </div>
 
@@ -74,7 +81,12 @@
                                 <div class="recipe-content">
                                     <div class="recipe-main">
                                         <div class="ingredients">
-                                            <h4>Ingredients:</h4>
+                                            <div class="ingredients-header">
+                                                <h4>Ingredients:</h4>
+                                                ${recipe.tags ? `<div class="recipe-tags">
+                                                    ${recipe.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
+                                                </div>` : ''}
+                                            </div>
                                             <div class="checklist">
                                                 ${recipe.ingredients.map((ingredient, index) => `
                                                     <div class="checklist-item">
@@ -84,7 +96,47 @@
                                                 `).join('')}
                                             </div>
                                         </div>
-                                        <div class="instructions">
+                                        <button class="mobile-nutrition-toggle" onclick="toggleMobileNutrition(this)">Show Nutrition Info</button>
+                                        <div class="nutrition-info" data-recipe-id="${recipe.id}">
+                                        <div class="nutrition-header">
+                                            <h4 class="nutrition-title">Nutrition Per Serving</h4>
+                                            <div class="nutrition-buttons">
+                                                <button class="mobile-hide-btn" onclick="hideMobileNutrition(this)" title="Hide nutrition info">×</button>
+                                                <button class="nutrition-toggle" title="Click to toggle between per serving and total recipe">
+                                                    <span class="toggle-icon">⇄</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="serving-size">
+                                            <span class="serving-label">Serving Size:</span>
+                                            <span class="serving-value" data-per-serving="${recipe.servingSize}" data-total="Total Recipe">${recipe.servingSize}</span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="nutrition-label">Calories</span>
+                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.calories}" data-total="${recipe.nutrition.calories * 12}">${recipe.nutrition.calories}</span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="nutrition-label">Protein</span>
+                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.protein}" data-total="${Math.round(parseFloat(recipe.nutrition.protein) * 12)}g">${recipe.nutrition.protein}</span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="nutrition-label">Carbs</span>
+                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.carbs}" data-total="${Math.round(parseFloat(recipe.nutrition.carbs) * 12)}g">${recipe.nutrition.carbs}</span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="nutrition-label">Fat</span>
+                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.fat}" data-total="${Math.round(parseFloat(recipe.nutrition.fat) * 12)}g">${recipe.nutrition.fat}</span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="nutrition-label">Sugar</span>
+                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.sugar}" data-total="${Math.round(parseFloat(recipe.nutrition.sugar) * 12)}g">${recipe.nutrition.sugar}</span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="nutrition-label">Fiber</span>
+                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.fiber}" data-total="${Math.round(parseFloat(recipe.nutrition.fiber) * 12)}g">${recipe.nutrition.fiber}</span>
+                                        </div>
+                                    </div>
+                                    <div class="instructions">
                                             <h4>Instructions:</h4>
                                             <div class="instruction-steps">
                                                 ${recipe.instructions.map((instruction, index) => `
@@ -98,42 +150,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="nutrition-info" data-recipe-id="${recipe.id}">
-                                        <div class="nutrition-header">
-                                            <h4 class="nutrition-title">Nutrition Per Serving</h4>
-                                            <button class="nutrition-toggle" title="Click to toggle between per serving and total recipe">
-                                                <span class="toggle-icon">⇄</span>
-                                            </button>
-                                        </div>
-                                        <div class="serving-size">
-                                            <span class="serving-label">Serving Size:</span>
-                                            <span class="serving-value">${recipe.servingSize}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Calories</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.calories}" data-total="${recipe.nutrition.calories * 12}">${recipe.nutrition.calories}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Protein</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.protein}" data-total="${(parseFloat(recipe.nutrition.protein) * 12).toFixed(2)}g">${recipe.nutrition.protein}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Carbs</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.carbs}" data-total="${(parseFloat(recipe.nutrition.carbs) * 12).toFixed(2)}g">${recipe.nutrition.carbs}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Fat</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.fat}" data-total="${(parseFloat(recipe.nutrition.fat) * 12).toFixed(2)}g">${recipe.nutrition.fat}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Sugar</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.sugar}" data-total="${(parseFloat(recipe.nutrition.sugar) * 12).toFixed(2)}g">${recipe.nutrition.sugar}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Fiber</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.fiber}" data-total="${(parseFloat(recipe.nutrition.fiber) * 12).toFixed(2)}g">${recipe.nutrition.fiber}</span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,6 +160,8 @@
                 initializeTabs();
                 initializeCardFlips();
                 initializeNutritionToggle();
+                initializeSearch();
+                initializeSearchToggle();
             } catch (error) {
                 console.error('Error loading recipes:', error);
                 document.getElementById('recipe-container').innerHTML = '<p>Error loading recipes.</p>';
@@ -203,6 +221,7 @@
             nutritionInfos.forEach(nutritionInfo => {
                 const toggleBtn = nutritionInfo.querySelector('.nutrition-toggle');
                 const nutritionValues = nutritionInfo.querySelectorAll('.nutrition-value');
+                const servingValue = nutritionInfo.querySelector('.serving-value');
                 let showingTotal = false;
 
                 toggleBtn.addEventListener('click', () => {
@@ -213,13 +232,102 @@
                         nutritionValues.forEach(value => {
                             value.textContent = value.dataset.total;
                         });
+                        if (servingValue) {
+                            servingValue.textContent = servingValue.dataset.total;
+                        }
                     } else {
                         nutritionInfo.classList.remove('show-total');
                         nutritionValues.forEach(value => {
                             value.textContent = value.dataset.perServing;
                         });
+                        if (servingValue) {
+                            servingValue.textContent = servingValue.dataset.perServing;
+                        }
                     }
                 });
+            });
+        }
+
+        // Mobile nutrition toggle functionality
+        function toggleMobileNutrition(button) {
+            const nutritionInfo = button.nextElementSibling;
+            const isVisible = nutritionInfo.classList.contains('mobile-visible');
+
+            if (isVisible) {
+                nutritionInfo.classList.remove('mobile-visible');
+                button.textContent = 'Show Nutrition Info';
+            } else {
+                nutritionInfo.classList.add('mobile-visible');
+                button.textContent = 'Hide Nutrition Info';
+            }
+        }
+
+        // Hide mobile nutrition functionality
+        function hideMobileNutrition(hideButton) {
+            const nutritionInfo = hideButton.closest('.nutrition-info');
+            const toggleButton = nutritionInfo.previousElementSibling;
+
+            nutritionInfo.classList.remove('mobile-visible');
+            toggleButton.textContent = 'Show Nutrition Info';
+        }
+
+        // Search toggle functionality
+        function initializeSearchToggle() {
+            const searchToggle = document.getElementById('search-toggle');
+            const closeSearch = document.getElementById('close-search');
+            const tabContainer = document.getElementById('tab-container');
+            const searchContainer = document.getElementById('search-container');
+
+            searchToggle.addEventListener('click', () => {
+                tabContainer.classList.add('hidden');
+                searchContainer.classList.remove('hidden');
+                document.getElementById('search-input').focus();
+            });
+
+            closeSearch.addEventListener('click', () => {
+                searchContainer.classList.add('hidden');
+                tabContainer.classList.remove('hidden');
+                // Clear search when closing
+                document.getElementById('search-input').value = '';
+                // Reset all recipes to visible
+                document.querySelectorAll('.recipe-card').forEach(card => {
+                    card.style.display = 'block';
+                });
+            });
+        }
+
+        // Search functionality
+        function initializeSearch() {
+            const searchInput = document.getElementById('search-input');
+            const clearButton = document.getElementById('clear-search');
+            const recipes = document.querySelectorAll('.recipe-card');
+
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+
+                recipes.forEach(recipe => {
+                    const title = recipe.dataset.title || '';
+                    const ingredients = recipe.dataset.ingredients || '';
+                    const tags = recipe.dataset.tags || '';
+
+                    const matchesSearch = searchTerm === '' ||
+                        title.includes(searchTerm) ||
+                        ingredients.includes(searchTerm) ||
+                        tags.toLowerCase().includes(searchTerm);
+
+                    recipe.style.display = matchesSearch ? 'block' : 'none';
+                });
+
+                // Update clear button visibility
+                clearButton.style.display = searchTerm ? 'block' : 'none';
+            }
+
+            searchInput.addEventListener('input', performSearch);
+
+            clearButton.addEventListener('click', () => {
+                searchInput.value = '';
+                performSearch();
+                searchInput.focus();
             });
         }
 
