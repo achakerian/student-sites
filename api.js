@@ -30,7 +30,8 @@ class StudentSitesAPI {
   async getFallbackSites() {
     const potentialSites = [
       'whiley-recipes',
-      'futuristic-constructivist'
+      'futuristic-constructivist',
+      'miami-vice-retro'
     ];
 
     const sites = [];

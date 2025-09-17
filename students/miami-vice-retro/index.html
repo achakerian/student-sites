@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miami Vice Retro</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="neon-grid"></div>
+
+  <header>
+    <h1 class="neon-text">MIAMI VICE</h1>
+    <p class="subtitle">Welcome to the 80s</p>
+  </header>
+
+  <main>
+  </main>
+
+  <script>
+    // Header shrinking on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > 100) {
+        header.classList.add('shrunk');
+      } else {
+        header.classList.remove('shrunk');
+      }
+    });
+  </script>
+</body>
+</html>
