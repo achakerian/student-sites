@@ -1,6 +1,7 @@
-.github
-.claude
+./github
+./claude
 
+*/*.json
 # dependencies
 /node_modules
 /.pnp

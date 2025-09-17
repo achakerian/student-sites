@@ -3,7 +3,7 @@
     {
       "id": "hazelnut-chocolate-meringue-cake",
       "title": "Hazelnut Chocolate Meringue Cake",
-      "year": "Est. 2019s",
+      "year": "2019s",
       "category": "desserts",
       "tags": ["chocolate", "meringue", "nuts", "special occasion", "gluten-free"],
       "image": "./hazelnut-meringue-cake.jpg",
@@ -53,6 +53,77 @@
         "fat": "23g",
         "sugar": "40g",
         "fiber": "2.6g"
+      }
+    },
+    {
+      "id": "chicken-shawarma-middle-eastern",
+      "title": "Chicken Shawarma",
+      "year": "2024",
+      "category": "mains",
+      "tags": ["middle eastern", "chicken", "protein", "quick", "flavorful"],
+      "image": "./chicken-shawarma.jpg",
+      "prepTime": "Prep: 10 min + marinate",
+      "serves": "Serves 4-5",
+      "servingSize": "183g (1/5 recipe)",
+      "ingredients": [
+        "1 kg chicken thigh fillets, skinless and boneless",
+        "1 large garlic clove, minced",
+        "1 tbsp ground coriander",
+        "1 tbsp ground cumin",
+        "1 tbsp ground cardamom",
+        "1 tsp ground cayenne pepper",
+        "2 tsp smoked paprika",
+        "2 tsp salt",
+        "Black pepper to taste",
+        "2 tbsp lemon juice",
+        "3 tbsp olive oil",
+        "1 cup Greek yogurt (for sauce)",
+        "1 clove garlic, crushed (for sauce)",
+        "1 tsp cumin (for sauce)",
+        "Squeeze of lemon juice (for sauce)",
+        "Salt and pepper (for sauce)"
+      ],
+      "instructions": [
+        {
+          "step": 1,
+          "text": "Combine marinade ingredients in a large ziplock bag. Add chicken, seal, and massage to coat well."
+        },
+        {
+          "step": 2,
+          "text": "Marinate for 24 hours (minimum 3 hours) in the refrigerator."
+        },
+        {
+          "step": 3,
+          "text": "Combine yogurt sauce ingredients in a bowl and refrigerate until ready to serve."
+        },
+        {
+          "step": 4,
+          "text": "Heat a large non-stick skillet or BBQ to medium-high heat."
+        },
+        {
+          "step": 5,
+          "text": "Cook chicken first side for 4-5 minutes until charred and golden."
+        },
+        {
+          "step": 6,
+          "text": "Turn and cook second side for 3-4 minutes until cooked through."
+        },
+        {
+          "step": 7,
+          "text": "Remove chicken from heat and rest for 5 minutes."
+        },
+        {
+          "step": 8,
+          "text": "Slice chicken and serve with flatbreads, fresh salad, and yogurt sauce."
+        }
+      ],
+      "nutrition": {
+        "calories": 275,
+        "protein": "32.9g",
+        "carbs": "1.1g",
+        "fat": "16.2g",
+        "sugar": "0.8g",
+        "fiber": "0.3g"
       }
     }
   ]

@@ -6,7 +6,8 @@
       "WebFetch(domain:www.foodandwine.com)",
       "WebSearch",
       "WebFetch(domain:studiobaked.com)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:www.recipetineats.com)"
     ],
     "deny": [],
     "ask": []

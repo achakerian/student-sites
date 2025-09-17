@@ -16,7 +16,33 @@
             </div>
         </header>
 
-        <nav class="recipe-tabs">
+        <!-- Mobile Search Bar (Always Visible) -->
+        <div class="mobile-search-section">
+            <div class="ornamental-border">
+                <div class="mobile-search-container">
+                    <input type="text" id="mobile-search-input" placeholder="Search recipes..." class="mobile-search-input">
+                    <button id="mobile-clear-search" class="mobile-clear-search">×</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle">
+                <span class="hamburger-icon">☰</span>
+                Categories
+            </button>
+            <div class="mobile-nav-dropdown hidden" id="mobile-nav-dropdown">
+                <button class="mobile-tab active" data-category="all">All Recipes</button>
+                <button class="mobile-tab" data-category="appetizers">Appetizers</button>
+                <button class="mobile-tab" data-category="mains">Main Courses</button>
+                <button class="mobile-tab" data-category="desserts">Desserts</button>
+                <button class="mobile-tab" data-category="drinks">Beverages</button>
+            </div>
+        </nav>
+
+        <!-- Desktop Navigation -->
+        <nav class="recipe-tabs desktop-nav">
             <div class="tab-container" id="tab-container">
                 <button class="tab active" data-category="all">All Recipes</button>
                 <button class="tab" data-category="appetizers">Appetizers</button>
@@ -63,7 +89,9 @@
                                 <div class="front-content">
                                     <div class="front-header">
                                         <h3>${recipe.title}</h3>
-                                        <span class="recipe-year">${recipe.year}</span>
+                                        ${recipe.tags ? `<div class="recipe-tags">
+                                            ${recipe.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
+                                        </div>` : ''}
                                     </div>
                                     <div class="front-footer">
                                         <span class="prep-time">${recipe.prepTime}</span>
@@ -81,12 +109,7 @@
                                 <div class="recipe-content">
                                     <div class="recipe-main">
                                         <div class="ingredients">
-                                            <div class="ingredients-header">
-                                                <h4>Ingredients:</h4>
-                                                ${recipe.tags ? `<div class="recipe-tags">
-                                                    ${recipe.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
-                                                </div>` : ''}
-                                            </div>
+                                            <h4>Ingredients:</h4>
                                             <div class="checklist">
                                                 ${recipe.ingredients.map((ingredient, index) => `
                                                     <div class="checklist-item">
@@ -95,9 +118,15 @@
                                                     </div>
                                                 `).join('')}
                                             </div>
+                                            ${recipe.tags ? `<div class="recipe-tags">
+                                                ${recipe.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
+                                            </div>` : ''}
                                         </div>
-                                        <button class="mobile-nutrition-toggle" onclick="toggleMobileNutrition(this)">Show Nutrition Info</button>
-                                        <div class="nutrition-info" data-recipe-id="${recipe.id}">
+                                        <div class="nutrition-section" data-recipe-id="${recipe.id}">
+                                            <button class="nutrition-toggle-btn" onclick="toggleNutrition(this)">
+                                                View Nutrition Information <span class="toggle-arrow">▼</span>
+                                            </button>
+                                            <div class="nutrition-info">
                                         <div class="nutrition-header">
                                             <h4 class="nutrition-title">Nutrition Per Serving</h4>
                                             <div class="nutrition-buttons">
@@ -135,6 +164,7 @@
                                             <span class="nutrition-label">Fiber</span>
                                             <span class="nutrition-value" data-per-serving="${recipe.nutrition.fiber}" data-total="${Math.round(parseFloat(recipe.nutrition.fiber) * 12)}g">${recipe.nutrition.fiber}</span>
                                         </div>
+                                        </div>
                                     </div>
                                     <div class="instructions">
                                             <h4>Instructions:</h4>
@@ -158,10 +188,13 @@
 
                 // Initialize tab functionality and card flips after recipes are loaded
                 initializeTabs();
+                initializeMobileTabs();
                 initializeCardFlips();
                 initializeNutritionToggle();
                 initializeSearch();
+                initializeMobileSearch();
                 initializeSearchToggle();
+                initializeMobileNavigation();
             } catch (error) {
                 console.error('Error loading recipes:', error);
                 document.getElementById('recipe-container').innerHTML = '<p>Error loading recipes.</p>';
@@ -262,7 +295,21 @@
             }
         }
 
-        // Hide mobile nutrition functionality
+        // Nutrition toggle functionality
+        function toggleNutrition(button) {
+            const nutritionSection = button.closest('.nutrition-section');
+            const isExpanded = nutritionSection.classList.contains('expanded');
+
+            if (isExpanded) {
+                nutritionSection.classList.remove('expanded');
+                button.innerHTML = 'View Nutrition Information <span class="toggle-arrow">▼</span>';
+            } else {
+                nutritionSection.classList.add('expanded');
+                button.innerHTML = 'Hide Nutrition Information <span class="toggle-arrow">▼</span>';
+            }
+        }
+
+        // Hide mobile nutrition functionality (legacy - can be removed)
         function hideMobileNutrition(hideButton) {
             const nutritionInfo = hideButton.closest('.nutrition-info');
             const toggleButton = nutritionInfo.previousElementSibling;
@@ -293,6 +340,86 @@
                 document.querySelectorAll('.recipe-card').forEach(card => {
                     card.style.display = 'block';
                 });
+            });
+        }
+
+        // Mobile Navigation functionality
+        function initializeMobileNavigation() {
+            const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNavDropdown = document.getElementById('mobile-nav-dropdown');
+
+            mobileNavToggle.addEventListener('click', () => {
+                mobileNavDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileNavToggle.contains(e.target) && !mobileNavDropdown.contains(e.target)) {
+                    mobileNavDropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        // Mobile Tab functionality
+        function initializeMobileTabs() {
+            const mobileTabs = document.querySelectorAll('.mobile-tab');
+            const recipes = document.querySelectorAll('.recipe-card');
+
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all mobile tabs
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const category = tab.dataset.category;
+
+                    // Show/hide recipes based on category
+                    recipes.forEach(recipe => {
+                        if (category === 'all' || recipe.dataset.category === category) {
+                            recipe.style.display = 'block';
+                        } else {
+                            recipe.style.display = 'none';
+                        }
+                    });
+
+                    // Hide dropdown after selection
+                    document.getElementById('mobile-nav-dropdown').classList.add('hidden');
+                });
+            });
+        }
+
+        // Mobile Search functionality
+        function initializeMobileSearch() {
+            const mobileSearchInput = document.getElementById('mobile-search-input');
+            const mobileClearButton = document.getElementById('mobile-clear-search');
+            const recipes = document.querySelectorAll('.recipe-card');
+
+            function performMobileSearch() {
+                const searchTerm = mobileSearchInput.value.toLowerCase().trim();
+
+                recipes.forEach(recipe => {
+                    const title = recipe.dataset.title || '';
+                    const ingredients = recipe.dataset.ingredients || '';
+                    const tags = recipe.dataset.tags || '';
+
+                    const matchesSearch = searchTerm === '' ||
+                        title.includes(searchTerm) ||
+                        ingredients.includes(searchTerm) ||
+                        tags.toLowerCase().includes(searchTerm);
+
+                    recipe.style.display = matchesSearch ? 'block' : 'none';
+                });
+
+                // Update clear button visibility
+                mobileClearButton.style.display = searchTerm ? 'flex' : 'none';
+            }
+
+            mobileSearchInput.addEventListener('input', performMobileSearch);
+
+            mobileClearButton.addEventListener('click', () => {
+                mobileSearchInput.value = '';
+                performMobileSearch();
+                mobileSearchInput.focus();
             });
         }
 
