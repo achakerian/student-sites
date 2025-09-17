@@ -243,8 +243,6 @@ body {
 }
 
 .clear-search {
-    position: absolute;
-    right: 80px;
     background: none;
     border: none;
     color: #a0522d;
@@ -257,6 +255,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .clear-search:hover {
@@ -277,21 +276,49 @@ body {
 .mobile-search-container {
     position: relative;
     display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mobile-search-row {
+    position: relative;
+    display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 .mobile-search-input {
-    width: 100%;
+    flex: 1;
     padding: 12px 16px;
     padding-right: 40px;
     background: #3a2d20;
     border: 2px solid #8b4513;
-    border-radius: 8px;
+    border-radius: 15px;
     color: #f4e8d0;
     font-family: 'Crimson Text', serif;
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
+}
+
+.mobile-category-select {
+    background: #3a2d20;
+    border: 2px solid #8b4513;
+    border-radius: 15px;
+    color: #f4e8d0;
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    padding: 12px 16px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23f4e8d0' viewBox='0 0 16 16'%3e%3cpath d='M8 11L3 6h10l-5 5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+    width: 100%;
 }
 
 .mobile-search-input::placeholder {
@@ -302,6 +329,32 @@ body {
 .mobile-search-input:focus {
     border-color: #a0522d;
     box-shadow: 0 0 10px rgba(160, 82, 45, 0.3);
+}
+
+.mobile-category-select:focus,
+.mobile-category-select:hover {
+    border-color: #a0522d;
+    box-shadow: 0 0 10px rgba(160, 82, 45, 0.3);
+}
+
+.mobile-category-select option {
+    background: #3a2d20;
+    color: #f4e8d0;
+    border-radius: 15px;
+    padding: 8px 12px;
+}
+
+/* Additional styling for dropdown menu container */
+.mobile-category-select::-webkit-scrollbar {
+    border-radius: 15px;
+}
+
+.mobile-category-select::-webkit-scrollbar-track {
+    border-radius: 15px;
+}
+
+.mobile-category-select::-webkit-scrollbar-thumb {
+    border-radius: 15px;
 }
 
 .mobile-clear-search {
@@ -453,6 +506,64 @@ body {
 /* Desktop Navigation */
 .desktop-nav {
     display: flex;
+    justify-content: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #221a12, #1a110b);
+    border-bottom: 1px solid #a0522d;
+}
+
+.search-and-filter-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.category-select {
+    background: #3a2d20;
+    border: 1px solid #8b4513;
+    border-radius: 15px;
+    color: #f4e8d0;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23f4e8d0' viewBox='0 0 16 16'%3e%3cpath d='M8 11L3 6h10l-5 5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+    padding-right: 28px;
+    min-width: 140px;
+}
+
+.category-select:focus,
+.category-select:hover {
+    border-color: #a0522d;
+    box-shadow: 0 0 5px rgba(160, 82, 45, 0.3);
+}
+
+.category-select option {
+    background: #3a2d20;
+    color: #f4e8d0;
+    border-radius: 15px;
+    padding: 6px 12px;
+}
+
+/* Additional styling for desktop dropdown menu container */
+.category-select::-webkit-scrollbar {
+    border-radius: 15px;
+}
+
+.category-select::-webkit-scrollbar-track {
+    border-radius: 15px;
+}
+
+.category-select::-webkit-scrollbar-thumb {
+    border-radius: 15px;
 }
 
 /* Show/Hide based on screen size */

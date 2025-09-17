@@ -30,11 +30,7 @@ class StudentSitesAPI {
   async getFallbackSites() {
     const potentialSites = [
       'whiley-recipes',
-      'futuristic-constructivist',
-      'portfolio-site',
-      'blog-template',
-      'docs-site',
-      'landing-page'
+      'futuristic-constructivist'
     ];
 
     const sites = [];
@@ -100,51 +96,6 @@ class StudentSitesAPI {
 
   // Apply smart defaults based on site folder name
   applySmartDefaults(siteName, metadata) {
-    const smartDefaults = {
-      'portfolio-site': {
-        title: 'Portfolio Template',
-        description: 'Professional portfolio showcase',
-        category: 'template',
-        tags: ['HTML', 'CSS', 'Portfolio']
-      },
-      'blog-template': {
-        title: 'Blog Template',
-        description: 'Personal blog with articles',
-        category: 'template',
-        tags: ['HTML', 'CSS', 'Blog', 'Articles']
-      },
-      'docs-site': {
-        title: 'Documentation Site',
-        description: 'API documentation template',
-        category: 'template',
-        tags: ['HTML', 'CSS', 'Documentation', 'API']
-      },
-      'landing-page': {
-        title: 'Landing Page',
-        description: 'Product landing page template',
-        category: 'template',
-        tags: ['HTML', 'CSS', 'Landing', 'Marketing']
-      },
-      'whiley-recipes': {
-        title: 'Whiley Recipes',
-        description: 'Traditional family recipes from 1892',
-        category: 'showcase',
-        popular: true,
-        tags: ['HTML', 'CSS', 'JavaScript', 'Vintage', 'Recipes']
-      },
-      'futuristic-constructivist': {
-        title: 'Futuristic Constructivist',
-        description: 'Geometric design inspired by constructivist art movement',
-        category: 'showcase',
-        popular: true,
-        tags: ['HTML', 'CSS', 'JavaScript', 'Constructivist', 'Futuristic', 'Geometric']
-      }
-    };
-
-    if (smartDefaults[siteName]) {
-      return { ...metadata, ...smartDefaults[siteName] };
-    }
-
     return metadata;
   }
 
@@ -164,24 +115,26 @@ class StudentSitesAPI {
 
       return `
         <li class="card" data-cat="${categories.join(' ')}">
-          <a href="${site.path}" data-iframe="true">
-            <div class="card-thumbnail" data-site-url="${site.path}">
-              <img src="${site.thumbnail}" alt="${site.title} thumbnail" onerror="this.parentElement.classList.add('fallback-preview')">
-              <div class="live-preview-fallback">
-                <iframe src="${site.path}" frameborder="0" scrolling="no"></iframe>
-                <div class="preview-overlay">
-                  <span>Live Preview</span>
-                </div>
+          <div class="card-thumbnail" data-site-url="${site.path}">
+            <img src="${site.thumbnail}" alt="${site.title} thumbnail" onerror="this.parentElement.classList.add('fallback-preview')">
+            <div class="live-preview-fallback">
+              <iframe src="${site.path}" frameborder="0" scrolling="no" title="${site.title}"></iframe>
+              <div class="preview-overlay">
+                <span>Live Preview</span>
               </div>
             </div>
-            <div class="card-content">
-              <h3>${site.title}</h3>
-              <p class="muted">${site.description}</p>
-              <div class="card-tags">
-                ${(site.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
-              </div>
+          </div>
+          <div class="card-content">
+            <h3>${site.title}</h3>
+            <p class="muted">${site.description}</p>
+            <div class="card-tags">
+              ${(site.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
-          </a>
+            <div class="card-actions">
+              <button class="card-btn preview-btn" data-iframe="true" data-url="${site.path}">Preview</button>
+              <a href="${site.path}" target="_blank" class="card-btn fullsite-btn">Go to Full Site</a>
+            </div>
+          </div>
         </li>
       `;
     }).join('');

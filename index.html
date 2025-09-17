@@ -9,7 +9,7 @@
 </head>
 <body data-theme="dark">
   <header>
-    <div class="brand">Student Sites</div>
+    <button class="brand" id="home-btn">Student Sites</button>
     <nav class="navbar">
       <div class="search-container">
         <input type="text" id="search-input" placeholder="Search sites..." />
@@ -34,6 +34,17 @@
         <p>Loading student sites...</p>
       </div>
     </section>
+
+    <!-- Iframe Modal -->
+    <div id="iframe-modal" class="iframe-modal">
+      <div class="iframe-modal-content">
+        <div class="iframe-modal-header">
+          <h3 id="iframe-modal-title">Site Title</h3>
+          <button id="iframe-modal-close" class="iframe-modal-close">&times;</button>
+        </div>
+        <iframe id="iframe-modal-frame" src="" frameborder="0"></iframe>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -47,29 +58,145 @@
       themeToggle.textContent = isDark ? "🌙" : "☀️";
     });
 
-    // Index button functionality
-    const indexBtn = document.getElementById("index-btn");
-    indexBtn.addEventListener("click", () => {
-      alert("Index of all websites - functionality to be implemented");
+    // Home button functionality
+    const homeBtn = document.getElementById("home-btn");
+    homeBtn.addEventListener("click", () => {
+      if (isIndexView) {
+        toggleIndexView(); // Switch back to grid view
+      }
+      // Clear search
+      searchInput.value = "";
+      performSearch("");
     });
 
-    // Search functionality
+    // Index button functionality
+    const indexBtn = document.getElementById("index-btn");
+    let isIndexView = false;
+
+    indexBtn.addEventListener("click", () => {
+      toggleIndexView();
+    });
+
+    function toggleIndexView() {
+      const sitesGrid = document.getElementById("sites-grid");
+      const cards = sitesGrid.querySelectorAll(".card");
+
+      if (!isIndexView) {
+        // Switch to index list view
+        sitesGrid.classList.add("index-view");
+        indexBtn.textContent = "🔲";
+        indexBtn.setAttribute("aria-label", "View grid");
+        isIndexView = true;
+
+        // Create index list if it doesn't exist
+        let indexList = document.getElementById("index-list");
+        if (!indexList) {
+          indexList = document.createElement("div");
+          indexList.id = "index-list";
+          indexList.className = "index-list";
+          sitesGrid.parentNode.insertBefore(indexList, sitesGrid);
+        }
+
+        // Populate index list - alphabetical directory
+        const sites = Array.from(cards).map(card => {
+          const link = card.querySelector("a");
+          const title = card.querySelector("h3").textContent;
+          const tags = Array.from(card.querySelectorAll(".tag"));
+          const primaryTag = tags.length > 0 ? tags[0].textContent : "Website";
+          const url = link.getAttribute("href");
+
+          return {
+            title,
+            url,
+            tag: primaryTag,
+            searchText: `${title.toLowerCase()} ${primaryTag.toLowerCase()}`
+          };
+        }).sort((a, b) => a.title.localeCompare(b.title));
+
+        const indexHTML = sites.map(site => `
+          <div class="index-item" data-search-text="${site.searchText}">
+            <a href="${site.url}" data-iframe="true" class="index-link">${site.title}</a>
+            <span class="index-tag">${site.tag}</span>
+          </div>
+        `).join('');
+
+        indexList.innerHTML = `
+          <h2 class="index-heading">Site Index</h2>
+          ${indexHTML}
+        `;
+
+        // Hide grid, show index
+        sitesGrid.style.display = "none";
+        indexList.style.display = "block";
+
+        // Apply current search term to index view
+        const currentSearch = searchInput.value.toLowerCase();
+        if (currentSearch) {
+          performSearch(currentSearch);
+        }
+      } else {
+        // Switch back to grid view
+        sitesGrid.classList.remove("index-view");
+        indexBtn.textContent = "📋";
+        indexBtn.setAttribute("aria-label", "View all sites");
+        isIndexView = false;
+
+        // Show grid, hide index
+        sitesGrid.style.display = "grid";
+        const indexList = document.getElementById("index-list");
+        if (indexList) {
+          indexList.style.display = "none";
+        }
+
+        // Apply current search term to grid view
+        const currentSearch = searchInput.value.toLowerCase();
+        if (currentSearch) {
+          performSearch(currentSearch);
+        }
+      }
+    }
+
+    // Enhanced search functionality
     const searchInput = document.getElementById("search-input");
     searchInput.addEventListener("input", (e) => {
       const searchTerm = e.target.value.toLowerCase();
-      const cards = document.querySelectorAll(".card");
-
-      cards.forEach(card => {
-        const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
-        const description = card.querySelector(".muted")?.textContent.toLowerCase() || "";
-
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
+      performSearch(searchTerm);
     });
+
+    function performSearch(searchTerm) {
+      if (isIndexView) {
+        // Search in index view
+        const indexItems = document.querySelectorAll(".index-item");
+        let visibleCount = 0;
+
+        indexItems.forEach(item => {
+          const searchText = item.getAttribute("data-search-text") || "";
+
+          if (!searchTerm || searchText.includes(searchTerm)) {
+            item.style.display = "flex";
+            visibleCount++;
+          } else {
+            item.style.display = "none";
+          }
+        });
+
+      } else {
+        // Search in grid view
+        const cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+          const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+          const description = card.querySelector(".muted")?.textContent.toLowerCase() || "";
+          const tags = Array.from(card.querySelectorAll(".tag")).map(tag => tag.textContent.toLowerCase()).join(" ");
+
+          if (!searchTerm || title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+    }
 
     // Dynamic site loading
     async function loadStudentSites() {
@@ -93,6 +220,60 @@
         loadingIndicator.style.display = 'none';
       }
     }
+
+    // Iframe modal functionality
+    const iframeModal = document.getElementById('iframe-modal');
+    const iframeModalTitle = document.getElementById('iframe-modal-title');
+    const iframeModalFrame = document.getElementById('iframe-modal-frame');
+    const iframeModalClose = document.getElementById('iframe-modal-close');
+
+    function openIframeModal(url, title) {
+      iframeModalTitle.textContent = "Student site preview";
+      iframeModalFrame.src = url;
+      iframeModal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeIframeModal() {
+      iframeModal.style.display = 'none';
+      iframeModalFrame.src = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking close button
+    iframeModalClose.addEventListener('click', closeIframeModal);
+
+    // Close modal when clicking outside of it
+    iframeModal.addEventListener('click', (e) => {
+      if (e.target === iframeModal) {
+        closeIframeModal();
+      }
+    });
+
+    // Close modal with escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && iframeModal.style.display === 'block') {
+        closeIframeModal();
+      }
+    });
+
+    // Handle link clicks to open in iframe modal
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[data-iframe="true"]');
+      const button = e.target.closest('button[data-iframe="true"]');
+
+      if (link) {
+        e.preventDefault();
+        const url = link.getAttribute('href');
+        const title = link.textContent || 'Student Site';
+        openIframeModal(url, title);
+      } else if (button) {
+        e.preventDefault();
+        const url = button.getAttribute('data-url');
+        const title = button.closest('.card').querySelector('h3').textContent || 'Student Site';
+        openIframeModal(url, title);
+      }
+    });
 
     // Load sites when page loads
     document.addEventListener('DOMContentLoaded', loadStudentSites);

@@ -16,41 +16,33 @@
             </div>
         </header>
 
-        <!-- Mobile Search Bar (Always Visible) -->
+        <!-- Mobile Search and Categories Section -->
         <div class="mobile-search-section">
             <div class="ornamental-border">
                 <div class="mobile-search-container">
-                    <input type="text" id="mobile-search-input" placeholder="Search recipes..." class="mobile-search-input">
-                    <button id="mobile-clear-search" class="mobile-clear-search">×</button>
+                    <div class="mobile-search-row">
+                        <input type="text" id="mobile-search-input" placeholder="Search recipes..." class="mobile-search-input">
+                        <button id="mobile-clear-search" class="mobile-clear-search">×</button>
+                    </div>
+                    <select id="mobile-category-select" class="mobile-category-select">
+                        <option value="all">All Recipes</option>
+                        <option value="mains">Main Courses</option>
+                        <option value="desserts">Desserts</option>
+                    </select>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Navigation -->
-        <nav class="mobile-nav">
-            <button class="mobile-nav-toggle" id="mobile-nav-toggle">
-                <span class="hamburger-icon">☰</span>
-                Categories
-            </button>
-            <div class="mobile-nav-dropdown hidden" id="mobile-nav-dropdown">
-                <button class="mobile-tab active" data-category="all">All Recipes</button>
-                <button class="mobile-tab" data-category="mains">Main Courses</button>
-                <button class="mobile-tab" data-category="desserts">Desserts</button>
-            </div>
-        </nav>
-
         <!-- Desktop Navigation -->
         <nav class="recipe-tabs desktop-nav">
-            <div class="tab-container" id="tab-container">
-                <button class="tab active" data-category="all">All Recipes</button>
-                <button class="tab" data-category="mains">Main Courses</button>
-                <button class="tab" data-category="desserts">Desserts</button>
-                <button class="tab search-tab" id="search-toggle">🔍 Search</button>
-            </div>
-            <div class="search-container hidden" id="search-container">
+            <div class="search-and-filter-container">
                 <input type="text" id="search-input" placeholder="Search recipes by name, ingredient, or tag..." class="search-input">
+                <select id="category-select" class="category-select">
+                    <option value="all">All Recipes</option>
+                    <option value="mains">Main Courses</option>
+                    <option value="desserts">Desserts</option>
+                </select>
                 <button id="clear-search" class="clear-search">×</button>
-                <button class="tab" id="close-search">✕ Close</button>
             </div>
         </nav>
 
@@ -182,43 +174,48 @@
                     </article>
                 `).join('');
 
-                // Initialize tab functionality and card flips after recipes are loaded
-                initializeTabs();
-                initializeMobileTabs();
+                // Initialize functionality after recipes are loaded
+                initializeCategorySelects();
                 initializeCardFlips();
                 initializeNutritionToggle();
                 initializeSearch();
                 initializeMobileSearch();
-                initializeSearchToggle();
-                initializeMobileNavigation();
             } catch (error) {
                 console.error('Error loading recipes:', error);
                 document.getElementById('recipe-container').innerHTML = '<p>Error loading recipes.</p>';
             }
         }
 
-        // Tab functionality
-        function initializeTabs() {
-            const tabs = document.querySelectorAll('.tab');
+        // Category select functionality
+        function initializeCategorySelects() {
+            const desktopSelect = document.getElementById('category-select');
+            const mobileSelect = document.getElementById('mobile-category-select');
             const recipes = document.querySelectorAll('.recipe-card');
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-
-                    const category = tab.dataset.category;
-
-                    // Show/hide recipes based on category
-                    recipes.forEach(recipe => {
-                        if (category === 'all' || recipe.dataset.category === category) {
-                            recipe.style.display = 'block';
-                        } else {
-                            recipe.style.display = 'none';
-                        }
-                    });
+            function filterRecipes(category) {
+                recipes.forEach(recipe => {
+                    if (category === 'all' || recipe.dataset.category === category) {
+                        recipe.style.display = 'block';
+                    } else {
+                        recipe.style.display = 'none';
+                    }
                 });
+            }
+
+            // Desktop category select
+            desktopSelect.addEventListener('change', (e) => {
+                const category = e.target.value;
+                filterRecipes(category);
+                // Sync with mobile select
+                mobileSelect.value = category;
+            });
+
+            // Mobile category select
+            mobileSelect.addEventListener('change', (e) => {
+                const category = e.target.value;
+                filterRecipes(category);
+                // Sync with desktop select
+                desktopSelect.value = category;
             });
         }
 
@@ -314,75 +311,6 @@
             toggleButton.textContent = 'Show Nutrition Info';
         }
 
-        // Search toggle functionality
-        function initializeSearchToggle() {
-            const searchToggle = document.getElementById('search-toggle');
-            const closeSearch = document.getElementById('close-search');
-            const tabContainer = document.getElementById('tab-container');
-            const searchContainer = document.getElementById('search-container');
-
-            searchToggle.addEventListener('click', () => {
-                tabContainer.classList.add('hidden');
-                searchContainer.classList.remove('hidden');
-                document.getElementById('search-input').focus();
-            });
-
-            closeSearch.addEventListener('click', () => {
-                searchContainer.classList.add('hidden');
-                tabContainer.classList.remove('hidden');
-                // Clear search when closing
-                document.getElementById('search-input').value = '';
-                // Reset all recipes to visible
-                document.querySelectorAll('.recipe-card').forEach(card => {
-                    card.style.display = 'block';
-                });
-            });
-        }
-
-        // Mobile Navigation functionality
-        function initializeMobileNavigation() {
-            const mobileNavToggle = document.getElementById('mobile-nav-toggle');
-            const mobileNavDropdown = document.getElementById('mobile-nav-dropdown');
-
-            mobileNavToggle.addEventListener('click', () => {
-                mobileNavDropdown.classList.toggle('hidden');
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!mobileNavToggle.contains(e.target) && !mobileNavDropdown.contains(e.target)) {
-                    mobileNavDropdown.classList.add('hidden');
-                }
-            });
-        }
-
-        // Mobile Tab functionality
-        function initializeMobileTabs() {
-            const mobileTabs = document.querySelectorAll('.mobile-tab');
-            const recipes = document.querySelectorAll('.recipe-card');
-
-            mobileTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all mobile tabs
-                    mobileTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-
-                    const category = tab.dataset.category;
-
-                    // Show/hide recipes based on category
-                    recipes.forEach(recipe => {
-                        if (category === 'all' || recipe.dataset.category === category) {
-                            recipe.style.display = 'block';
-                        } else {
-                            recipe.style.display = 'none';
-                        }
-                    });
-
-                    // Hide dropdown after selection
-                    document.getElementById('mobile-nav-dropdown').classList.add('hidden');
-                });
-            });
-        }
 
         // Mobile Search functionality
         function initializeMobileSearch() {
