@@ -29,7 +29,7 @@ class StudentSitesAPI {
   // Fallback method that checks each known site
   async getFallbackSites() {
     const potentialSites = [
-      'vintage-cookbook',
+      'whiley-recipes',
       'futuristic-constructivist',
       'portfolio-site',
       'blog-template',
@@ -125,8 +125,8 @@ class StudentSitesAPI {
         category: 'template',
         tags: ['HTML', 'CSS', 'Landing', 'Marketing']
       },
-      'vintage-cookbook': {
-        title: 'Chakerian Recipes',
+      'whiley-recipes': {
+        title: 'Whiley Recipes',
         description: 'Traditional family recipes from 1892',
         category: 'showcase',
         popular: true,
