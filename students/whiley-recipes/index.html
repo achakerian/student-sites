@@ -3,87 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whiley Recipes</title>
+    <meta name="description" content="Vintage family cookbook with delicious recipes passed down through generations since 1963">
+    <meta name="keywords" content="recipes, cooking, family recipes, vintage cookbook, traditional recipes">
+    <meta name="theme-color" content="#8b4513">
+    <title>Whiley Recipes - Family Cookbook Since 1963</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Whiley Recipes",
+        "description": "Family cookbook with vintage recipes since 1963",
+        "url": window.location.href
+    }
+    </script>
 </head>
 <body>
     <div class="cookbook-wrapper">
-        <header class="cookbook-header">
+        <header class="cookbook-header" role="banner">
             <div class="ornamental-border">
                 <h1>Whiley Recipes</h1>
                 <p class="subtitle">Family Eaten Recipes Since 1963</p>
-                <div class="decorative-line"></div>
+                <div class="decorative-line" aria-hidden="true"></div>
             </div>
         </header>
 
         <!-- Mobile Search and Categories Section -->
-        <div class="mobile-search-section">
+        <section class="mobile-search-section" aria-label="Mobile search and filter">
             <div class="ornamental-border">
                 <div class="mobile-search-container">
                     <div class="mobile-search-row">
-                        <input type="text" id="mobile-search-input" placeholder="Search recipes..." class="mobile-search-input">
-                        <button id="mobile-clear-search" class="mobile-clear-search">×</button>
+                        <label for="mobile-search-input" class="sr-only">Search recipes on mobile</label>
+                        <input type="text" id="mobile-search-input" placeholder="Search recipes..." class="mobile-search-input" aria-describedby="mobile-search-help">
+                        <button id="mobile-clear-search" class="mobile-clear-search" aria-label="Clear search" title="Clear search">×</button>
                     </div>
-                    <select id="mobile-category-select" class="mobile-category-select">
+                    <label for="mobile-category-select" class="sr-only">Filter by category on mobile</label>
+                    <select id="mobile-category-select" class="mobile-category-select" aria-label="Filter recipes by category">
                         <option value="all">All Recipes</option>
                         <option value="mains">Main Courses</option>
                         <option value="desserts">Desserts</option>
                     </select>
                 </div>
+                <div id="mobile-search-help" class="sr-only">Search by recipe name, ingredient, or tag</div>
             </div>
-        </div>
+        </section>
 
         <!-- Desktop Navigation -->
-        <nav class="recipe-tabs desktop-nav">
+        <nav class="recipe-tabs desktop-nav" role="navigation" aria-label="Recipe search and filter">
             <div class="search-and-filter-container">
-                <input type="text" id="search-input" placeholder="Search recipes by name, ingredient, or tag..." class="search-input">
-                <select id="category-select" class="category-select">
+                <label for="search-input" class="sr-only">Search recipes</label>
+                <input type="text" id="search-input" placeholder="Search recipes by name, ingredient, or tag..." class="search-input" aria-describedby="search-help">
+                <label for="category-select" class="sr-only">Filter by category</label>
+                <select id="category-select" class="category-select" aria-label="Filter recipes by category">
                     <option value="all">All Recipes</option>
                     <option value="mains">Main Courses</option>
                     <option value="desserts">Desserts</option>
                 </select>
-                <button id="clear-search" class="clear-search">×</button>
+                <button id="clear-search" class="clear-search" aria-label="Clear search" title="Clear search">×</button>
+                <div id="search-help" class="sr-only">Search by recipe name, ingredient, or tag</div>
             </div>
         </nav>
 
-        <main class="recipe-grid" id="recipe-container">
-            <!-- Recipes will be loaded dynamically from recipes.json -->
+        <main class="recipe-grid" id="recipe-container" role="main" aria-label="Recipe collection">
+            <!-- Loading indicator -->
+            <div id="loading-indicator" class="loading-indicator" aria-live="polite">
+                <p>Loading delicious recipes...</p>
+            </div>
         </main>
 
-        <footer class="cookbook-footer">
+        <footer class="cookbook-footer" role="contentinfo">
             <div class="ornamental-border">
                 <p>Tastes different when Grandma does it</p>
-                <div class="decorative-line"></div>
+                <div class="decorative-line" aria-hidden="true"></div>
             </div>
         </footer>
     </div>
 
     <script>
-        // Load recipes from JSON file
-        async function loadRecipes() {
-            try {
-                const response = await fetch('./recipes.json');
-                const data = await response.json();
-                const container = document.getElementById('recipe-container');
+        class WhileyRecipesApp {
+            constructor() {
+                this.recipes = [];
+                this.currentFilter = 'all';
+                this.currentSearchTerm = '';
+                this.init();
+            }
 
-                container.innerHTML = data.recipes.map(recipe => `
-                    <article class="recipe-card" data-category="${recipe.category}" data-tags="${recipe.tags ? recipe.tags.join(',') : ''}" data-ingredients="${recipe.ingredients.join(',').toLowerCase()}" data-title="${recipe.title.toLowerCase()}">
+            async init() {
+                try {
+                    await this.loadRecipes();
+                    this.bindEvents();
+                    this.hideLoadingIndicator();
+                } catch (error) {
+                    this.handleError(error);
+                }
+            }
+
+            async loadRecipes() {
+                try {
+                    const response = await fetch('./recipes.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    this.recipes = data.recipes;
+                    this.renderRecipes();
+                } catch (error) {
+                    console.error('Error loading recipes:', error);
+                    throw error;
+                }
+            }
+
+            renderRecipes() {
+                const container = document.getElementById('recipe-container');
+                const recipesHTML = this.recipes.map(recipe => this.createRecipeCard(recipe)).join('');
+                container.innerHTML = recipesHTML;
+            }
+
+            createRecipeCard(recipe) {
+                return `
+                    <article class="recipe-card" data-category="${recipe.category}" data-tags="${recipe.tags ? recipe.tags.join(',') : ''}" data-ingredients="${recipe.ingredients.join(',').toLowerCase()}" data-title="${recipe.title.toLowerCase()}" role="button" tabindex="0" aria-label="View ${recipe.title} recipe">
                         <div class="card-inner">
                             <!-- Front of card -->
                             <div class="card-front">
                                 <div class="front-image">
-                                    <img src="${recipe.image}" alt="${recipe.title}" loading="lazy">
+                                    <img src="${recipe.image}" alt="${recipe.title}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22150%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23f0f0f0%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22>No Image</text></svg>'">
                                 </div>
                                 <div class="front-content">
                                     <div class="front-header">
                                         <h3>${recipe.title}</h3>
-                                        ${recipe.tags ? `<div class="recipe-tags">
+                                        ${recipe.tags ? `<div class="recipe-tags" aria-label="Recipe tags">
                                             ${recipe.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
                                         </div>` : ''}
                                     </div>
                                     <div class="front-footer">
-                                        <span class="prep-time">${recipe.prepTime}</span>
-                                        <span class="serves">${recipe.serves}</span>
+                                        <span class="prep-time" title="Preparation time">${recipe.prepTime}</span>
+                                        <span class="serves" title="Number of servings">${recipe.serves}</span>
                                     </div>
                                 </div>
                             </div>
@@ -92,75 +148,51 @@
                             <div class="card-back">
                                 <div class="back-header">
                                     <h3>${recipe.title}</h3>
-                                    <button class="flip-back-btn">← Back</button>
+                                    <button class="flip-back-btn" aria-label="Return to recipe overview">← Back</button>
                                 </div>
                                 <div class="recipe-content">
                                     <div class="recipe-main">
                                         <div class="ingredients">
                                             <h4>Ingredients:</h4>
-                                            <div class="checklist">
+                                            <div class="checklist" role="list">
                                                 ${recipe.ingredients.map((ingredient, index) => `
-                                                    <div class="checklist-item">
+                                                    <div class="checklist-item" role="listitem">
                                                         <input type="checkbox" id="ingredient-${recipe.id}-${index}" class="ingredient-checkbox">
                                                         <label for="ingredient-${recipe.id}-${index}">${ingredient}</label>
                                                     </div>
                                                 `).join('')}
                                             </div>
-                                            ${recipe.tags ? `<div class="recipe-tags">
+                                            ${recipe.tags ? `<div class="recipe-tags" aria-label="Recipe tags">
                                                 ${recipe.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
                                             </div>` : ''}
                                         </div>
                                         <div class="nutrition-section" data-recipe-id="${recipe.id}">
-                                            <button class="nutrition-toggle-btn" onclick="toggleNutrition(this)">
-                                                View Nutrition Information <span class="toggle-arrow">▼</span>
+                                            <button class="nutrition-toggle-btn" aria-expanded="false" aria-controls="nutrition-${recipe.id}">
+                                                View Nutrition Information <span class="toggle-arrow" aria-hidden="true">▼</span>
                                             </button>
-                                            <div class="nutrition-info">
-                                        <div class="nutrition-header">
-                                            <h4 class="nutrition-title">Nutrition Per Serving</h4>
-                                            <div class="nutrition-buttons">
-                                                <button class="mobile-hide-btn" onclick="hideMobileNutrition(this)" title="Hide nutrition info">×</button>
-                                                <button class="nutrition-toggle" title="Click to toggle between per serving and total recipe">
-                                                    <span class="toggle-icon">⇄</span>
-                                                </button>
+                                            <div class="nutrition-info" id="nutrition-${recipe.id}" aria-hidden="true">
+                                                <div class="nutrition-header">
+                                                    <h4 class="nutrition-title">Nutrition Per Serving</h4>
+                                                    <div class="nutrition-buttons">
+                                                        <button class="nutrition-toggle" title="Toggle between per serving and total recipe" aria-label="Switch between per serving and total nutrition">
+                                                            <span class="toggle-icon" aria-hidden="true">⇄</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="serving-size">
+                                                    <span class="serving-label">Serving Size:</span>
+                                                    <span class="serving-value" data-per-serving="${recipe.servingSize}" data-total="Total Recipe">${recipe.servingSize}</span>
+                                                </div>
+                                                ${this.createNutritionItems(recipe.nutrition)}
                                             </div>
                                         </div>
-                                        <div class="serving-size">
-                                            <span class="serving-label">Serving Size:</span>
-                                            <span class="serving-value" data-per-serving="${recipe.servingSize}" data-total="Total Recipe">${recipe.servingSize}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Calories</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.calories}" data-total="${recipe.nutrition.calories * 12}">${recipe.nutrition.calories}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Protein</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.protein}" data-total="${Math.round(parseFloat(recipe.nutrition.protein) * 12)}g">${recipe.nutrition.protein}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Carbs</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.carbs}" data-total="${Math.round(parseFloat(recipe.nutrition.carbs) * 12)}g">${recipe.nutrition.carbs}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Fat</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.fat}" data-total="${Math.round(parseFloat(recipe.nutrition.fat) * 12)}g">${recipe.nutrition.fat}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Sugar</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.sugar}" data-total="${Math.round(parseFloat(recipe.nutrition.sugar) * 12)}g">${recipe.nutrition.sugar}</span>
-                                        </div>
-                                        <div class="nutrition-item">
-                                            <span class="nutrition-label">Fiber</span>
-                                            <span class="nutrition-value" data-per-serving="${recipe.nutrition.fiber}" data-total="${Math.round(parseFloat(recipe.nutrition.fiber) * 12)}g">${recipe.nutrition.fiber}</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="instructions">
+                                        <div class="instructions">
                                             <h4>Instructions:</h4>
-                                            <div class="instruction-steps">
+                                            <div class="instruction-steps" role="list">
                                                 ${recipe.instructions.map((instruction, index) => `
-                                                    <div class="step-item">
+                                                    <div class="step-item" role="listitem">
                                                         <div class="step-content">
-                                                            <span class="step-number">${instruction.step}.</span>
+                                                            <span class="step-number" aria-label="Step ${instruction.step}">${instruction.step}.</span>
                                                             <span class="step-text">${instruction.text}</span>
                                                         </div>
                                                     </div>
@@ -172,218 +204,265 @@
                             </div>
                         </div>
                     </article>
-                `).join('');
-
-                // Initialize functionality after recipes are loaded
-                initializeCategorySelects();
-                initializeCardFlips();
-                initializeNutritionToggle();
-                initializeSearch();
-                initializeMobileSearch();
-            } catch (error) {
-                console.error('Error loading recipes:', error);
-                document.getElementById('recipe-container').innerHTML = '<p>Error loading recipes.</p>';
+                `;
             }
-        }
 
-        // Category select functionality
-        function initializeCategorySelects() {
-            const desktopSelect = document.getElementById('category-select');
-            const mobileSelect = document.getElementById('mobile-category-select');
-            const recipes = document.querySelectorAll('.recipe-card');
+            createNutritionItems(nutrition) {
+                const items = [
+                    { label: 'Calories', value: nutrition.calories, multiplier: 12, unit: '' },
+                    { label: 'Protein', value: nutrition.protein, multiplier: 12, unit: 'g' },
+                    { label: 'Carbs', value: nutrition.carbs, multiplier: 12, unit: 'g' },
+                    { label: 'Fat', value: nutrition.fat, multiplier: 12, unit: 'g' },
+                    { label: 'Sugar', value: nutrition.sugar, multiplier: 12, unit: 'g' },
+                    { label: 'Fiber', value: nutrition.fiber, multiplier: 12, unit: 'g' }
+                ];
 
-            function filterRecipes(category) {
+                return items.map(item => {
+                    const totalValue = Math.round(parseFloat(item.value) * item.multiplier);
+                    return `
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">${item.label}</span>
+                            <span class="nutrition-value" data-per-serving="${item.value}" data-total="${totalValue}${item.unit}">${item.value}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            bindEvents() {
+                // Category filters
+                this.bindCategoryEvents();
+
+                // Search functionality
+                this.bindSearchEvents();
+
+                // Card interactions
+                this.bindCardEvents();
+
+                // Nutrition toggles
+                this.bindNutritionEvents();
+            }
+
+            bindCategoryEvents() {
+                const desktopSelect = document.getElementById('category-select');
+                const mobileSelect = document.getElementById('mobile-category-select');
+
+                const handleCategoryChange = (category, sourceElement) => {
+                    this.currentFilter = category;
+                    this.filterRecipes();
+
+                    // Sync selects
+                    [desktopSelect, mobileSelect].forEach(select => {
+                        if (select !== sourceElement) {
+                            select.value = category;
+                        }
+                    });
+                };
+
+                desktopSelect.addEventListener('change', (e) => handleCategoryChange(e.target.value, e.target));
+                mobileSelect.addEventListener('change', (e) => handleCategoryChange(e.target.value, e.target));
+            }
+
+            bindSearchEvents() {
+                const desktopSearch = document.getElementById('search-input');
+                const mobileSearch = document.getElementById('mobile-search-input');
+                const desktopClear = document.getElementById('clear-search');
+                const mobileClear = document.getElementById('mobile-clear-search');
+
+                const handleSearch = (searchTerm, sourceElement) => {
+                    this.currentSearchTerm = searchTerm.toLowerCase().trim();
+                    this.filterRecipes();
+
+                    // Sync search inputs
+                    [desktopSearch, mobileSearch].forEach(input => {
+                        if (input !== sourceElement) {
+                            input.value = searchTerm;
+                        }
+                    });
+
+                    // Update clear button visibility
+                    desktopClear.style.display = this.currentSearchTerm ? 'block' : 'none';
+                    mobileClear.style.display = this.currentSearchTerm ? 'flex' : 'none';
+                };
+
+                const clearSearch = () => {
+                    desktopSearch.value = '';
+                    mobileSearch.value = '';
+                    handleSearch('', null);
+                    desktopSearch.focus();
+                };
+
+                desktopSearch.addEventListener('input', (e) => handleSearch(e.target.value, e.target));
+                mobileSearch.addEventListener('input', (e) => handleSearch(e.target.value, e.target));
+                desktopClear.addEventListener('click', clearSearch);
+                mobileClear.addEventListener('click', clearSearch);
+            }
+
+            bindCardEvents() {
+                document.addEventListener('click', (e) => {
+                    const card = e.target.closest('.recipe-card');
+                    if (!card) return;
+
+                    const flipBackBtn = e.target.closest('.flip-back-btn');
+                    const cardFront = e.target.closest('.card-front');
+
+                    if (flipBackBtn) {
+                        e.stopPropagation();
+                        this.flipCard(card, false);
+                    } else if (cardFront) {
+                        this.flipCard(card, true);
+                    }
+                });
+
+                // Keyboard navigation for cards
+                document.addEventListener('keydown', (e) => {
+                    const card = e.target.closest('.recipe-card');
+                    if (!card) return;
+
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (!card.classList.contains('flipped')) {
+                            this.flipCard(card, true);
+                        }
+                    } else if (e.key === 'Escape' && card.classList.contains('flipped')) {
+                        this.flipCard(card, false);
+                    }
+                });
+            }
+
+            bindNutritionEvents() {
+                document.addEventListener('click', (e) => {
+                    const nutritionToggleBtn = e.target.closest('.nutrition-toggle-btn');
+                    const nutritionToggle = e.target.closest('.nutrition-toggle');
+
+                    if (nutritionToggleBtn) {
+                        this.toggleNutritionVisibility(nutritionToggleBtn);
+                    } else if (nutritionToggle) {
+                        this.toggleNutritionValues(nutritionToggle);
+                    }
+                });
+            }
+
+            flipCard(card, toBack) {
+                if (toBack) {
+                    card.classList.add('flipped');
+                    card.setAttribute('aria-expanded', 'true');
+                } else {
+                    card.classList.remove('flipped');
+                    card.setAttribute('aria-expanded', 'false');
+                }
+            }
+
+            toggleNutritionVisibility(button) {
+                const nutritionSection = button.closest('.nutrition-section');
+                const nutritionInfo = nutritionSection.querySelector('.nutrition-info');
+                const isExpanded = nutritionSection.classList.contains('expanded');
+
+                if (isExpanded) {
+                    nutritionSection.classList.remove('expanded');
+                    button.innerHTML = 'View Nutrition Information <span class="toggle-arrow" aria-hidden="true">▼</span>';
+                    button.setAttribute('aria-expanded', 'false');
+                    nutritionInfo.setAttribute('aria-hidden', 'true');
+                } else {
+                    nutritionSection.classList.add('expanded');
+                    button.innerHTML = 'Hide Nutrition Information <span class="toggle-arrow" aria-hidden="true">▲</span>';
+                    button.setAttribute('aria-expanded', 'true');
+                    nutritionInfo.setAttribute('aria-hidden', 'false');
+                }
+            }
+
+            toggleNutritionValues(button) {
+                const nutritionInfo = button.closest('.nutrition-info');
+                const nutritionValues = nutritionInfo.querySelectorAll('.nutrition-value');
+                const servingValue = nutritionInfo.querySelector('.serving-value');
+                const isShowingTotal = nutritionInfo.classList.contains('show-total');
+
+                if (isShowingTotal) {
+                    nutritionInfo.classList.remove('show-total');
+                    nutritionValues.forEach(value => {
+                        value.textContent = value.dataset.perServing;
+                    });
+                    if (servingValue) {
+                        servingValue.textContent = servingValue.dataset.perServing;
+                    }
+                } else {
+                    nutritionInfo.classList.add('show-total');
+                    nutritionValues.forEach(value => {
+                        value.textContent = value.dataset.total;
+                    });
+                    if (servingValue) {
+                        servingValue.textContent = servingValue.dataset.total;
+                    }
+                }
+            }
+
+            filterRecipes() {
+                const recipes = document.querySelectorAll('.recipe-card');
+                let visibleCount = 0;
+
                 recipes.forEach(recipe => {
-                    if (category === 'all' || recipe.dataset.category === category) {
+                    const matchesCategory = this.currentFilter === 'all' || recipe.dataset.category === this.currentFilter;
+                    const matchesSearch = this.currentSearchTerm === '' || this.recipeMatchesSearch(recipe);
+
+                    if (matchesCategory && matchesSearch) {
                         recipe.style.display = 'block';
+                        visibleCount++;
                     } else {
                         recipe.style.display = 'none';
                     }
                 });
+
+                // Announce results to screen readers
+                this.announceSearchResults(visibleCount);
             }
 
-            // Desktop category select
-            desktopSelect.addEventListener('change', (e) => {
-                const category = e.target.value;
-                filterRecipes(category);
-                // Sync with mobile select
-                mobileSelect.value = category;
-            });
+            recipeMatchesSearch(recipe) {
+                const title = recipe.dataset.title || '';
+                const ingredients = recipe.dataset.ingredients || '';
+                const tags = recipe.dataset.tags || '';
 
-            // Mobile category select
-            mobileSelect.addEventListener('change', (e) => {
-                const category = e.target.value;
-                filterRecipes(category);
-                // Sync with desktop select
-                desktopSelect.value = category;
-            });
-        }
+                return title.includes(this.currentSearchTerm) ||
+                       ingredients.includes(this.currentSearchTerm) ||
+                       tags.toLowerCase().includes(this.currentSearchTerm);
+            }
 
-        // Card flip functionality
-        function initializeCardFlips() {
-            const cards = document.querySelectorAll('.recipe-card');
+            announceSearchResults(count) {
+                const announcement = count === 0 ? 'No recipes found' : `${count} recipe${count === 1 ? '' : 's'} found`;
 
-            cards.forEach(card => {
-                const cardFront = card.querySelector('.card-front');
-                const flipBackBtn = card.querySelector('.flip-back-btn');
+                // Create or update announcement element
+                let announcer = document.getElementById('search-announcer');
+                if (!announcer) {
+                    announcer = document.createElement('div');
+                    announcer.id = 'search-announcer';
+                    announcer.className = 'sr-only';
+                    announcer.setAttribute('aria-live', 'polite');
+                    document.body.appendChild(announcer);
+                }
+                announcer.textContent = announcement;
+            }
 
-                // Flip to back when clicking front
-                cardFront.addEventListener('click', () => {
-                    card.classList.add('flipped');
-                });
+            hideLoadingIndicator() {
+                const loadingIndicator = document.getElementById('loading-indicator');
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+            }
 
-                // Flip to front when clicking back button
-                flipBackBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    card.classList.remove('flipped');
-                });
-            });
-        }
-
-        // Nutrition toggle functionality
-        function initializeNutritionToggle() {
-            const nutritionInfos = document.querySelectorAll('.nutrition-info');
-
-            nutritionInfos.forEach(nutritionInfo => {
-                const toggleBtn = nutritionInfo.querySelector('.nutrition-toggle');
-                const nutritionValues = nutritionInfo.querySelectorAll('.nutrition-value');
-                const servingValue = nutritionInfo.querySelector('.serving-value');
-                let showingTotal = false;
-
-                toggleBtn.addEventListener('click', () => {
-                    showingTotal = !showingTotal;
-
-                    if (showingTotal) {
-                        nutritionInfo.classList.add('show-total');
-                        nutritionValues.forEach(value => {
-                            value.textContent = value.dataset.total;
-                        });
-                        if (servingValue) {
-                            servingValue.textContent = servingValue.dataset.total;
-                        }
-                    } else {
-                        nutritionInfo.classList.remove('show-total');
-                        nutritionValues.forEach(value => {
-                            value.textContent = value.dataset.perServing;
-                        });
-                        if (servingValue) {
-                            servingValue.textContent = servingValue.dataset.perServing;
-                        }
-                    }
-                });
-            });
-        }
-
-        // Mobile nutrition toggle functionality
-        function toggleMobileNutrition(button) {
-            const nutritionInfo = button.nextElementSibling;
-            const isVisible = nutritionInfo.classList.contains('mobile-visible');
-
-            if (isVisible) {
-                nutritionInfo.classList.remove('mobile-visible');
-                button.textContent = 'Show Nutrition Info';
-            } else {
-                nutritionInfo.classList.add('mobile-visible');
-                button.textContent = 'Hide Nutrition Info';
+            handleError(error) {
+                console.error('Error initializing app:', error);
+                const container = document.getElementById('recipe-container');
+                container.innerHTML = `
+                    <div class="error-message" role="alert">
+                        <h2>Oops! Something went wrong</h2>
+                        <p>We couldn't load the recipes. Please try refreshing the page.</p>
+                    </div>
+                `;
             }
         }
 
-        // Nutrition toggle functionality
-        function toggleNutrition(button) {
-            const nutritionSection = button.closest('.nutrition-section');
-            const isExpanded = nutritionSection.classList.contains('expanded');
-
-            if (isExpanded) {
-                nutritionSection.classList.remove('expanded');
-                button.innerHTML = 'View Nutrition Information <span class="toggle-arrow">▼</span>';
-            } else {
-                nutritionSection.classList.add('expanded');
-                button.innerHTML = 'Hide Nutrition Information <span class="toggle-arrow">▼</span>';
-            }
-        }
-
-        // Hide mobile nutrition functionality (legacy - can be removed)
-        function hideMobileNutrition(hideButton) {
-            const nutritionInfo = hideButton.closest('.nutrition-info');
-            const toggleButton = nutritionInfo.previousElementSibling;
-
-            nutritionInfo.classList.remove('mobile-visible');
-            toggleButton.textContent = 'Show Nutrition Info';
-        }
-
-
-        // Mobile Search functionality
-        function initializeMobileSearch() {
-            const mobileSearchInput = document.getElementById('mobile-search-input');
-            const mobileClearButton = document.getElementById('mobile-clear-search');
-            const recipes = document.querySelectorAll('.recipe-card');
-
-            function performMobileSearch() {
-                const searchTerm = mobileSearchInput.value.toLowerCase().trim();
-
-                recipes.forEach(recipe => {
-                    const title = recipe.dataset.title || '';
-                    const ingredients = recipe.dataset.ingredients || '';
-                    const tags = recipe.dataset.tags || '';
-
-                    const matchesSearch = searchTerm === '' ||
-                        title.includes(searchTerm) ||
-                        ingredients.includes(searchTerm) ||
-                        tags.toLowerCase().includes(searchTerm);
-
-                    recipe.style.display = matchesSearch ? 'block' : 'none';
-                });
-
-                // Update clear button visibility
-                mobileClearButton.style.display = searchTerm ? 'flex' : 'none';
-            }
-
-            mobileSearchInput.addEventListener('input', performMobileSearch);
-
-            mobileClearButton.addEventListener('click', () => {
-                mobileSearchInput.value = '';
-                performMobileSearch();
-                mobileSearchInput.focus();
-            });
-        }
-
-        // Search functionality
-        function initializeSearch() {
-            const searchInput = document.getElementById('search-input');
-            const clearButton = document.getElementById('clear-search');
-            const recipes = document.querySelectorAll('.recipe-card');
-
-            function performSearch() {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-
-                recipes.forEach(recipe => {
-                    const title = recipe.dataset.title || '';
-                    const ingredients = recipe.dataset.ingredients || '';
-                    const tags = recipe.dataset.tags || '';
-
-                    const matchesSearch = searchTerm === '' ||
-                        title.includes(searchTerm) ||
-                        ingredients.includes(searchTerm) ||
-                        tags.toLowerCase().includes(searchTerm);
-
-                    recipe.style.display = matchesSearch ? 'block' : 'none';
-                });
-
-                // Update clear button visibility
-                clearButton.style.display = searchTerm ? 'block' : 'none';
-            }
-
-            searchInput.addEventListener('input', performSearch);
-
-            clearButton.addEventListener('click', () => {
-                searchInput.value = '';
-                performSearch();
-                searchInput.focus();
-            });
-        }
-
-        // Load recipes when page loads
-        document.addEventListener('DOMContentLoaded', loadRecipes);
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new WhileyRecipesApp();
+        });
     </script>
 </body>
 </html>

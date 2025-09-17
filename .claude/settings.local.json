@@ -9,7 +9,8 @@
       "Bash(curl:*)",
       "WebFetch(domain:www.recipetineats.com)",
       "Bash(find:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []
