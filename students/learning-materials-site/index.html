@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Materials - Software Technology</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="sticky-nav" id="sticky-nav">
+        <div class="container">
+            <div class="sticky-nav-content">
+                <div class="nav-left">
+                    <button class="sticky-home-btn" title="Return to home" aria-label="Return to home">
+                        <span class="home-icon">🏠</span>
+                    </button>
+                    <button class="sidebar-toggle" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+                        <span class="toggle-icon">☰</span>
+                    </button>
+                </div>
+                <div class="progress-indicator">
+                    <div class="breadcrumb">
+                        <span class="category-name" id="sticky-category">Getting Started</span>
+                        <span class="separator">›</span>
+                        <span class="topic-name" id="sticky-topic">Welcome</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <div class="sticky-language-selector">
+                        <button class="language-icon-small active" data-language="java" title="Learn with Java" aria-label="Learn with Java">
+                            <img src="images/java-icon.png" alt="Java icon" class="language-image">
+                            <span class="language-label">Java</span>
+                        </button>
+                        <button class="language-icon-small" data-language="processing" title="Learn with Processing">
+                            <span class="icon">🎨</span>
+                            <span class="language-label">Processing</span>
+                        </button>
+                        <button class="language-icon-small" data-language="python" title="Learn with Python">
+                            <span class="icon">🐍</span>
+                            <span class="language-label">Python</span>
+                        </button>
+                    </div>
+                    <button class="dark-mode-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+                        <span class="dark-mode-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content" id="main-content">
+        <div class="container">
+
+
+            <nav class="sidebar" role="navigation" aria-label="Learning topics navigation">
+                <div class="accordion">
+                    <!-- Programming Fundamentals -->
+                    <div class="accordion-section">
+                        <button class="accordion-header" data-target="fundamentals" title="Click to explore fundamental programming concepts like variables, data types, and basic operations">
+                            <span>Programming Fundamentals</span>
+                        </button>
+                        <div class="accordion-content" id="fundamentals">
+                            <ul class="topic-list">
+                                <li><a href="#variables" title="Learn how to store and manage data in your programs">Variables & Data Types</a></li>
+                                <li><a href="#operations" title="Master arithmetic, string, and logical operations">Basic Operations</a></li>
+                                <li><a href="#input-output" title="Get user input and display program output">Input & Output</a></li>
+                                <li><a href="#syntax" title="Understand programming language rules and structure">Programming Syntax</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Decision Making & Control Flow -->
+                    <div class="accordion-section">
+                        <button class="accordion-header" data-target="control-flow" title="Click to learn how programs make decisions and control execution flow">
+                            <span>Decision Making & Control Flow</span>
+                        </button>
+                        <div class="accordion-content" id="control-flow">
+                            <ul class="topic-list">
+                                <li><a href="#conditions" title="Learn if/else statements and decision-making logic">Conditional Statements</a></li>
+                                <li><a href="#boolean" title="Master true/false logic and logical operators">Boolean Logic</a></li>
+                                <li><a href="#loops" title="Automate repetitive tasks with for and while loops">Loops & Iteration</a></li>
+                                <li><a href="#nested" title="Combine conditions and loops for complex logic">Nested Structures</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Organizing Code & Logic -->
+                    <div class="accordion-section">
+                        <button class="accordion-header" data-target="code-organization" title="Click to learn how to structure and organize your code effectively">
+                            <span>Organizing Code & Logic</span>
+                        </button>
+                        <div class="accordion-content" id="code-organization">
+                            <ul class="topic-list">
+                                <li><a href="#functions" title="Create reusable code blocks with functions and methods">Functions & Methods</a></li>
+                                <li><a href="#parameters" title="Pass data to functions and return results">Parameters & Return Values</a></li>
+                                <li><a href="#algorithms" title="Design step-by-step problem-solving approaches">Algorithm Design</a></li>
+                                <li><a href="#program-design" title="Structure larger programs and applications">Program Structure</a></li>
+                                <li><a href="#scope" title="Understand where variables can be accessed">Variable Scope</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Working with Collections of Data -->
+                    <div class="accordion-section">
+                        <button class="accordion-header" data-target="data-collections" title="Click to learn how to manage multiple pieces of data together">
+                            <span>Working with Collections of Data</span>
+                        </button>
+                        <div class="accordion-content" id="data-collections">
+                            <ul class="topic-list">
+                                <li><a href="#arrays" title="Store and access multiple values in ordered collections">Arrays & Lists</a></li>
+                                <li><a href="#collections" title="Work with advanced data collection types">Advanced Collections</a></li>
+                                <li><a href="#searching" title="Find specific data within collections">Searching & Filtering</a></li>
+                                <li><a href="#sorting" title="Organize data in meaningful order">Sorting Algorithms</a></li>
+                                <li><a href="#data-structures" title="Choose the right structure for your data">Data Structures</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Object-Oriented Programming -->
+                    <div class="accordion-section">
+                        <button class="accordion-header" data-target="oop" title="Click to learn object-oriented programming concepts and design patterns">
+                            <span>Object-Oriented Programming</span>
+                        </button>
+                        <div class="accordion-content" id="oop">
+                            <ul class="topic-list">
+                                <li><a href="#classes" title="Create custom data types with classes and objects">Classes & Objects</a></li>
+                                <li><a href="#encapsulation" title="Hide internal details and protect data">Encapsulation</a></li>
+                                <li><a href="#inheritance" title="Build on existing code with inheritance">Inheritance</a></li>
+                                <li><a href="#recursion" title="Solve problems by breaking them into smaller parts">Recursive Thinking</a></li>
+                                <li><a href="#design-patterns" title="Learn proven solutions to common programming problems">Common Patterns</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Professional Development Practices -->
+                    <div class="accordion-section">
+                        <button class="accordion-header" data-target="professional" title="Click to learn industry-standard development practices and tools">
+                            <span>Professional Development Practices</span>
+                        </button>
+                        <div class="accordion-content" id="professional">
+                            <ul class="topic-list">
+                                <li><a href="#debugging" title="Find and fix errors in your code effectively">Debugging Techniques</a></li>
+                                <li><a href="#testing" title="Ensure your code works correctly with automated tests">Unit Testing</a></li>
+                                <li><a href="#code-style" title="Write clean, readable, and maintainable code">Code Style & Standards</a></li>
+                                <li><a href="#version-control" title="Track changes and collaborate with version control systems">Version Control</a></li>
+                                <li><a href="#collaboration" title="Work effectively in programming teams">Team Collaboration</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+
+            <div class="content-area">
+                <div class="welcome-section">
+                    <div class="intro-header">
+                        <h2>Welcome to Learning Materials</h2>
+                        <p class="intro-description">Your comprehensive guide to software development, designed for progressive learning with three programming languages.</p>
+                    </div>
+
+                    <div class="current-language-info">
+                        <h3>Currently Learning: <span id="current-language-display">Java</span></h3>
+                        <p id="current-language-description">A powerful, object-oriented programming language perfect for building enterprise applications, Android apps, and web services. Known for its "write once, run anywhere" philosophy.</p>
+                    </div>
+
+                    <div class="learning-structure">
+                        <h3>How This Site Works</h3>
+                        <div class="structure-grid">
+                            <div class="structure-item">
+                                <span class="structure-icon">🎯</span>
+                                <strong>Why it matters</strong>
+                                <p>Understand the real-world context and importance of each concept</p>
+                            </div>
+                            <div class="structure-item">
+                                <span class="structure-icon">📋</span>
+                                <strong>Prerequisites</strong>
+                                <p>What you should know before starting (click to expand when learning)</p>
+                            </div>
+                            <div class="structure-item">
+                                <span class="structure-icon">📚</span>
+                                <strong>Learning outcomes</strong>
+                                <p>Clear goals for what you'll master (click to expand when learning)</p>
+                            </div>
+                            <div class="structure-item">
+                                <span class="structure-icon">💻</span>
+                                <strong>Code examples</strong>
+                                <p>Practical demonstrations with explanations of what each example shows</p>
+                            </div>
+                            <div class="structure-item">
+                                <span class="structure-icon">🌟</span>
+                                <strong>Real-world examples</strong>
+                                <p>See how these concepts apply in actual software projects</p>
+                            </div>
+                            <div class="structure-item">
+                                <span class="structure-icon">🔧</span>
+                                <strong>Practice exercises</strong>
+                                <p>Hands-on activities to reinforce your learning</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="getting-started">
+                        <h3>Getting Started</h3>
+                        <p><strong>1.</strong> Choose your programming language using the icons above</p>
+                        <p><strong>2.</strong> Select a topic from the navigation menu (it will collapse to give you more space)</p>
+                        <p><strong>3.</strong> Expand prerequisite and learning outcome sections as needed</p>
+                        <p><strong>4.</strong> Work through examples and try the practice exercises</p>
+                        <p><strong>5.</strong> Use the breadcrumb navigation to track your progress</p>
+                    </div>
+
+                    <div class="start-learning">
+                        <p class="start-prompt">Ready to begin? <strong>Click any topic in the navigation menu to start your learning journey!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Learning Materials. Built for comprehensive software development education.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

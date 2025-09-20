@@ -31,7 +31,9 @@ class StudentSitesAPI {
     const potentialSites = [
       'whiley-recipes',
       'futuristic-constructivist',
-      'miami-vice-retro'
+      'miami-vice-retro',
+      'coderunner',
+      'learning-materials-site'
     ];
 
     const sites = [];

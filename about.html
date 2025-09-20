@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About - Student Sites</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+  <header>
+    <button class="brand" id="home-btn" onclick="window.location.href='index.html'">Student Sites</button>
+    <nav class="navbar">
+      <div class="nav-buttons">
+        <button onclick="window.location.href='index.html'" aria-label="Back to home">🏠</button>
+        <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container about-content">
+      <h1>About Student Sites</h1>
+
+      <div class="about-section">
+        <h2>Purpose</h2>
+        <p>This platform serves as a centralized showcase for student web development projects, making it easy to browse, discover, and preview student websites in an organized and searchable interface.</p>
+      </div>
+
+      <div class="about-section">
+        <h2>Features</h2>
+        <ul class="feature-list">
+          <li><strong>🔍 Live Search</strong> - Filter sites by name or description in real-time</li>
+          <li><strong>🌙 Dark/Light Mode</strong> - Toggle between themes with smooth transitions</li>
+          <li><strong>📋 Site Index</strong> - Organized grid layout of all available sites</li>
+          <li><strong>🖥️ Live Previews</strong> - View sites in modal overlays without navigation</li>
+          <li><strong>📱 Responsive Design</strong> - Works seamlessly on all devices</li>
+          <li><strong>⚡ Auto-Discovery</strong> - Automatically finds and displays new sites</li>
+        </ul>
+      </div>
+
+      <div class="about-section">
+        <h2>How It Works</h2>
+        <ol class="process-list">
+          <li><strong>Page loads</strong> → API scans known directories in the <code>students/</code> folder</li>
+          <li><strong>For each directory</strong> → Checks if <code>index.html</code> exists</li>
+          <li><strong>Loads metadata</strong> → From <code>meta.json</code> or HTML title extraction</li>
+          <li><strong>Generates cards</strong> → Creates responsive HTML cards for each discovered site</li>
+          <li><strong>Filtering</strong> → CSS-based category filtering and live search</li>
+          <li><strong>Preview</strong> → Modal iframe viewer for interactive site previews</li>
+        </ol>
+      </div>
+
+      <div class="about-section">
+        <h2>Technical Stack</h2>
+        <div class="tech-grid">
+          <div class="tech-item">
+            <h3>Frontend</h3>
+            <p>Vanilla HTML, CSS, JavaScript</p>
+          </div>
+          <div class="tech-item">
+            <h3>Hosting</h3>
+            <p>GitHub Pages</p>
+          </div>
+          <div class="tech-item">
+            <h3>Discovery</h3>
+            <p>Client-side directory scanning via fetch API</p>
+          </div>
+          <div class="tech-item">
+            <h3>Styling</h3>
+            <p>CSS Grid, CSS Variables for theming</p>
+          </div>
+        </div>
+        <p><strong>No Dependencies:</strong> Pure web standards, no build process required</p>
+      </div>
+
+      <div class="about-section">
+        <h2>Adding New Sites</h2>
+        <p>Simply create a new folder in <code>students/</code> with:</p>
+        <ul>
+          <li><code>index.html</code> (required)</li>
+          <li><code>meta.json</code> or <code>site.json</code> (optional metadata)</li>
+        </ul>
+        <p>The API automatically discovers and displays new sites on the next page load.</p>
+      </div>
+
+      <div class="back-link">
+        <button onclick="window.location.href='index.html'" class="card-btn">← Back to Sites</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    themeToggle.addEventListener("click", () => {
+      const isDark = body.getAttribute("data-theme") === "dark";
+      body.setAttribute("data-theme", isDark ? "light" : "dark");
+      themeToggle.textContent = isDark ? "🌙" : "☀️";
+    });
+  </script>
+</body>
+</html>

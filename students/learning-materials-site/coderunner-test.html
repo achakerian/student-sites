@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeRunner Integration Test - Learning Materials</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="coderunner-styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>CodeRunner Integration Test</h1>
+                    <p class="subtitle">Context-Sensitive Code Testing & Feedback System</p>
+                </div>
+                <div class="language-icons" title="Select your programming language">
+                    <button class="language-icon active" data-language="java" title="Test with Java">
+                        <img src="images/java-icon.png" alt="Java" class="icon-img">
+                        <span class="language-label">Java</span>
+                    </button>
+                    <button class="language-icon" data-language="processing" title="Test with Processing">
+                        <img src="images/processing-icon.png" alt="Processing" class="icon-img">
+                        <span class="language-label">Processing</span>
+                    </button>
+                    <button class="language-icon" data-language="python" title="Test with Python">
+                        <img src="images/python-icon.png" alt="Python" class="icon-img">
+                        <span class="language-label">Python</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+                <span class="breadcrumb-item">
+                    <a href="index.html" style="color: #0066cc; text-decoration: none;">Learning Materials</a>
+                </span>
+                <span class="breadcrumb-item active">CodeRunner Test</span>
+            </div>
+
+            <div class="test-interface">
+                <!-- Topic Selection -->
+                <div class="topic-selector">
+                    <h2>Select Learning Topic</h2>
+                    <div class="topic-grid">
+                        <button class="topic-btn active" data-topic="variables">Variables & Data Types</button>
+                        <button class="topic-btn" data-topic="operations">Basic Operations</button>
+                        <button class="topic-btn" data-topic="conditions">Conditional Statements</button>
+                        <button class="topic-btn" data-topic="loops">Loops & Iteration</button>
+                        <button class="topic-btn" data-topic="functions">Functions & Methods</button>
+                        <button class="topic-btn" data-topic="arrays">Arrays & Lists</button>
+                    </div>
+                </div>
+
+                <!-- Code Editor Area -->
+                <div class="code-editor-section">
+                    <div class="editor-header">
+                        <h3 id="current-exercise-title">Exercise: Create Variables</h3>
+                        <div class="editor-controls">
+                            <button id="run-code-btn" class="run-btn">▶ Run Code</button>
+                            <button id="clear-code-btn" class="clear-btn">🗑 Clear</button>
+                        </div>
+                    </div>
+
+                    <div class="editor-container">
+                        <textarea id="code-editor" placeholder="Write your code here...">// Example: Create variables for a student record
+int studentId = 12345;
+String studentName = "Alex Smith";
+double gpa = 3.75;
+boolean isEnrolled = true;
+
+System.out.println("Student: " + studentName);
+System.out.println("ID: " + studentId);
+System.out.println("GPA: " + gpa);
+System.out.println("Enrolled: " + isEnrolled);</textarea>
+                    </div>
+                </div>
+
+                <!-- Results and Feedback Area -->
+                <div class="results-section">
+                    <div class="output-panel">
+                        <h3>Output</h3>
+                        <div id="code-output" class="output-content">
+                            <div class="output-placeholder">Click "Run Code" to see output here...</div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-panel">
+                        <h3>Smart Feedback</h3>
+                        <div id="feedback-content" class="feedback-content">
+                            <div class="feedback-placeholder">
+                                <p>💡 <strong>Getting Started:</strong></p>
+                                <p>Write some code and click "Run Code" to get personalized feedback and suggestions for improvement!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="suggestions-panel">
+                        <h3>Study Material Suggestions</h3>
+                        <div id="study-suggestions" class="suggestions-content">
+                            <div class="suggestions-placeholder">
+                                <p>📚 Based on your code, we'll suggest relevant study materials to help you learn more effectively.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Analysis Modal -->
+            <div id="error-modal" class="error-modal" style="display: none;">
+                <div class="error-modal-content">
+                    <div class="error-modal-header">
+                        <h3>🔍 Error Analysis</h3>
+                        <button class="error-modal-close">&times;</button>
+                    </div>
+                    <div class="error-modal-body">
+                        <div id="error-explanation"></div>
+                        <div id="error-suggestions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Learning Materials. CodeRunner Integration Test - Educational Use Only</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="coderunner-integration.js"></script>
+</body>
+</html>
