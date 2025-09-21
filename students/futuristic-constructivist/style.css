@@ -1,4 +1,8 @@
+/* =============================================
+   CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ============================================= */
 :root {
+    /* Color System */
     --primary-red: #ff0040;
     --secondary-blue: #0080ff;
     --accent-yellow: #ffff00;
@@ -9,25 +13,87 @@
     --line-color: #333333;
     --grid-color: #222222;
     --glow: rgba(255, 0, 64, 0.5);
+
+    /* Typography */
+    --font-primary: 'Courier New', monospace;
+    --font-size-title: 3rem;
+    --font-size-subtitle: 0.8rem;
+    --letter-spacing-wide: 0.1em;
+    --letter-spacing-wider: 0.2em;
+
+    /* Layout */
+    --sidebar-width: 200px;
+    --grid-size: 40px;
+    --border-radius: 4px;
+    --clip-corner: 20px;
+
+    /* Animation */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.4s ease;
+    --animation-duration: 2s;
 }
 
-* {
+/* =============================================
+   RESET & BASE STYLES
+   ============================================= */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-primary);
     background: var(--bg-dark);
     color: var(--text-white);
     line-height: 1.4;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
+/* Improved focus styles for accessibility */
+:focus {
+    outline: 2px solid var(--primary-red);
+    outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary-red);
+    outline-offset: 2px;
+}
+
+/* Links */
+a {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-red);
+}
+
+/* Button reset */
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+/* =============================================
+   LAYOUT GRID SYSTEM
+   ============================================= */
 .construct-grid {
     display: grid;
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: 1fr var(--sidebar-width);
     grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
         "header sidebar"
@@ -36,6 +102,18 @@ body {
         "footer sidebar";
     min-height: 100vh;
     position: relative;
+}
+
+@media (max-width: 768px) {
+    .construct-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "nav"
+            "main"
+            "sidebar"
+            "footer";
+    }
 }
 
 .construct-grid::before {
@@ -48,9 +126,16 @@ body {
     background-image:
         linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
         linear-gradient(var(--grid-color) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-size: var(--grid-size) var(--grid-size);
     pointer-events: none;
     z-index: 0;
+    opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .construct-grid::before {
+        animation: none;
+    }
 }
 
 .header-construct {
@@ -66,16 +151,40 @@ body {
     background: var(--bg-darker);
     border: 2px solid var(--primary-red);
     padding: 1.5rem;
-    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - var(--clip-corner)) 0, 100% var(--clip-corner), 100% 100%, 0 100%);
+    transition: transform var(--transition-medium);
+}
+
+.geo-frame:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .geo-frame {
+        padding: 1rem;
+        clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    }
 }
 
 .title-construct {
-    font-size: 3rem;
+    font-size: var(--font-size-title);
     font-weight: bold;
-    letter-spacing: 0.1em;
+    letter-spacing: var(--letter-spacing-wide);
     display: flex;
     flex-direction: column;
     gap: -0.5rem;
+}
+
+@media (max-width: 768px) {
+    .title-construct {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-construct {
+        font-size: 1.5rem;
+    }
 }
 
 .text-fragment {
@@ -104,10 +213,16 @@ body {
     100% { transform: translateX(100%); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .data-line {
+        animation: none;
+    }
+}
+
 .meta-tag {
-    font-size: 0.8rem;
+    font-size: var(--font-size-subtitle);
     color: var(--text-gray);
-    letter-spacing: 0.2em;
+    letter-spacing: var(--letter-spacing-wider);
 }
 
 .nav-construct {

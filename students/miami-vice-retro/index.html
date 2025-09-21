@@ -3,32 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A neon-soaked 80s Miami Vice inspired website with vibrant pink, blue, gold, and purple aesthetics">
+  <meta name="theme-color" content="#FF69B4">
   <title>Miami Vice Retro</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="neon-grid"></div>
+  <div class="neon-grid" aria-hidden="true"></div>
 
-  <header>
+  <header role="banner">
     <h1 class="neon-text">MIAMI VICE</h1>
     <p class="subtitle">Welcome to the 80s</p>
+    <nav role="navigation" aria-label="Main navigation">
+      <button class="nav-btn active" data-section="home">HOME</button>
+      <button class="nav-btn" data-section="style">STYLE</button>
+      <button class="nav-btn" data-section="music">MUSIC</button>
+      <button class="nav-btn" data-section="contact">CONTACT</button>
+    </nav>
   </header>
 
-  <main>
+  <main role="main">
+    <section id="home" class="content-section active" role="tabpanel" aria-labelledby="home-tab">
+      <div class="neon-container">
+        <h2 class="section-title">NEON NIGHTS</h2>
+        <p class="section-description">Experience the electric atmosphere of 1980s Miami. Dive into a world of neon lights, synth waves, and retro-futuristic aesthetics.</p>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>CHROME & GLASS</h3>
+            <p>Sleek surfaces reflecting the city lights</p>
+          </article>
+          <article class="feature-card">
+            <h3>NEON DREAMS</h3>
+            <p>Electric colors painting the night sky</p>
+          </article>
+          <article class="feature-card">
+            <h3>SYNTH WAVES</h3>
+            <p>Digital sounds of the future</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="style" class="content-section" role="tabpanel" aria-labelledby="style-tab" aria-hidden="true">
+      <div class="neon-container">
+        <h2 class="section-title">RETRO STYLE</h2>
+        <p class="section-description">The iconic fashion and design elements that defined the decade.</p>
+        <div class="style-showcase">
+          <div class="style-item">
+            <h3>PASTEL POWER</h3>
+            <div class="color-strip pastel"></div>
+          </div>
+          <div class="style-item">
+            <h3>NEON GLOW</h3>
+            <div class="color-strip neon"></div>
+          </div>
+          <div class="style-item">
+            <h3>CHROME FINISH</h3>
+            <div class="color-strip chrome"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="music" class="content-section" role="tabpanel" aria-labelledby="music-tab" aria-hidden="true">
+      <div class="neon-container">
+        <h2 class="section-title">SYNTHWAVE</h2>
+        <p class="section-description">The sounds that defined an era of electronic music.</p>
+        <div class="music-player">
+          <div class="equalizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <p class="now-playing">NOW PLAYING: Synthwave Dreams</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="content-section" role="tabpanel" aria-labelledby="contact-tab" aria-hidden="true">
+      <div class="neon-container">
+        <h2 class="section-title">GET IN TOUCH</h2>
+        <p class="section-description">Connect through the neon network.</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <h3>EMAIL</h3>
+            <a href="mailto:neon@miamivice.retro" class="contact-link">neon@miamivice.retro</a>
+          </div>
+          <div class="contact-item">
+            <h3>SOCIAL</h3>
+            <a href="#" class="contact-link">@MiamiViceRetro</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
-    // Header shrinking on scroll
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (scrollTop > 100) {
-        header.classList.add('shrunk');
-      } else {
-        header.classList.remove('shrunk');
+    class MiamiViceApp {
+      constructor() {
+        this.header = document.querySelector('header');
+        this.navButtons = document.querySelectorAll('.nav-btn');
+        this.sections = document.querySelectorAll('.content-section');
+        this.init();
       }
+
+      init() {
+        this.bindEvents();
+        this.startAnimations();
+      }
+
+      bindEvents() {
+        // Navigation
+        this.navButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => this.handleNavClick(e));
+          btn.addEventListener('keydown', (e) => this.handleNavKeydown(e));
+        });
+
+        // Header shrinking on scroll
+        window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+      }
+
+      handleNavClick(e) {
+        const target = e.target.dataset.section;
+        this.switchSection(target, e.target);
+      }
+
+      handleNavKeydown(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.handleNavClick(e);
+        }
+      }
+
+      switchSection(targetId, activeBtn) {
+        // Update nav states
+        this.navButtons.forEach(btn => btn.classList.remove('active'));
+        activeBtn.classList.add('active');
+
+        // Update section states
+        this.sections.forEach(section => {
+          section.classList.remove('active');
+          section.setAttribute('aria-hidden', 'true');
+        });
+
+        // Show target section
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.classList.add('active');
+          targetSection.setAttribute('aria-hidden', 'false');
+        }
+      }
+
+      handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > 100) {
+          this.header.classList.add('shrunk');
+        } else {
+          this.header.classList.remove('shrunk');
+        }
+      }
+
+      startAnimations() {
+        // Animate equalizer bars
+        const bars = document.querySelectorAll('.equalizer .bar');
+        bars.forEach((bar, i) => {
+          bar.style.animationDelay = `${i * 0.1}s`;
+        });
+      }
+    }
+
+    // Initialize app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      new MiamiViceApp();
     });
   </script>
 </body>
