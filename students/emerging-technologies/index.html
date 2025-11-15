@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emerging Technology</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">EmergeTech</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="all-technologies.html" class="nav-link">Technologies</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Stats -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="container hero-content">
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item-compact">
+                    <div class="stat-value" id="totalTech">0</div>
+                    <div class="stat-label-compact">Technologies Tracked</div>
+                </div>
+                <div class="stat-divider">|</div>
+                <div class="stat-item-compact">
+                    <div class="stat-value" id="oldestYear">-</div>
+                    <div class="stat-label-compact">Earliest Technology</div>
+                </div>
+                <div class="stat-divider">|</div>
+                <div class="stat-item-compact">
+                    <div class="stat-value" id="newestYear">-</div>
+                    <div class="stat-label-compact">Latest Innovation</div>
+                </div>
+            </div>
+
+            <!-- Newest Technologies Grid -->
+            <div class="newest-section">
+                <h2 class="newest-title">Newest Emerging Technologies</h2>
+                <div class="newest-grid" id="newestGrid">
+                    <!-- Newest technologies will be dynamically loaded -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

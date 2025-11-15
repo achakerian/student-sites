@@ -1,0 +1,103 @@
+{
+  "technologies": [
+    {
+      "id": "ar-vr",
+      "name": "AR/VR",
+      "fullName": "Augmented & Virtual Reality",
+      "icon": "🥽",
+      "year": 1960,
+      "yearLabel": "Since 1960s",
+      "description": "Immersive experiences blending digital and physical worlds for enhanced interaction.",
+      "image": "https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800",
+      "detailPage": "technologies/ar-vr.html"
+    },
+    {
+      "id": "ai",
+      "name": "Artificial Intelligence",
+      "fullName": "Artificial Intelligence",
+      "icon": "🤖",
+      "year": 1956,
+      "yearLabel": "Since 1956",
+      "description": "Machine learning algorithms revolutionizing decision-making and automation across all sectors.",
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800",
+      "detailPage": "technologies/ai.html"
+    },
+    {
+      "id": "biotech",
+      "name": "Biotechnology",
+      "fullName": "Biotechnology",
+      "icon": "🧬",
+      "year": 1970,
+      "yearLabel": "Since 1970s",
+      "description": "Genetic engineering and biotech innovations advancing healthcare and sustainability.",
+      "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800",
+      "detailPage": "technologies/biotech.html"
+    },
+    {
+      "id": "quantum",
+      "name": "Quantum Computing",
+      "fullName": "Quantum Computing",
+      "icon": "⚛️",
+      "year": 1980,
+      "yearLabel": "Since 1980s",
+      "description": "Next-generation computing power solving problems beyond classical computers' capabilities.",
+      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800",
+      "detailPage": "technologies/quantum.html"
+    },
+    {
+      "id": "iot",
+      "name": "Internet of Things",
+      "fullName": "Internet of Things",
+      "icon": "📡",
+      "year": 1999,
+      "yearLabel": "Since 1999",
+      "description": "Connected devices creating smart ecosystems for homes, cities, and industries.",
+      "image": "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800",
+      "detailPage": "technologies/iot.html"
+    },
+    {
+      "id": "blockchain",
+      "name": "Blockchain",
+      "fullName": "Blockchain",
+      "icon": "🔗",
+      "year": 2008,
+      "yearLabel": "Since 2008",
+      "description": "Decentralized systems creating transparent, secure, and tamper-proof digital transactions.",
+      "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800",
+      "detailPage": "technologies/blockchain.html"
+    },
+    {
+      "id": "evtol",
+      "name": "eVTOL Aircraft",
+      "fullName": "Electric Vertical Takeoff and Landing",
+      "icon": "✈️",
+      "year": 2016,
+      "yearLabel": "Since 2016",
+      "description": "Electric flying vehicles revolutionizing urban mobility with zero-emission vertical flight.",
+      "image": "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800",
+      "detailPage": "technologies/evtol.html"
+    },
+    {
+      "id": "wearable-bio",
+      "name": "Wearable Biosensors",
+      "fullName": "Wearable Biosensors",
+      "icon": "⌚",
+      "year": 2020,
+      "yearLabel": "Since 2020",
+      "description": "Advanced wearable devices monitoring real-time health metrics and biological signals.",
+      "image": "https://images.unsplash.com/photo-1576243345690-4e4b79b63288?w=800",
+      "detailPage": "technologies/wearable-bio.html"
+    },
+    {
+      "id": "nanites",
+      "name": "Nanotechnology",
+      "fullName": "Nanotechnology & Nanites",
+      "icon": "🔬",
+      "year": 2022,
+      "yearLabel": "Since 2022",
+      "description": "Molecular-scale machines and materials enabling breakthroughs in medicine and manufacturing.",
+      "image": "https://images.unsplash.com/photo-1532187643603-ba119ca4109e?w=800",
+      "detailPage": "technologies/nanites.html"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Technologies | Emerging Technology</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">EmergeTech</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="all-technologies.html" class="nav-link active">Technologies</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height: 40vh; padding-top: 120px;">
+        <div class="hero-background">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="container" style="text-align: center; position: relative; z-index: 2;">
+            <h1 style="font-size: 3.5rem; font-weight: 800; color: white; margin-bottom: 1rem;">All Technologies</h1>
+            <p style="font-size: 1.3rem; color: rgba(255,255,255,0.95);">Pioneering innovations transforming industries</p>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section id="technologies" class="technologies" style="padding: 6rem 0;">
+        <div class="container">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="techSearch" class="search-bar" placeholder="Search technologies...">
+            </div>
+
+            <div class="tech-grid" id="techGrid">
+                <!-- Technologies will be dynamically loaded from technologies.json -->
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

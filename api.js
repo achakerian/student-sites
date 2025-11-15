@@ -33,7 +33,8 @@ class StudentSitesAPI {
       'futuristic-constructivist',
       'miami-vice-retro',
       'coderunner',
-      'learning-materials-site'
+      'learning-materials-site',
+      'emerging-technologies'
     ];
 
     const sites = [];
