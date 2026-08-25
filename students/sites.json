@@ -100,6 +100,20 @@
       "name": "my-cooking-diary",
       "path": "./students/my-cooking-diary/index.html",
       "thumbnail": "./thumbnails/my-cooking-diary.jpg"
+    },
+    {
+      "title": "WatchNow",
+      "description": "A one-page weekend watchlist site where you pick from three movies and build your own watchlist.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "name": "watchnow",
+      "path": "./students/watchnow/index.html",
+      "thumbnail": "./thumbnails/watchnow.jpg"
     }
   ]
 }
