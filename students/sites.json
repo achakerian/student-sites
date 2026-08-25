@@ -1,3 +1,19 @@
 {
-  "sites": []
+  "sites": [
+    {
+      "title": "Movie Night Picks",
+      "description": "A quick, playful movie picker for the next student movie night.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Movies"
+      ],
+      "name": "movie-night-picks",
+      "path": "./students/movie-night-picks/index.html",
+      "thumbnail": "./thumbnails/movie-night-picks.jpg"
+    }
+  ]
 }
