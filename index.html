@@ -225,6 +225,11 @@
         const dynamicSitesHTML = api.generateSiteGrid(sites);
         sitesGrid.insertAdjacentHTML('beforeend', dynamicSitesHTML);
 
+        if (sites.length === 0) {
+          loadingIndicator.innerHTML = '<p>No sites published yet. Check back soon!</p>';
+          return;
+        }
+
         // Hide loading indicator
         loadingIndicator.style.display = 'none';
 
