@@ -14,6 +14,21 @@
       "thumbnail": "./thumbnails/cocobella-website.jpg"
     },
     {
+      "title": "StudySupply",
+      "description": "Affordable school supplies made simple, with a student-friendly catalogue and easy shopping cart.",
+      "category": "Student Site",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "E-commerce"
+      ],
+      "name": "mocshop",
+      "path": "./students/mocshop/index.html",
+      "thumbnail": "./thumbnails/mocshop.jpg"
+    },
+    {
       "title": "Movie Night Picks",
       "description": "A quick, playful movie picker for the next student movie night.",
       "category": "showcase",
