@@ -1,6 +1,20 @@
 {
   "sites": [
     {
+      "title": "Campus Event Guide",
+      "description": "Simple guide showing three university campus events",
+      "category": "a",
+      "popular": false,
+      "tags": [
+        "student",
+        "campus",
+        "events"
+      ],
+      "name": "campus-event-guide",
+      "path": "./students/campus-event-guide/index.html",
+      "thumbnail": "./thumbnails/campus-event-guide.jpg"
+    },
+    {
       "title": "Cocobella Website",
       "description": "Student site",
       "category": "a",
