@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocobella — Pure Refreshment</title>
+<style>
+:root{--green:#0b5d45;--lime:#b9df55;--cream:#fffaf0;--dark:#12352c;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--cream);color:var(--dark);line-height:1.6}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#fff;position:sticky;top:0;z-index:10}
+.logo{font-size:28px;font-weight:800;color:var(--green);letter-spacing:-1px}
+nav a{color:var(--dark);text-decoration:none;margin-left:28px;font-weight:600}
+.hero{min-height:650px;padding:90px 7%;display:flex;align-items:center;justify-content:space-between;gap:50px;background:linear-gradient(135deg,#eaffbd,#fffaf0 60%)}
+.hero-text{max-width:600px}
+.badge{display:inline-block;background:var(--green);color:#fff;padding:8px 15px;border-radius:30px;font-size:14px;font-weight:bold;margin-bottom:18px}
+h1{font-size:clamp(50px,7vw,86px);line-height:.95;color:var(--green);letter-spacing:-4px;margin-bottom:24px}
+.hero p{font-size:20px;max-width:540px;margin-bottom:30px}
+.btn{display:inline-block;background:var(--green);color:#fff;text-decoration:none;padding:15px 25px;border-radius:30px;font-weight:700}
+.btn:hover{background:#084633}
+.coconut{width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 7%,#f6f1df 8% 34%,#6d4226 35% 70%,#3c2518 71%);display:flex;align-items:center;justify-content:center;box-shadow:0 30px 70px #78924d55;transform:rotate(-8deg)}
+.coconut span{background:#ffffffdd;padding:18px 24px;border-radius:18px;color:var(--green);font-size:25px;font-weight:800;transform:rotate(8deg)}
+section{padding:80px 7%}
+.section-title{text-align:center;font-size:44px;color:var(--green);margin-bottom:15px}
+.subtitle{text-align:center;max-width:700px;margin:0 auto 45px;color:#55736a}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.card{background:#fff;padding:30px;border-radius:24px;box-shadow:0 10px 30px #174b3512}
+.icon{font-size:38px;margin-bottom:12px}
+.card h3{color:var(--green);font-size:23px;margin-bottom:8px}
+.ingredients{background:var(--green);color:#fff}
+.ingredients .section-title{color:#fff}
+.ingredient-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:900px;margin:auto}
+.ingredient{border:1px solid #ffffff33;padding:25px;border-radius:20px;background:#ffffff0d}
+.ingredient strong{display:block;font-size:20px;color:var(--lime);margin-bottom:5px}
+.flavours{display:flex;gap:20px;overflow:hidden;justify-content:center;flex-wrap:wrap}
+.flavour{width:210px;padding:25px;border-radius:25px;text-align:center;background:#fff;box-shadow:0 8px 25px #174b3512}
+.flavour .circle{height:120px;width:120px;border-radius:50%;margin:0 auto 18px;background:linear-gradient(135deg,#c7f06a,#70a43b)}
+.flavour:nth-child(2) .circle{background:linear-gradient(135deg,#7b4a28,#d69b54)}
+.flavour:nth-child(3) .circle{background:linear-gradient(135deg,#ff8b8b,#f4d16c)}
+.flavour:nth-child(4) .circle{background:linear-gradient(135deg,#ff6f8d,#b6e46a)}
+.cta{text-align:center;background:#dff5a2}
+.cta h2{font-size:48px;color:var(--green);margin-bottom:15px}
+footer{background:#083e30;color:#fff;padding:35px 7%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:#fff}
+.small{font-size:13px;opacity:.75;max-width:650px}
+@media(max-width:750px){nav{padding:16px 5%}nav a{margin-left:12px;font-size:13px}.hero{padding:65px 5%;flex-direction:column;text-align:center}.hero p{margin-left:auto;margin-right:auto}.coconut{width:280px;height:280px}.cards,.ingredient-grid{grid-template-columns:1fr}section{padding:60px 5%}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">cocobella</div>
+  <div>
+    <a href="#why">Why Cocobella</a>
+    <a href="#ingredients">Ingredients</a>
+    <a href="#flavours">Flavours</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-text">
+    <span class="badge">NATURE'S REFRESHMENT</span>
+    <h1>Drink the tropics.</h1>
+    <p>Cocobella coconut water is a crisp, naturally refreshing drink made from young green coconuts. Simple, delicious and naturally rich in five key electrolytes.</p>
+    <a class="btn" href="#why">Discover Cocobella ↓</a>
+  </div>
+  <div class="coconut"><span>100%<br>COCONUT<br>WATER</span></div>
+</header>
+
+<section id="why">
+  <h2 class="section-title">Why choose Cocobella?</h2>
+  <p class="subtitle">When you want something more exciting than ordinary water, reach for a refreshing coconut-powered option.</p>
+  <div class="cards">
+    <div class="card"><div class="icon">🥥</div><h3>Pure & Simple</h3><p>The Straight Up variety contains 100% coconut water — nothing unnecessary added.</p></div>
+    <div class="card"><div class="icon">⚡</div><h3>Electrolyte Rich</h3><p>Naturally contains potassium, magnesium, sodium, calcium and phosphorus.</p></div>
+    <div class="card"><div class="icon">🌱</div><h3>Easy Everyday Choice</h3><p>Vegan-friendly, dairy-free and fat-free, with a naturally crisp and lightly sweet taste.</p></div>
+  </div>
+</section>
+
+<section class="ingredients" id="ingredients">
+  <h2 class="section-title">What's inside?</h2>
+  <p class="subtitle" style="color:#dcebe5">For Cocobella Straight Up, the ingredient list is beautifully simple.</p>
+  <div class="ingredient-grid">
+    <div class="ingredient"><strong>100% Coconut Water</strong>Water from young green coconuts with a naturally refreshing taste.</div>
+    <div class="ingredient"><strong>Potassium</strong>A naturally occurring electrolyte found in coconut water.</div>
+    <div class="ingredient"><strong>Magnesium</strong>One of the five key electrolytes naturally present.</div>
+    <div class="ingredient"><strong>Calcium</strong>Naturally occurring in coconut water.</div>
+    <div class="ingredient"><strong>Sodium</strong>A naturally occurring electrolyte.</div>
+    <div class="ingredient"><strong>Phosphorus</strong>Another naturally occurring mineral in coconut water.</div>
+  </div>
+</section>
+
+<section id="flavours">
+  <h2 class="section-title">Find your flavour</h2>
+  <p class="subtitle">From simple coconut refreshment to indulgent twists, there is a Cocobella option for every mood.</p>
+  <div class="flavours">
+    <div class="flavour"><div class="circle"></div><h3>Straight Up</h3><p>Pure coconut water.</p></div>
+    <div class="flavour"><div class="circle"></div><h3>Chocolate</h3><p>Coconut water with real cocoa.</p></div>
+    <div class="flavour"><div class="circle"></div><h3>Watermelon Mint</h3><p>Fresh, fruity and cooling.</p></div>
+    <div class="flavour"><div class="circle"></div><h3>Matcha Strawberry</h3><p>A modern fruity twist.</p></div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready to taste the tropics?</h2>
+  <p style="margin-bottom:25px">Cold, crisp and naturally refreshing. Make Cocobella your next fridge essential.</p>
+  <a class="btn" href="https://cocobella.com.au/" target="_blank">Explore Cocobella</a>
+</section>
+
+<footer>
+  <div><strong>cocobella</strong><br>Pure refreshment. Tropical energy.</div>
+  <div class="small">Product information can change. Always check the current packaging for the latest ingredient and nutrition information. Website content based on current Cocobella product information.</div>
+</footer>
+</body>
+</html>
