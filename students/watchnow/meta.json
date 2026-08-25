@@ -1,0 +1,7 @@
+{
+  "title": "WatchNow",
+  "description": "A one-page weekend watchlist site where you pick from three movies and build your own watchlist.",
+  "category": "showcase",
+  "popular": false,
+  "tags": ["HTML", "CSS", "JavaScript"]
+}
