@@ -45,3 +45,35 @@ Leave `category` and `popular` unchanged.
 - The site must work when `index.html` is opened directly from disk
   (double-click) with no server running.
 - Keep the code readable — the students should be able to explain it.
+
+## Before submitting — when the students ask "am I ready?" or "anything else I need?"
+Check this folder against EVERY item below and report what passes and what
+needs fixing. Offer to fix anything you can. Do not say they're ready unless
+all items pass.
+
+Automatic rejections (the upload fails if any of these are wrong):
+1. `index.html` is at the top level of this folder.
+2. Every file's extension is one of: html, css, js, json, md, txt, png, jpg,
+   jpeg, gif, webp, svg, ico, woff, woff2.
+3. Total folder size under 10 MB.
+4. Fewer than 200 files.
+5. No files or folders starting with a dot are needed by the site (they are
+   dropped on upload).
+6. The students will zip this folder itself, so `index.html` ends up at the
+   root of the zip or inside exactly one folder.
+
+Checked by the teacher:
+7. `index.html` works when opened directly from disk — all paths relative, no
+   `file://`, `/Users/`, `C:\` or absolute paths; no build step.
+8. External resources (if any) come only from Google Fonts, jsDelivr, unpkg or
+   cdnjs. No other remote scripts.
+9. `meta.json` is valid JSON with a real `title` (not "Site Title"), a
+   one-sentence `description`, and 1–4 `tags`.
+10. Content is classroom-appropriate.
+11. First names only — search every file for surnames, phone numbers, emails,
+    addresses, social handles or student IDs.
+12. Images and text are ones the students have the right to use.
+
+Also remind them what the submit form asks for: their site name (this folder's
+name — lowercase letters, numbers, hyphens), both first names, and the class
+passcode from their teacher.
