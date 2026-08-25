@@ -1,0 +1,7 @@
+{
+  "title": "Site Title",
+  "description": "Brief description of the site",
+  "category": "showcase",
+  "popular": false,
+  "tags": ["HTML", "CSS"]
+}
