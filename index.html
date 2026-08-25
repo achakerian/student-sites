@@ -16,27 +16,12 @@
         <span class="search-icon">🔍</span>
       </div>
       <div class="nav-buttons">
-        <button onclick="window.location.href='about.html'" aria-label="About this site">ℹ️</button>
         <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-        <button id="index-btn" aria-label="View all sites">📋</button>
       </div>
     </nav>
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="container">
-        <h1>Student Sites</h1>
-        <p class="hero-description">
-          Discover innovative web development projects created with <strong>energy</strong> and passion.
-          This platform showcases student work in <strong>education</strong>, technology, and creative design.
-          Explore portfolios, experiments, and interactive experiences built with modern web technologies.
-          Browse through projects that demonstrate creativity, technical skill, and innovative thinking.
-        </p>
-      </div>
-    </section>
-
     <!-- Student Grid -->
     <section class="container">
       <ul class="grid" role="list" id="sites-grid">
@@ -75,100 +60,10 @@
     // Home button functionality
     const homeBtn = document.getElementById("home-btn");
     homeBtn.addEventListener("click", () => {
-      if (isIndexView) {
-        toggleIndexView(); // Switch back to grid view
-      }
       // Clear search
       searchInput.value = "";
       performSearch("");
     });
-
-    // Index button functionality
-    const indexBtn = document.getElementById("index-btn");
-    let isIndexView = false;
-
-    indexBtn.addEventListener("click", () => {
-      toggleIndexView();
-    });
-
-    function toggleIndexView() {
-      const sitesGrid = document.getElementById("sites-grid");
-      const cards = sitesGrid.querySelectorAll(".card");
-
-      if (!isIndexView) {
-        // Switch to index list view
-        sitesGrid.classList.add("index-view");
-        indexBtn.textContent = "🔲";
-        indexBtn.setAttribute("aria-label", "View grid");
-        isIndexView = true;
-
-        // Create index list if it doesn't exist
-        let indexList = document.getElementById("index-list");
-        if (!indexList) {
-          indexList = document.createElement("div");
-          indexList.id = "index-list";
-          indexList.className = "index-list";
-          sitesGrid.parentNode.insertBefore(indexList, sitesGrid);
-        }
-
-        // Populate index list - alphabetical directory
-        const sites = Array.from(cards).map(card => {
-          const link = card.querySelector("a");
-          const title = card.querySelector("h3").textContent;
-          const tags = Array.from(card.querySelectorAll(".tag"));
-          const primaryTag = tags.length > 0 ? tags[0].textContent : "Website";
-          const url = link.getAttribute("href");
-
-          return {
-            title,
-            url,
-            tag: primaryTag,
-            searchText: `${title.toLowerCase()} ${primaryTag.toLowerCase()}`
-          };
-        }).sort((a, b) => a.title.localeCompare(b.title));
-
-        const indexHTML = sites.map(site => `
-          <div class="index-item" data-search-text="${site.searchText}">
-            <a href="${site.url}" data-iframe="true" class="index-link">${site.title}</a>
-            <span class="index-tag">${site.tag}</span>
-          </div>
-        `).join('');
-
-        indexList.innerHTML = `
-          <h2 class="index-heading">Site Index</h2>
-          ${indexHTML}
-        `;
-
-        // Hide grid, show index
-        sitesGrid.style.display = "none";
-        indexList.style.display = "block";
-
-        // Apply current search term to index view
-        const currentSearch = searchInput.value.toLowerCase();
-        if (currentSearch) {
-          performSearch(currentSearch);
-        }
-      } else {
-        // Switch back to grid view
-        sitesGrid.classList.remove("index-view");
-        indexBtn.textContent = "📋";
-        indexBtn.setAttribute("aria-label", "View all sites");
-        isIndexView = false;
-
-        // Show grid, hide index
-        sitesGrid.style.display = "grid";
-        const indexList = document.getElementById("index-list");
-        if (indexList) {
-          indexList.style.display = "none";
-        }
-
-        // Apply current search term to grid view
-        const currentSearch = searchInput.value.toLowerCase();
-        if (currentSearch) {
-          performSearch(currentSearch);
-        }
-      }
-    }
 
     // Enhanced search functionality
     const searchInput = document.getElementById("search-input");
@@ -178,38 +73,20 @@
     });
 
     function performSearch(searchTerm) {
-      if (isIndexView) {
-        // Search in index view
-        const indexItems = document.querySelectorAll(".index-item");
-        let visibleCount = 0;
+      // Search in grid view
+      const cards = document.querySelectorAll(".card");
 
-        indexItems.forEach(item => {
-          const searchText = item.getAttribute("data-search-text") || "";
+      cards.forEach(card => {
+        const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+        const description = card.querySelector(".muted")?.textContent.toLowerCase() || "";
+        const tags = Array.from(card.querySelectorAll(".tag")).map(tag => tag.textContent.toLowerCase()).join(" ");
 
-          if (!searchTerm || searchText.includes(searchTerm)) {
-            item.style.display = "flex";
-            visibleCount++;
-          } else {
-            item.style.display = "none";
-          }
-        });
-
-      } else {
-        // Search in grid view
-        const cards = document.querySelectorAll(".card");
-
-        cards.forEach(card => {
-          const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
-          const description = card.querySelector(".muted")?.textContent.toLowerCase() || "";
-          const tags = Array.from(card.querySelectorAll(".tag")).map(tag => tag.textContent.toLowerCase()).join(" ");
-
-          if (!searchTerm || title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
-            card.style.display = "block";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      }
+        if (!searchTerm || title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
     }
 
     // Dynamic site loading
