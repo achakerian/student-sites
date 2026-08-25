@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Connect — Find Your People</title>
+<meta name="description" content="Browse club and society events on campus and find a way to meet new people.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="board-frame">
+  <div class="board">
+
+    <header class="hero">
+      <div class="flyer flyer--hero flyer--peach" style="--rotate:-1.5deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="eyebrow">Campus Connect</p>
+        <h1>Find your people.</h1>
+        <p class="hero-sub">Every club and society on campus, posted in one place. Show up to something new this week — that's it, that's the whole trick to making friends.</p>
+      </div>
+    </header>
+
+    <section class="filters" aria-label="Filter events by category">
+      <h2 class="section-label">Browse by interest</h2>
+      <div class="pill-row" id="pillRow">
+        <button class="pill is-active" data-filter="all">All events</button>
+        <button class="pill" data-filter="sports">Sports</button>
+        <button class="pill" data-filter="arts">Arts &amp; Music</button>
+        <button class="pill" data-filter="games">Games</button>
+        <button class="pill" data-filter="food">Food</button>
+        <button class="pill" data-filter="outdoors">Outdoors</button>
+        <button class="pill" data-filter="volunteer">Volunteering</button>
+      </div>
+    </section>
+
+    <section class="board-grid" id="eventGrid" aria-live="polite">
+
+      <article class="flyer flyer--mint" data-category="games" style="--rotate:-2deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">GAMES</p>
+        <h3>Board Game Night</h3>
+        <p class="flyer-club">Strategy Society</p>
+        <p class="flyer-detail">Thu · 7:00 PM · Student Union, Room 204</p>
+        <p class="flyer-desc">Bring a game or learn a new one. Beginners very welcome — most of us are still learning too.</p>
+        <p class="flyer-host mono">Hosted by Maya</p>
+      </article>
+
+      <article class="flyer flyer--sky" data-category="outdoors" style="--rotate:1.5deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">OUTDOORS</p>
+        <h3>Sunset Ridge Hike</h3>
+        <p class="flyer-club">Outdoors Club</p>
+        <p class="flyer-detail">Sat · 5:30 PM · Meet at North Gate</p>
+        <p class="flyer-desc">Easy 5km loop, big payoff view. Carpool signup is at the gate, no booking needed.</p>
+        <p class="flyer-host mono">Hosted by Jordan</p>
+      </article>
+
+      <article class="flyer flyer--lavender" data-category="arts" style="--rotate:-1deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">ARTS &amp; MUSIC</p>
+        <h3>Open Mic Night</h3>
+        <p class="flyer-club">Music Collective</p>
+        <p class="flyer-detail">Fri · 8:00 PM · The Quad Café</p>
+        <p class="flyer-desc">Play, sing, read a poem, or just sit in the crowd. Sign-up sheet at the door from 7:30.</p>
+        <p class="flyer-host mono">Hosted by Priya</p>
+      </article>
+
+      <article class="flyer flyer--butter" data-category="food" style="--rotate:2deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">FOOD</p>
+        <h3>Ramen Crawl</h3>
+        <p class="flyer-club">Foodies Guild</p>
+        <p class="flyer-detail">Sun · 12:30 PM · Meet at Bus Loop</p>
+        <p class="flyer-desc">Three shops, small bowls, big opinions. Pay as you go, everyone walks together between stops.</p>
+        <p class="flyer-host mono">Hosted by Sam</p>
+      </article>
+
+      <article class="flyer flyer--blush" data-category="arts" style="--rotate:-1.5deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">ARTS &amp; MUSIC</p>
+        <h3>Beginner Pottery</h3>
+        <p class="flyer-club">Ceramics Club</p>
+        <p class="flyer-detail">Wed · 6:00 PM · Art Building, Studio 3</p>
+        <p class="flyer-desc">Clay, wheels, and a lot of forgiving mistakes. All materials provided, just bring an apron.</p>
+        <p class="flyer-host mono">Hosted by Kenji</p>
+      </article>
+
+      <article class="flyer flyer--mint" data-category="games" style="--rotate:1deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">GAMES</p>
+        <h3>Trivia Tournament</h3>
+        <p class="flyer-club">Quiz Bowl</p>
+        <p class="flyer-detail">Tue · 7:30 PM · Library Commons</p>
+        <p class="flyer-desc">Teams of four, no experience required. Show up solo and we'll place you on a team.</p>
+        <p class="flyer-host mono">Hosted by Elena</p>
+      </article>
+
+      <article class="flyer flyer--sky" data-category="sports" style="--rotate:-2deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">SPORTS</p>
+        <h3>Pickup Basketball</h3>
+        <p class="flyer-club">Intramural League</p>
+        <p class="flyer-detail">Mon &amp; Wed · 6:00 PM · Rec Center Court 2</p>
+        <p class="flyer-desc">Casual games, mixed skill levels. Bring a shirt you don't mind sweating in.</p>
+        <p class="flyer-host mono">Hosted by Diego</p>
+      </article>
+
+      <article class="flyer flyer--peach" data-category="volunteer" style="--rotate:1.5deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">VOLUNTEERING</p>
+        <h3>Community Garden Day</h3>
+        <p class="flyer-club">Green Campus Initiative</p>
+        <p class="flyer-detail">Sat · 10:00 AM · Riverside Community Garden</p>
+        <p class="flyer-desc">Weeding, planting, and coffee afterward. Gloves and tools provided.</p>
+        <p class="flyer-host mono">Hosted by Amara</p>
+      </article>
+
+      <article class="flyer flyer--lavender" data-category="volunteer" style="--rotate:-1deg;">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="tape" aria-hidden="true"></p>
+        <p class="flyer-tag mono">VOLUNTEERING</p>
+        <h3>Reading Buddies</h3>
+        <p class="flyer-club">Literacy Outreach</p>
+        <p class="flyer-detail">Thu · 3:30 PM · Eastside Elementary</p>
+        <p class="flyer-desc">Read with a kid for an hour. Sign up once or make it a weekly thing — your call.</p>
+        <p class="flyer-host mono">Hosted by Noah</p>
+      </article>
+
+    </section>
+
+    <p class="empty-state" id="emptyState" hidden>No flyers in this category yet — check back soon, or pin your own below.</p>
+
+    <section class="pin-your-own" aria-labelledby="pinTitle">
+      <h2 class="section-label" id="pinTitle">Don't see your club? Pin your own</h2>
+      <form class="flyer flyer--blank" id="pinForm">
+        <span class="pin" aria-hidden="true"></span>
+        <label for="eventTitle">Event name</label>
+        <input type="text" id="eventTitle" name="eventTitle" maxlength="40" required placeholder="e.g. Chess Club Meetup">
+
+        <label for="clubName">Club or society</label>
+        <input type="text" id="clubName" name="clubName" maxlength="40" required placeholder="e.g. Chess Club">
+
+        <label for="hostFirstName">Your first name</label>
+        <input type="text" id="hostFirstName" name="hostFirstName" maxlength="20" required placeholder="First name only">
+
+        <label for="eventCategory">Category</label>
+        <select id="eventCategory" name="eventCategory" required>
+          <option value="" disabled selected>Choose one</option>
+          <option value="sports">Sports</option>
+          <option value="arts">Arts &amp; Music</option>
+          <option value="games">Games</option>
+          <option value="food">Food</option>
+          <option value="outdoors">Outdoors</option>
+          <option value="volunteer">Volunteering</option>
+        </select>
+
+        <label for="eventDesc">One line about it</label>
+        <input type="text" id="eventDesc" name="eventDesc" maxlength="90" required placeholder="What should someone expect?">
+
+        <button type="submit" class="pin-btn">Pin it to the board</button>
+        <p class="pin-note">This adds a flyer to the board for you to preview — it isn't saved or sent anywhere.</p>
+      </form>
+    </section>
+
+    <footer class="board-footer">
+      <p>Made by students, for students. Have an event to add? Talk to your club officer.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
