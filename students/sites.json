@@ -1,6 +1,19 @@
 {
   "sites": [
     {
+      "title": "Cocobella Website",
+      "description": "Student site",
+      "category": "a",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS"
+      ],
+      "name": "cocobella-website",
+      "path": "./students/cocobella-website/index.html",
+      "thumbnail": "./thumbnails/cocobella-website.jpg"
+    },
+    {
       "title": "Movie Night Picks",
       "description": "A quick, playful movie picker for the next student movie night.",
       "category": "showcase",
