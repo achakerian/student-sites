@@ -14,6 +14,21 @@
       "name": "movie-night-picks",
       "path": "./students/movie-night-picks/index.html",
       "thumbnail": "./thumbnails/movie-night-picks.jpg"
+    },
+    {
+      "title": "My Cooking Diary",
+      "description": "A playful student cooking diary with easy recipes, simple filters and a random meal picker.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Recipes"
+      ],
+      "name": "my-cooking-diary",
+      "path": "./students/my-cooking-diary/index.html",
+      "thumbnail": "./thumbnails/my-cooking-diary.jpg"
     }
   ]
 }
