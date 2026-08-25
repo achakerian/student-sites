@@ -108,12 +108,13 @@ class StudentSitesAPI {
 
   // Generate HTML for site grid
   generateSiteGrid(sites) {
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     return sites.map(site => {
       const categories = [site.category];
       if (site.popular) categories.push('popular');
 
       return `
-        <li class="card" data-cat="${categories.join(' ')}">
+        <li class="card" data-cat="${categories.join(' ')}" data-search="${esc(`${site.description || ''} ${(site.tags || []).join(' ')}`.toLowerCase())}">
           <div class="card-thumbnail" data-site-url="${site.path}">
             <img src="${site.thumbnail}" alt="${site.title} thumbnail" onerror="this.parentElement.classList.add('fallback-preview')">
             <div class="live-preview-fallback">
@@ -124,14 +125,10 @@ class StudentSitesAPI {
             </div>
           </div>
           <div class="card-content">
-            <h3>${site.title}</h3>
-            <p class="muted">${site.description}</p>
-            <div class="card-tags">
-              ${(site.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
+            <h3>${esc(site.title)}</h3>
             <div class="card-actions">
               <button class="card-btn preview-btn" data-iframe="true" data-url="${site.path}">Preview</button>
-              <a href="${site.path}" target="_blank" class="card-btn fullsite-btn">Go to Full Site</a>
+              <a href="${site.path}" target="_blank" rel="noopener" class="card-btn fullsite-btn">Go to Full Site</a>
             </div>
           </div>
         </li>
