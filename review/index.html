@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Review queue — Student Sites</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-theme="dark">
+  <header>
+    <a class="brand" href="../" style="text-decoration:none">Student Sites</a>
+    <nav class="navbar">
+      <div class="nav-buttons">
+        <a class="nav-cta" href="https://github.com/achakerian/student-sites/pulls?q=is%3Apr+is%3Aopen+Site%3A" target="_blank" rel="noopener">All PRs on GitHub ↗</a>
+        <button id="refresh-btn" aria-label="Refresh queue">↻</button>
+        <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page review-page">
+    <div class="review-head">
+      <h1>Review queue</h1>
+      <p class="muted" id="status">Loading open submissions…</p>
+    </div>
+
+    <section id="queue" class="review-grid" aria-live="polite"></section>
+
+    <h2>Recently decided</h2>
+    <ul id="decided" class="decided-list"><li class="muted">Loading…</li></ul>
+
+    <h2>How reviewing works</h2>
+    <ol class="steps">
+      <li>
+        <h3>Look at the preview</h3>
+        <p>Each card embeds the submitted site straight from its branch (nothing is live yet). Use <strong>Full preview</strong> to open it in its own tab. Check the ⚠️ list if present — those are scripts, iframes or stylesheets loaded from other domains.</p>
+      </li>
+      <li>
+        <h3>Publish: merge the PR</h3>
+        <p>Click <strong>Open PR</strong> → <strong>Merge pull request</strong> → <strong>Confirm merge</strong>. The site is live at <code>student-sites.org/students/&lt;name&gt;/</code> within about a minute, and the index updates itself.</p>
+      </li>
+      <li>
+        <h3>Reject: close the PR with a comment</h3>
+        <p>On the PR, write a one-line comment saying what to change, then <strong>Close pull request</strong> and click <strong>Delete branch</strong>. Students read your comment via their review link and resubmit (which opens a fresh PR).</p>
+      </li>
+      <li>
+        <h3>Resubmissions</h3>
+        <p>If a pair resubmits while their PR is still open, the same PR is updated in place and the submission number goes up. If they resubmit after a merge, a new PR appears — merge it to replace the published version.</p>
+      </li>
+    </ol>
+
+    <h2>From the terminal</h2>
+    <pre class="cmd">gh pr list --search "Site:" --state open
+gh pr merge 12 --merge --delete-branch
+gh pr close 12 --delete-branch --comment "Please remove the surnames on the About page and resubmit."</pre>
+
+    <h2>After the activity</h2>
+    <p>Revoke the <code>student-sites-worker</code> token at <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener">github.com/settings/personal-access-tokens</a>. That disables uploads; everything already merged stays published.</p>
+  </main>
+
+  <script>
+    const OWNER = 'achakerian', REPO = 'student-sites';
+    const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
+    const queue = document.getElementById('queue');
+    const decided = document.getElementById('decided');
+    const status = document.getElementById('status');
+
+    document.getElementById('theme-toggle').addEventListener('click', (e) => {
+      const isDark = document.body.getAttribute('data-theme') === 'dark';
+      document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      e.target.textContent = isDark ? '🌙' : '☀️';
+    });
+    document.getElementById('refresh-btn').addEventListener('click', load);
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function timeAgo(iso) {
+      const mins = Math.round((Date.now() - new Date(iso)) / 60000);
+      if (mins < 1) return 'just now';
+      if (mins < 60) return `${mins} min ago`;
+      const hrs = Math.round(mins / 60);
+      if (hrs < 24) return `${hrs} hr ago`;
+      return `${Math.round(hrs / 24)} day${hrs >= 48 ? 's' : ''} ago`;
+    }
+
+    // The Worker writes a structured PR body; pull the bits we display back out of it.
+    function parseBody(pr) {
+      const body = pr.body || '';
+      const slug = pr.title.replace(/^Site:\s*/, '').trim();
+      const submission = Number((body.match(/<!-- submission:(\d+) -->/) || [])[1]) || 1;
+      const names = (body.match(/\*\*Students:\*\*\s*(.+)/) || [])[1]?.replace(/_/g, '').trim() || '';
+      const preview = (body.match(/\]\((https:\/\/raw\.githack\.com[^)]+)\)/) || [])[1]
+        || `https://raw.githack.com/${OWNER}/${REPO}/${pr.head.ref}/students/${slug}/index.html`;
+      const externalsBlock = body.split('### ⚠️ External resources')[1]?.split('<details>')[0] || '';
+      const externals = [...externalsBlock.matchAll(/^- `([^`]+)`/gm)].map(m => m[1]);
+      const fileSummary = (body.match(/<summary>([^<]+)<\/summary>/) || [])[1] || '';
+      return { slug, submission, names, preview, externals, fileSummary };
+    }
+
+    function card(pr) {
+      const m = parseBody(pr);
+      return `
+        <article class="review-card">
+          <div class="review-card-head">
+            <div>
+              <h3><code>${esc(m.slug)}</code></h3>
+              <p class="muted">${esc(m.names) || '<em>no names given</em>'} · submission #${m.submission} · ${timeAgo(pr.updated_at)}${m.fileSummary ? ' · ' + esc(m.fileSummary) : ''}</p>
+            </div>
+            <span class="pill">PR #${pr.number}</span>
+          </div>
+          ${m.externals.length ? `<div class="flag">⚠️ Loads from other domains:<ul>${m.externals.map(e => `<li><code>${esc(e)}</code></li>`).join('')}</ul></div>` : ''}
+          <div class="review-frame">
+            <iframe src="${esc(m.preview)}" title="Preview of ${esc(m.slug)}" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="${esc(pr.html_url)}" target="_blank" rel="noopener">Open PR → merge or close</a>
+            <a class="card-btn fullsite-btn" href="${esc(m.preview)}" target="_blank" rel="noopener">Full preview</a>
+          </div>
+        </article>`;
+    }
+
+    async function gh(path) {
+      const res = await fetch(`${API}${path}`, { headers: { Accept: 'application/vnd.github+json' } });
+      if (res.status === 403 || res.status === 429) throw new Error('GitHub API rate limit reached (60 requests/hour without login). Wait a few minutes, or use the GitHub PR list link above.');
+      if (!res.ok) throw new Error(`GitHub API error ${res.status}`);
+      return res.json();
+    }
+
+    async function load() {
+      status.textContent = 'Refreshing…';
+      try {
+        const [open, closed] = await Promise.all([
+          gh('/pulls?state=open&per_page=100&sort=updated&direction=desc'),
+          gh('/pulls?state=closed&per_page=15&sort=updated&direction=desc'),
+        ]);
+        const sites = open.filter(pr => pr.title.startsWith('Site:'));
+        queue.innerHTML = sites.length
+          ? sites.map(card).join('')
+          : '<p class="empty">Nothing waiting for review. 🎉</p>';
+        status.textContent = `${sites.length} waiting for review · updated ${new Date().toLocaleTimeString()} · auto-refreshes every minute`;
+
+        const recent = closed.filter(pr => pr.title.startsWith('Site:'));
+        decided.innerHTML = recent.length
+          ? recent.map(pr => {
+              const m = parseBody(pr);
+              const merged = !!pr.merged_at;
+              return `<li>
+                <span class="pill ${merged ? 'pill-ok' : 'pill-no'}">${merged ? 'Published' : 'Rejected'}</span>
+                <code>${esc(m.slug)}</code> <span class="muted">${esc(m.names)} · #${m.submission} · ${timeAgo(pr.closed_at)}</span>
+                ${merged ? `<a href="../students/${esc(m.slug)}/" target="_blank" rel="noopener">view live</a>` : ''}
+                <a href="${esc(pr.html_url)}" target="_blank" rel="noopener">PR #${pr.number}</a>
+              </li>`;
+            }).join('')
+          : '<li class="muted">No decisions yet.</li>';
+      } catch (err) {
+        status.textContent = err.message;
+      }
+    }
+
+    load();
+    setInterval(load, 60000);
+  </script>
+</body>
+</html>
