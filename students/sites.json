@@ -29,6 +29,21 @@
       "thumbnail": "./thumbnails/movie-night-picks.jpg"
     },
     {
+      "title": "Movie Picker",
+      "description": "A simple student guide to choosing a movie for a study break.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Movies"
+      ],
+      "name": "movie-picker",
+      "path": "./students/movie-picker/index.html",
+      "thumbnail": "./thumbnails/movie-picker.jpg"
+    },
+    {
       "title": "Campus Connect",
       "description": "A corkboard-style page where students can browse club and society events by interest and pin their own to meet new people.",
       "category": "",
