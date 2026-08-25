@@ -73,7 +73,7 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
-    if (request.method === 'GET' && url.pathname.startsWith('/preview/')) return handlePreview(request, env);
+    if ((request.method === 'GET' || request.method === 'HEAD') && url.pathname.startsWith('/preview/')) return handlePreview(request, env);
     if (request.method !== 'POST' || url.pathname !== '/submit') {
       return json({ ok: false, error: 'Not found' }, 404, cors);
     }
