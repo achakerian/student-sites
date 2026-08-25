@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuscleLife — Beginner Workouts by Muscle Group</title>
+  <meta name="description" content="Pick a muscle group and get simple, beginner-friendly exercises to start training with confidence.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">A beginner's guide to the gym</p>
+      <h1 class="wordmark">MUSCLE<span>LIFE</span></h1>
+      <p class="hero-sub">Not sure what to train? Pick a muscle group below and get four
+        exercises built for your first weeks of training — no guesswork, no overwhelm.</p>
+    </div>
+  </header>
+
+  <nav class="barbell" aria-label="Choose a muscle group">
+    <div class="bar-line" aria-hidden="true"></div>
+    <ul class="plates" id="plateList"></ul>
+  </nav>
+
+  <main class="panel">
+    <div class="panel-head">
+      <div class="panel-heading">
+        <p class="panel-kicker" id="groupKicker">Muscle group</p>
+        <h2 id="groupTitle">Chest</h2>
+      </div>
+      <label class="search-wrap" for="searchInput">
+        <svg class="search-icon" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="13" y1="13" x2="18" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <input type="search" id="searchInput" placeholder="Search this group…" autocomplete="off">
+      </label>
+    </div>
+
+    <div class="cards" id="cardGrid"></div>
+    <p class="empty-state" id="emptyState" hidden>
+      No exercises match “<span id="emptyQuery"></span>” in this group. Try a different word or
+      <button type="button" id="clearSearch" class="link-btn">clear the search</button>.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built by Sam &amp; Priya for our class showcase.</p>
+    <p class="disclaimer">Educational info for beginners only — check with a coach, PE teacher
+      or doctor before starting a new exercise routine.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
