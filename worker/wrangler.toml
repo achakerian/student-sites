@@ -1,0 +1,12 @@
+name = "student-sites-submit"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+[vars]
+GITHUB_OWNER = "achakerian"
+GITHUB_REPO = "student-sites"
+ALLOWED_ORIGINS = "https://student-sites.org,http://student-sites.org,https://www.student-sites.org,http://www.student-sites.org,http://localhost:8000,http://127.0.0.1:8000"
+
+# Secrets (set with `npx wrangler secret put <NAME>`):
+#   GITHUB_TOKEN  - fine-grained PAT, this repo only, Contents RW + Pull requests RW
+#   PASSCODE      - the class passcode printed on the worksheet
