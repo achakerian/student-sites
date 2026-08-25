@@ -1,0 +1,12 @@
+{
+  "title": "Movie Picker",
+  "description": "A simple student guide to choosing a movie for a study break.",
+  "category": "showcase",
+  "popular": false,
+  "tags": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Movies"
+  ]
+}
