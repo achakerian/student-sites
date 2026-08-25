@@ -60,6 +60,7 @@ gh pr close 12 --delete-branch --comment "Please remove the surnames on the Abou
 
   <script>
     const OWNER = 'achakerian', REPO = 'student-sites';
+    const WORKER_URL = 'https://student-sites-submit.achakerian.workers.dev';
     const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
     const queue = document.getElementById('queue');
     const decided = document.getElementById('decided');
@@ -89,8 +90,8 @@ gh pr close 12 --delete-branch --comment "Please remove the surnames on the Abou
       const slug = pr.title.replace(/^Site:\s*/, '').trim();
       const submission = Number((body.match(/<!-- submission:(\d+) -->/) || [])[1]) || 1;
       const names = (body.match(/\*\*Students:\*\*\s*(.+)/) || [])[1]?.replace(/_/g, '').trim() || '';
-      const preview = (body.match(/\]\((https:\/\/raw\.githack\.com[^)]+)\)/) || [])[1]
-        || `https://raw.githack.com/${OWNER}/${REPO}/${pr.head.ref}/students/${slug}/index.html`;
+      const preview = (body.match(/\]\((https:\/\/[^)]*\/preview\/[^)]+)\)/) || [])[1]
+        || `${WORKER_URL}/preview/${slug}/`;
       const externalsBlock = body.split('### ⚠️ External resources')[1]?.split('<details>')[0] || '';
       const externals = [...externalsBlock.matchAll(/^- `([^`]+)`/gm)].map(m => m[1]);
       const fileSummary = (body.match(/<summary>([^<]+)<\/summary>/) || [])[1] || '';

@@ -127,6 +127,16 @@ describe('upsertPullRequest', () => {
     expect(create).toMatchObject({ title: 'Site: demo', head: 'site/demo', base: 'main' });
   });
 
+  it('uses the Worker preview URL when previewBase is given', async () => {
+    const { client } = fakeGitHub({
+      'GET /pulls?head=octo:site/demo&state=open&per_page=1': [],
+      'GET /pulls?head=octo:site/demo&state=all&per_page=100': [],
+      'POST /pulls': { html_url: 'https://gh/pr/1' },
+    });
+    const result = await upsertPullRequest(client, { ...args, previewBase: 'https://w.example' });
+    expect(result.previewUrl).toBe('https://w.example/preview/demo/');
+  });
+
   it('updates the open PR and increments its submission number', async () => {
     const existingBody = buildPrBody({ slug: 'demo', names: 'Sam', submission: 4, files: [], externals: [], previewUrl: 'p', timestamp: 't' });
     const { client, calls } = fakeGitHub({

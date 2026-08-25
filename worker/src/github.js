@@ -128,10 +128,12 @@ export function buildPrBody({ slug, names, submission, files, externals, preview
   return lines.join('\n');
 }
 
-export async function upsertPullRequest(client, { owner, repo, slug, names, files, externals, now = new Date() }) {
+export async function upsertPullRequest(client, { owner, repo, slug, names, files, externals, previewBase, now = new Date() }) {
   const branch = `site/${slug}`;
   const head = `${owner}:${branch}`;
-  const previewUrl = `https://raw.githack.com/${owner}/${repo}/${branch}/students/${slug}/index.html`;
+  const previewUrl = previewBase
+    ? `${previewBase}/preview/${slug}/`
+    : `https://raw.githack.com/${owner}/${repo}/${branch}/students/${slug}/index.html`;
   const timestamp = now.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
 
   const [open] = await client.api('GET', `/pulls?head=${encodeURIComponent(head)}&state=open&per_page=1`);

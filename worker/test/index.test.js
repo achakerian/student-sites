@@ -50,6 +50,13 @@ describe('worker', () => {
     expect(res.headers.get('Access-Control-Allow-Origin')).toBeNull();
   });
 
+  it('routes GET /preview/<slug>/ to the preview handler', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('<h1>p</h1>', { status: 200 }));
+    const res = await worker.fetch(new Request('https://worker.test/preview/demo/'), env);
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toBe('text/html; charset=utf-8');
+  });
+
   it('404s other routes', async () => {
     expect((await worker.fetch(request({ path: '/' }), env)).status).toBe(404);
   });
@@ -77,7 +84,7 @@ describe('worker', () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
       ok: true, slug: 'demo', submission: 1, prUrl: 'https://gh/pr/1',
-      previewUrl: 'https://raw.githack.com/octo/sites/site/demo/students/demo/index.html',
+      previewUrl: 'https://worker.test/preview/demo/',
     });
     expect(res.headers.get('Access-Control-Allow-Origin')).toBe('https://student-sites.org');
   });

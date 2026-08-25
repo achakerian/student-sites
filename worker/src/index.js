@@ -2,6 +2,7 @@ import {
   ValidationError, validateSlug, validateNames, extractSite, findExternalResources, MAX_ZIP_BYTES,
 } from './validate.js';
 import { createGitHubClient, pushSite, upsertPullRequest } from './github.js';
+import { handlePreview } from './preview.js';
 
 const GENERIC_ERROR = 'Something went wrong on our side — try again in a minute, or tell your teacher.';
 
@@ -38,6 +39,7 @@ function safeEqual(a, b) {
 }
 
 async function handleSubmit(request, env) {
+  const previewBase = new URL(request.url).origin;
   const form = await request.formData();
 
   if (!env.PASSCODE || !safeEqual(form.get('passcode') ?? '', env.PASSCODE)) {
@@ -60,7 +62,7 @@ async function handleSubmit(request, env) {
   const client = createGitHubClient({ token: env.GITHUB_TOKEN, owner: env.GITHUB_OWNER, repo: env.GITHUB_REPO });
   await pushSite(client, { slug, files, names });
   const result = await upsertPullRequest(client, {
-    owner: env.GITHUB_OWNER, repo: env.GITHUB_REPO, slug, names, files, externals,
+    owner: env.GITHUB_OWNER, repo: env.GITHUB_REPO, slug, names, files, externals, previewBase,
   });
   return { ok: true, slug, ...result };
 }
@@ -71,6 +73,7 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
+    if (request.method === 'GET' && url.pathname.startsWith('/preview/')) return handlePreview(request, env);
     if (request.method !== 'POST' || url.pathname !== '/submit') {
       return json({ ok: false, error: 'Not found' }, 404, cors);
     }
