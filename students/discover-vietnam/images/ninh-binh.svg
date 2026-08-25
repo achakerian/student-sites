@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Ninh Binh illustration</title><desc id="desc">Karst mountains beside a winding river and rice fields.</desc>
+  <rect width="800" height="500" fill="#dcebd8"/><circle cx="650" cy="85" r="48" fill="#f3c85d"/>
+  <path d="M0 330 L0 260 Q100 165 190 300 Q245 135 350 315 Q445 120 540 305 Q630 180 800 280 L800 500 L0 500Z" fill="#3f7553"/>
+  <path d="M0 390 Q180 330 310 405 T800 370 V500H0Z" fill="#8ac47d"/>
+  <path d="M360 500 C320 410 390 360 470 345 C555 330 630 375 800 420 V500Z" fill="#83c5c1"/>
+  <path d="M505 395h95l-18 22h-59z" fill="#8a4f30"/><path d="M552 395v-52" stroke="#5e3b26" stroke-width="6"/>
+</svg>

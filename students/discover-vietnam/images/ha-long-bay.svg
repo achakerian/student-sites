@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Ha Long Bay illustration</title><desc id="desc">Limestone islands rising from green-blue water.</desc>
+  <rect width="800" height="500" fill="#bfe4df"/><circle cx="650" cy="90" r="55" fill="#f2c75c"/>
+  <path d="M0 330 Q160 290 320 330 T800 330 V500 H0Z" fill="#72b9ad"/>
+  <path d="M80 340 Q130 170 210 335Z" fill="#2f6d60"/><path d="M210 340 Q290 105 385 340Z" fill="#23564e"/><path d="M520 340 Q580 165 650 340Z" fill="#397b6d"/>
+  <path d="M110 310 Q140 250 180 310" fill="#5a8f57"/><path d="M245 265 Q300 165 355 270" fill="#4f8651"/>
+  <path d="M380 390h105l-20 28h-65z" fill="#8c4f2e"/><path d="M430 390v-70" stroke="#60412a" stroke-width="7"/><path d="M433 328l62 32h-62z" fill="#fff0c2"/>
+</svg>
