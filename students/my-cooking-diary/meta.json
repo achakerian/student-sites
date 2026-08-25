@@ -1,0 +1,12 @@
+{
+  "title": "My Cooking Diary",
+  "description": "A playful student cooking diary with easy recipes, simple filters and a random meal picker.",
+  "tags": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Recipes"
+  ],
+  "category": "showcase",
+  "popular": false
+}

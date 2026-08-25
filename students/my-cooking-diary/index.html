@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cooking Diary</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="nav">
+      <a class="logo" href="#top">My Cooking Diary 🍳</a>
+      <div class="nav-links">
+        <a href="#recipes">Recipes</a>
+        <a href="#about">About</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <p class="eyebrow">A very serious food website. Probably.</p>
+      <h1>My Cooking Diary</h1>
+      <p class="subtitle">Cooking, experimenting, and occasionally making something edible.</p>
+      <a class="primary-button" href="#recipes">See what I cooked</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" id="about">
+      <div>
+        <p class="section-label">About this diary</p>
+        <h2>Small recipes for hungry students</h2>
+      </div>
+      <p>
+        This is a collection of easy meals for days when I want something better
+        than instant noodles, but I also do not want to spend three hours in the kitchen.
+        The recipes are simple, flexible, and tested by a student with questionable
+        time-management skills.
+      </p>
+    </section>
+
+    <section class="recipes-section" id="recipes">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">Recent entries</p>
+          <h2>Things that survived the kitchen</h2>
+        </div>
+        <button id="randomButton" class="secondary-button" type="button">🎲 Pick for me</button>
+      </div>
+
+      <div class="filters" aria-label="Filter recipes">
+        <button class="filter active" data-filter="all" type="button">All</button>
+        <button class="filter" data-filter="breakfast" type="button">Breakfast</button>
+        <button class="filter" data-filter="lunch" type="button">Lunch</button>
+        <button class="filter" data-filter="dinner" type="button">Dinner</button>
+      </div>
+
+      <div class="recipe-grid">
+        <article class="recipe-card" data-category="breakfast">
+          <div class="recipe-art" aria-hidden="true">🥞</div>
+          <div class="recipe-content">
+            <div class="recipe-meta"><span>Breakfast</span><span>15 min</span></div>
+            <h3>Banana Pancakes</h3>
+            <p>Soft, sweet pancakes made with one banana and basic pantry ingredients.</p>
+            <details>
+              <summary>Open recipe</summary>
+              <h4>Ingredients</h4>
+              <ul><li>1 ripe banana</li><li>1 egg</li><li>1/2 cup flour</li><li>1/3 cup milk</li><li>1 tsp baking powder</li></ul>
+              <h4>Method</h4>
+              <ol><li>Mash the banana.</li><li>Mix in egg and milk.</li><li>Add flour and baking powder.</li><li>Cook small pancakes for 1–2 minutes per side.</li></ol>
+              <p class="diary-note">Diary note: Looks fancy. Requires almost no talent.</p>
+            </details>
+          </div>
+        </article>
+
+        <article class="recipe-card" data-category="lunch">
+          <div class="recipe-art" aria-hidden="true">🥑</div>
+          <div class="recipe-content">
+            <div class="recipe-meta"><span>Lunch</span><span>10 min</span></div>
+            <h3>Avocado Egg Toast</h3>
+            <p>Crunchy toast, creamy avocado and a fried egg. Minimal effort, maximum brunch energy.</p>
+            <details>
+              <summary>Open recipe</summary>
+              <h4>Ingredients</h4>
+              <ul><li>2 slices of bread</li><li>1/2 avocado</li><li>1 egg</li><li>Salt and pepper</li><li>Chilli flakes, optional</li></ul>
+              <h4>Method</h4>
+              <ol><li>Toast the bread.</li><li>Mash avocado with salt and pepper.</li><li>Fry the egg.</li><li>Spread avocado on toast and add the egg.</li></ol>
+              <p class="diary-note">Diary note: Café food without the café bill.</p>
+            </details>
+          </div>
+        </article>
+
+        <article class="recipe-card" data-category="dinner">
+          <div class="recipe-art" aria-hidden="true">🍝</div>
+          <div class="recipe-content">
+            <div class="recipe-meta"><span>Dinner</span><span>20 min</span></div>
+            <h3>Lazy Tomato Pasta</h3>
+            <p>A quick tomato pasta for the classic “I have no idea what to eat” evening.</p>
+            <details>
+              <summary>Open recipe</summary>
+              <h4>Ingredients</h4>
+              <ul><li>180 g pasta</li><li>1 cup canned tomatoes</li><li>2 cloves garlic</li><li>1 tbsp olive oil</li><li>Salt, pepper and dried herbs</li></ul>
+              <h4>Method</h4>
+              <ol><li>Boil the pasta.</li><li>Cook garlic in olive oil.</li><li>Add tomatoes and seasonings, then simmer.</li><li>Toss the pasta through the sauce.</li></ol>
+              <p class="diary-note">Diary note: If you add cheese, suddenly it feels intentional.</p>
+            </details>
+          </div>
+        </article>
+
+        <article class="recipe-card" data-category="dinner">
+          <div class="recipe-art" aria-hidden="true">🍚</div>
+          <div class="recipe-content">
+            <div class="recipe-meta"><span>Dinner</span><span>18 min</span></div>
+            <h3>Fridge-Cleanout Fried Rice</h3>
+            <p>The best way to turn yesterday's rice and random vegetables into an actual meal.</p>
+            <details>
+              <summary>Open recipe</summary>
+              <h4>Ingredients</h4>
+              <ul><li>2 cups cold cooked rice</li><li>2 eggs</li><li>1 cup mixed vegetables</li><li>1–2 tbsp soy sauce</li><li>1 tsp cooking oil</li></ul>
+              <h4>Method</h4>
+              <ol><li>Scramble the eggs and set aside.</li><li>Cook the vegetables.</li><li>Add cold rice and stir until hot.</li><li>Return egg, add soy sauce and mix.</li></ol>
+              <p class="diary-note">Diary note: The fridge looked empty. Apparently it was lying.</p>
+            </details>
+          </div>
+        </article>
+      </div>
+
+      <p id="randomResult" class="random-result" aria-live="polite"></p>
+    </section>
+
+    <section class="kitchen-rules">
+      <p class="section-label">My kitchen rules</p>
+      <div class="rules-grid">
+        <div><span>01</span><h3>Taste as you go</h3><p>Recipes are directions, not legally binding contracts.</p></div>
+        <div><span>02</span><h3>Use what you have</h3><p>Substitutions are allowed. Sometimes they are even successful.</p></div>
+        <div><span>03</span><h3>Wash the pan</h3><p>Future you deserves basic respect.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>Made by two hungry students • My Cooking Diary</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
