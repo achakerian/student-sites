@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A quick, playful movie picker for the next student movie night.">
+  <title>Movie Night Picks</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Movie Night Picks home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Movie Night Picks</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#featured">Featured</a>
+      <a href="#browse">Browse</a>
+      <a class="watchlist-link" href="#watchlist">
+        Watchlist <span id="watchlist-count" aria-label="0 saved movies">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section id="featured" class="hero" aria-labelledby="featured-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Tonight's featured pick</p>
+        <h1 id="featured-title">Orbit's Last Light</h1>
+        <p class="hero-summary">A stranded research crew has one night to restart a silent space station—and work out who keeps finishing the emergency snacks.</p>
+        <div class="movie-meta" aria-label="Movie details">
+          <span>Sci-fi</span>
+          <span>1h 48m</span>
+          <span>Feel-good</span>
+        </div>
+        <button class="primary-button save-button" type="button" data-movie="orbits-last-light">
+          Add to watchlist
+        </button>
+      </div>
+      <div class="hero-poster" aria-label="Decorative poster for Orbit's Last Light">
+        <span class="poster-orbit poster-orbit-one" aria-hidden="true"></span>
+        <span class="poster-orbit poster-orbit-two" aria-hidden="true"></span>
+        <span class="poster-moon" aria-hidden="true"></span>
+        <p>Orbit's<br>Last Light</p>
+        <small>A very long night in space</small>
+      </div>
+    </section>
+
+    <section id="browse" class="browse-section" aria-labelledby="browse-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Shortlist sorted</p>
+          <h2 id="browse-title">Pick your mood</h2>
+        </div>
+        <p>Five fictional films, zero scrolling paralysis.</p>
+      </div>
+
+      <div class="movie-grid">
+        <article class="movie-card coral-card">
+          <div class="card-topline"><span>Comedy</span><span>1h 32m</span></div>
+          <h3>Sunday at the Corner Store</h3>
+          <p>A misplaced raffle ticket turns an ordinary shift into a neighbourhood-wide treasure hunt.</p>
+          <button class="text-button save-button" type="button" data-movie="sunday-corner-store">+ Add to watchlist</button>
+        </article>
+
+        <article class="movie-card blue-card">
+          <div class="card-topline"><span>Adventure</span><span>2h 03m</span></div>
+          <h3>The Map Between Us</h3>
+          <p>Two rivals follow a hand-drawn map whose landmarks only appear after sunset.</p>
+          <button class="text-button save-button" type="button" data-movie="map-between-us">+ Add to watchlist</button>
+        </article>
+
+        <article class="movie-card yellow-card">
+          <div class="card-topline"><span>Mystery</span><span>1h 41m</span></div>
+          <h3>Quiet Frequency</h3>
+          <p>A late-night radio host receives clues to a mystery that has not happened yet.</p>
+          <button class="text-button save-button" type="button" data-movie="quiet-frequency">+ Add to watchlist</button>
+        </article>
+
+        <article class="movie-card green-card">
+          <div class="card-topline"><span>Sports</span><span>1h 39m</span></div>
+          <h3>Second Serve</h3>
+          <p>A retired doubles team reunites for one gloriously disorganised community tournament.</p>
+          <button class="text-button save-button" type="button" data-movie="second-serve">+ Add to watchlist</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="watchlist" class="watchlist-section" aria-labelledby="watchlist-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Your lineup</p>
+          <h2 id="watchlist-title">My watchlist</h2>
+        </div>
+        <button id="clear-watchlist" class="clear-button" type="button" hidden>Clear all</button>
+      </div>
+      <p id="empty-message" class="empty-message">Nothing saved yet. Add a film above to start your movie-night shortlist.</p>
+      <ul id="watchlist-items" class="watchlist-items" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made for indecisive movie nights <span aria-hidden="true">•</span> 2026</p>
+  </footer>
+</body>
+</html>
