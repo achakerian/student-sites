@@ -11,7 +11,8 @@ class StudentSitesAPI {
   async loadSites() {
     try {
       // Try to fetch a sites.json manifest first (if it exists)
-      const response = await fetch('./students/sites.json');
+      // Cache-bust: GitHub Pages serves with max-age=600, which would hide freshly merged sites for 10 minutes.
+      const response = await fetch(`./students/sites.json?t=${Date.now()}`, { cache: 'no-store' });
       if (response.ok) {
         const data = await response.json();
         this.sites = data.sites;
