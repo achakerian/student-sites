@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover famous destinations across Vietnam and build a simple personal travel list.">
+  <title>Discover Vietnam</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#hero" aria-label="Discover Vietnam home">
+      <span class="brand-mark" aria-hidden="true">★</span>
+      <span>Discover Vietnam</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#destinations">Destinations</a>
+      <a href="#travel-list">My Trip</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Your next adventure starts here</p>
+        <h1>Discover Vietnam</h1>
+        <p class="hero-subtitle">Explore the beauty, culture and unforgettable destinations of Vietnam.</p>
+        <a class="primary-button" href="#destinations">Explore Destinations</a>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div>
+        <div class="mountain mountain-back"></div>
+        <div class="mountain mountain-front"></div>
+        <div class="river"></div>
+        <div class="boat"></div>
+      </div>
+    </section>
+
+    <section class="destinations-section" id="destinations">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Popular destinations</p>
+          <h2>Six places worth discovering</h2>
+        </div>
+        <p>From limestone bays and lantern-lit streets to tropical islands, Vietnam offers a different atmosphere in every region.</p>
+      </div>
+
+      <div class="destination-grid">
+        <article class="destination-card" data-name="Ha Long Bay" data-location="Quang Ninh, Northern Vietnam">
+          <img src="images/ha-long-bay.svg" alt="Stylised illustration of limestone islands in Ha Long Bay">
+          <div class="card-body">
+            <p class="location">Quang Ninh · Northern Vietnam</p>
+            <h3>Ha Long Bay</h3>
+            <p>Sail between dramatic limestone islands, calm emerald water and peaceful floating landscapes.</p>
+            <button class="trip-button" type="button">Add to My Trip</button>
+          </div>
+        </article>
+
+        <article class="destination-card" data-name="Hoi An" data-location="Quang Nam, Central Vietnam">
+          <img src="images/hoi-an.svg" alt="Stylised illustration of lanterns and old-town buildings in Hoi An">
+          <div class="card-body">
+            <p class="location">Quang Nam · Central Vietnam</p>
+            <h3>Hoi An</h3>
+            <p>Wander through a charming ancient town known for yellow walls, colourful lanterns and riverside evenings.</p>
+            <button class="trip-button" type="button">Add to My Trip</button>
+          </div>
+        </article>
+
+        <article class="destination-card" data-name="Da Nang" data-location="Central Vietnam">
+          <img src="images/da-nang.svg" alt="Stylised illustration of Da Nang coastline and Dragon Bridge">
+          <div class="card-body">
+            <p class="location">Central Vietnam</p>
+            <h3>Da Nang</h3>
+            <p>Enjoy long beaches, modern city energy and easy access to mountains, bridges and nearby heritage sites.</p>
+            <button class="trip-button" type="button">Add to My Trip</button>
+          </div>
+        </article>
+
+        <article class="destination-card" data-name="Ninh Binh" data-location="Northern Vietnam">
+          <img src="images/ninh-binh.svg" alt="Stylised illustration of rivers and karst mountains in Ninh Binh">
+          <div class="card-body">
+            <p class="location">Northern Vietnam</p>
+            <h3>Ninh Binh</h3>
+            <p>Take a quiet boat ride through green rice fields, caves and towering karst mountains.</p>
+            <button class="trip-button" type="button">Add to My Trip</button>
+          </div>
+        </article>
+
+        <article class="destination-card" data-name="Da Lat" data-location="Lam Dong, Central Highlands">
+          <img src="images/da-lat.svg" alt="Stylised illustration of pine hills and flowers in Da Lat">
+          <div class="card-body">
+            <p class="location">Lam Dong · Central Highlands</p>
+            <h3>Da Lat</h3>
+            <p>Discover cool mountain air, pine forests, colourful flowers and a relaxed highland atmosphere.</p>
+            <button class="trip-button" type="button">Add to My Trip</button>
+          </div>
+        </article>
+
+        <article class="destination-card" data-name="Phu Quoc" data-location="Kien Giang, Southern Vietnam">
+          <img src="images/phu-quoc.svg" alt="Stylised illustration of a tropical beach in Phu Quoc">
+          <div class="card-body">
+            <p class="location">Kien Giang · Southern Vietnam</p>
+            <h3>Phu Quoc</h3>
+            <p>Slow down on a tropical island with sandy beaches, clear water, sunsets and lush coastal scenery.</p>
+            <button class="trip-button" type="button">Add to My Trip</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="travel-list-section" id="travel-list">
+      <div class="travel-panel">
+        <div class="travel-copy">
+          <p class="eyebrow">My travel list</p>
+          <h2>Build your Vietnam trip</h2>
+          <p>Choose destinations above and they will appear here. Each place can only be added once.</p>
+        </div>
+
+        <div class="travel-list-wrap">
+          <p class="empty-message" id="empty-message">Your travel list is empty. Add a destination to get started.</p>
+          <ul class="travel-list" id="travel-list-items" aria-live="polite"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Discover Vietnam · Student travel showcase</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

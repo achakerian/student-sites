@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Da Lat illustration</title><desc id="desc">Pine-covered hills, flowers and a cosy highland house.</desc>
+  <rect width="800" height="500" fill="#d7e4dc"/><circle cx="120" cy="90" r="48" fill="#efc25a"/>
+  <path d="M0 320 Q180 190 350 320 Q520 180 800 300 V500H0Z" fill="#5d8c63"/>
+  <g fill="#2e654f"><path d="M120 345l45-120 45 120z"/><path d="M220 360l55-150 55 150z"/><path d="M650 350l50-135 50 135z"/></g>
+  <rect x="420" y="270" width="160" height="125" fill="#f2d39c"/><path d="M400 285l100-78 100 78z" fill="#8b4c3a"/><rect x="480" y="320" width="40" height="75" fill="#6f4b35"/>
+  <g fill="#c7352d"><circle cx="90" cy="420" r="12"/><circle cx="130" cy="400" r="10"/><circle cx="170" cy="430" r="13"/></g><g fill="#f3c85d"><circle cx="220" cy="425" r="11"/><circle cx="260" cy="405" r="12"/></g>
+</svg>

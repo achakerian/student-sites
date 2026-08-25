@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Phu Quoc illustration</title><desc id="desc">A tropical beach with palm trees and clear blue water.</desc>
+  <rect width="800" height="500" fill="#bde8ea"/><circle cx="655" cy="90" r="58" fill="#f2c75c"/>
+  <rect y="300" width="800" height="200" fill="#5fc0c8"/><path d="M0 360 Q220 300 430 345 T800 330 V500H0Z" fill="#f1d9a6"/>
+  <path d="M180 340 Q200 245 250 150" fill="none" stroke="#795239" stroke-width="18" stroke-linecap="round"/><path d="M250 150 Q180 130 140 165 Q190 180 250 150" fill="#2f7a57"/><path d="M250 150 Q300 95 360 105 Q320 150 250 150" fill="#3a8d61"/><path d="M250 150 Q295 165 320 210 Q275 205 250 150" fill="#2f7a57"/>
+  <path d="M505 380h115l-20 25h-74z" fill="#8d4f2f"/><path d="M560 380v-70" stroke="#60412a" stroke-width="6"/><path d="M563 318l55 28h-55z" fill="#fff0c2"/>
+</svg>
