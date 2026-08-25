@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Event Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Campus Event Guide</h1>
+            <p>Discover what's happening on campus</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Event 1 -->
+        <section class="event-section">
+            <div class="event-card">
+                <div class="event-info">
+                    <span class="event-date">15 September</span>
+                    <h2>Campus Welcome Festival</h2>
+                    <p class="event-location">📍 Main Campus Lawn</p>
+                    <p>
+                        Meet other students, explore student clubs and enjoy
+                        live entertainment at the annual campus welcome festival.
+                    </p>
+                    <button class="save-btn" onclick="saveEvent('Campus Welcome Festival')">
+                        Save Event
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event 2 -->
+        <section class="event-section">
+            <div class="event-card">
+                <div class="event-info">
+                    <span class="event-date">22 September</span>
+                    <h2>Student Careers Workshop</h2>
+                    <p class="event-location">📍 Student Centre</p>
+                    <p>
+                        Learn about career planning, resume writing and
+                        preparing for future employment opportunities.
+                    </p>
+                    <button class="save-btn" onclick="saveEvent('Student Careers Workshop')">
+                        Save Event
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event 3 -->
+        <section class="event-section">
+            <div class="event-card">
+                <div class="event-info">
+                    <span class="event-date">30 September</span>
+                    <h2>Campus Sports Day</h2>
+                    <p class="event-location">📍 University Sports Centre</p>
+                    <p>
+                        Take a break from studying and join fellow students
+                        for a day of friendly sports and recreational activities.
+                    </p>
+                    <button class="save-btn" onclick="saveEvent('Campus Sports Day')">
+                        Save Event
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pop-up message -->
+    <div id="popup" class="popup">
+        Event saved
+    </div>
+
+    <footer class="site-footer">
+        <p>Campus Event Guide &copy; 2026</p>
+    </footer>
+
+    <script>
+        function saveEvent(eventName) {
+            const popup = document.getElementById("popup");
+
+            popup.textContent = eventName + " saved";
+            popup.classList.add("show");
+
+            setTimeout(function () {
+                popup.classList.remove("show");
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>

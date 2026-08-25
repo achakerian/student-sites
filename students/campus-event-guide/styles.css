@@ -1,0 +1,139 @@
+/* General page styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+    line-height: 1.6;
+}
+
+/* Header */
+.site-header {
+    background-color: #234a6f;
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.site-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.site-header p {
+    font-size: 1rem;
+}
+
+/* Main content */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+main.container {
+    padding: 35px 0;
+}
+
+/* Event sections */
+.event-section {
+    margin-bottom: 25px;
+}
+
+.event-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 28px;
+    border-left: 5px solid #234a6f;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.event-date {
+    display: inline-block;
+    color: #234a6f;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.event-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.event-location {
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.event-card p {
+    margin-bottom: 18px;
+}
+
+/* Save button */
+.save-btn {
+    background-color: #234a6f;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #173752;
+}
+
+/* Pop-up */
+.popup {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #222;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #e3e7eb;
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    .site-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .event-card {
+        padding: 22px;
+    }
+
+    .event-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .save-btn {
+        width: 100%;
+    }
+}
