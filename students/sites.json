@@ -28,6 +28,21 @@
       "thumbnail": "./thumbnails/cocobella-website.jpg"
     },
     {
+      "title": "Discover Vietnam",
+      "description": "A one-page travel guide showcasing memorable destinations across Vietnam.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Travel"
+      ],
+      "name": "discover-vietnam",
+      "path": "./students/discover-vietnam/index.html",
+      "thumbnail": "./thumbnails/discover-vietnam.jpg"
+    },
+    {
       "title": "StudySupply",
       "description": "Affordable school supplies made simple, with a student-friendly catalogue and easy shopping cart.",
       "category": "Student Site",
