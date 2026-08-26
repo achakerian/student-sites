@@ -57,6 +57,10 @@ npx wrangler deploy                   # paste the printed URL into submit/index.
 
 To disable everything after the activity, revoke the PAT.
 
+### Lifecycle
+
+Sunset, dormancy, relaunch and SDLC rules are in [`docs/LIFECYCLE.md`](docs/LIFECYCLE.md).
+
 ### Editing the starter kit
 
 Edit files in `template/`, then run `scripts/build-starter.sh` and commit `start/starter.zip`.
