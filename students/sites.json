@@ -1,6 +1,21 @@
 {
   "sites": [
     {
+      "title": "Exploring Artificial Intelligence",
+      "description": "An interactive showcase explaining what AI is, its main types, its history, and a short quiz to test what you learned.",
+      "category": "",
+      "popular": false,
+      "tags": [
+        "AI",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "name": "ai-showcase",
+      "path": "./students/ai-showcase/index.html",
+      "thumbnail": "./thumbnails/ai-showcase.jpg"
+    },
+    {
       "title": "Campus Event Guide",
       "description": "Simple guide showing three university campus events",
       "category": "a",
