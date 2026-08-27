@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Norway · simple travel guide</title>
+  <!-- Google Font & minimal reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #faf8f5;
+      color: #1e1e2a;
+      line-height: 1.5;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem 2rem;
+    }
+
+    /* header */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #1a3a4a 0%, #2b5b6e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #3d4e5c;
+      font-weight: 400;
+      border-left: 4px solid #94b5c0;
+      padding-left: 1rem;
+      max-width: 550px;
+    }
+
+    .tagline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.5rem;
+      color: #3d5a6d;
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+
+    .tagline span {
+      background: #eef3f5;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+    }
+
+    /* grid sections */
+    .section {
+      margin: 3.5rem 0 2.5rem 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title span {
+      background: #dce8ed;
+      border-radius: 60px;
+      padding: 0.1rem 0.9rem;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #1f3c48;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: #f7f9fa;
+      border-radius: 2rem;
+      padding: 1.5rem 1.5rem 1.8rem;
+      transition: all 0.15s ease;
+      border: 1px solid #eaeef0;
+    }
+
+    .card:hover {
+      background: white;
+      border-color: #cbd8de;
+      box-shadow: 0 8px 18px -8px rgba(0, 20, 30, 0.06);
+    }
+
+    .card h3 {
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #17323e;
+    }
+
+    .card .sub {
+      font-size: 0.9rem;
+      color: #3a5b69;
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.2px;
+      border-bottom: 1px dashed #d0dfe5;
+      padding-bottom: 0.6rem;
+    }
+
+    .card ul {
+      list-style: none;
+      margin: 0.7rem 0 0.2rem;
+    }
+
+    .card li {
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.02);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.95rem;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .price {
+      font-weight: 500;
+      color: #1e4b5a;
+      background: #e2edf2;
+      padding: 0.1rem 0.7rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .highlight {
+      background: #eaf3f0;
+      border-radius: 20px;
+      padding: 0.1rem 0.9rem;
+      font-size: 0.8rem;
+      color: #1b4b4b;
+    }
+
+    .hotel-tag {
+      display: inline-block;
+      background: #dfe9ed;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.8rem;
+      letter-spacing: 0.2px;
+      color: #1e4350;
+    }
+
+    .resto-note {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #3b5c68;
+      background: #edf3f5;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      display: inline-block;
+    }
+
+    .flex-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    hr {
+      margin: 2rem 0 1rem;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, #d0e0e6, transparent);
+    }
+
+    .footer {
+      text-align: center;
+      color: #5e7a88;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e3edf0;
+    }
+
+    .footer small {
+      opacity: 0.7;
+    }
+
+    .flight-note {
+      background: #e4eef2;
+      border-radius: 30px;
+      padding: 0.2rem 1rem;
+      font-size: 0.75rem;
+      color: #1c4452;
+      display: inline-block;
+      margin-top: 0.3rem;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.8rem 1rem; }
+      .hero h1 { font-size: 2.2rem; }
+      .section-title { font-size: 1.5rem; }
+      .card-grid { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- header -->
+    <div class="hero">
+      <h1>❄️ Norway · slow & wild</h1>
+      <p>Fjords, northern lights, and coastal charm — a simple guide for curious travellers.</p>
+      <div class="tagline">
+        <span>🇳🇴 Bergen · Oslo · Lofoten</span>
+        <span>🌿 May–Sept</span>
+        <span>⛰️ hiking · fjord cruises</span>
+      </div>
+    </div>
+
+    <!-- FLIGHTS – new section -->
+    <div class="section">
+      <div class="section-title">
+        ✈️ Flights <span>round-trip · economy</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>From New York (JFK/EWR)</h3>
+          <div class="sub">direct · Norwegian / SAS</div>
+          <ul>
+            <li><span>Low season (Nov–Mar)</span> <span class="price">$480–620</span></li>
+            <li><span>High season (Jun–Aug)</span> <span class="price">$780–1050</span></li>
+            <li><span>Premium economy</span> <span class="price">~$1400</span></li>
+          </ul>
+          <div class="flight-note">⏱️ 7h 20m direct</div>
+        </div>
+        <div class="card">
+          <h3>From London (LHR/LGW)</h3>
+          <div class="sub">direct · British Airways / Norwegian</div>
+          <ul>
+            <li><span>Low season</span> <span class="price">$160–230</span></li>
+            <li><span>High season</span> <span class="price">$290–420</span></li>
+            <li><span>with checked bag</span> <span class="price">+$50</span></li>
+          </ul>
+          <div class="flight-note">⏱️ 2h 10m direct</div>
+        </div>
+        <div class="card">
+          <h3>From Sydney (SYD)</h3>
+          <div class="sub">1 stop · via Doha / Dubai</div>
+          <ul>
+            <li><span>Low season</span> <span class="price">$1100–1350</span></li>
+            <li><span>High season</span> <span class="price">$1600–1950</span></li>
+            <li><span>Business class</span> <span class="price">~$4200</span></li>
+          </ul>
+          <div class="flight-note">⏱️ ~17h with stop</div>
+        </div>
+        <div class="card">
+          <h3>From Singapore (SIN)</h3>
+          <div class="sub">1 stop · Finnair / Qatar</div>
+          <ul>
+            <li><span>Low season</span> <span class="price">$850–1050</span></li>
+            <li><span>High season</span> <span class="price">$1250–1550</span></li>
+          </ul>
+          <div class="flight-note">⏱️ ~15h · good connections</div>
+        </div>
+      </div>
+      <div style="margin-top: 0.8rem; font-size: 0.9rem; background: #f2f6f8; padding: 0.5rem 1.2rem; border-radius: 60px; display: inline-block;">
+        💡 Book 2–3 months ahead · Oslo (OSL) or Bergen (BGO) are main gateways
+      </div>
+    </div>
+
+    <!-- COSTS -->
+    <div class="section">
+      <div class="section-title">
+        💰 Daily costs <span>per person (on the ground)</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>🏨 Accommodation</h3>
+          <div class="sub">budget → luxury</div>
+          <ul>
+            <li><span>Hostel / guesthouse</span> <span class="price">$70–120</span></li>
+            <li><span>3-star hotel</span> <span class="price">$140–220</span></li>
+            <li><span>Boutique / fjord view</span> <span class="price">$250–400</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🍽️ Food & drink</h3>
+          <div class="sub">casual → fine dining</div>
+          <ul>
+            <li><span>Fast food / café</span> <span class="price">$15–30</span></li>
+            <li><span>Restaurant meal</span> <span class="price">$35–65</span></li>
+            <li><span>Fine dining (3-course)</span> <span class="price">$90–160</span></li>
+          </ul>
+          <div class="resto-note">☕ coffee ~$6 · beer ~$10</div>
+        </div>
+        <div class="card">
+          <h3>🚆 Transport</h3>
+          <div class="sub">trains, ferries, buses</div>
+          <ul>
+            <li><span>Train Oslo–Bergen</span> <span class="price">~$90</span></li>
+            <li><span>Fjord ferry (day)</span> <span class="price">$40–80</span></li>
+            <li><span>Bus / tram day pass</span> <span class="price">$12–18</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🎟️ Activities</h3>
+          <div class="sub">museums, tours, hikes</div>
+          <ul>
+            <li><span>Fjord cruise (2h)</span> <span class="price">$75</span></li>
+            <li><span>Viking museum</span> <span class="price">$18</span></li>
+            <li><span>Northern lights tour</span> <span class="price">$120–180</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SITES / ATTRACTIONS -->
+    <div class="section">
+      <div class="section-title">
+        🏔️ Must-see sites <span>nature + culture</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Geirangerfjord</h3>
+          <div class="sub">UNESCO · fjord cruise</div>
+          <ul>
+            <li><span>Seven Sisters waterfall</span> <span class="highlight">iconic</span></li>
+            <li><span>Dalsnibba viewpoint</span> <span class="price">free</span></li>
+            <li><span>Kayak rental</span> <span class="price">~$50</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Bryggen · Bergen</h3>
+          <div class="sub">colourful wharf, UNESCO</div>
+          <ul>
+            <li><span>Hanseatic museum</span> <span class="price">$16</span></li>
+            <li><span>Fløibanen funicular</span> <span class="price">$30</span></li>
+            <li><span>Fish market</span> <span class="highlight">local</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Lofoten Islands</h3>
+          <div class="sub">dramatic peaks & fishing villages</div>
+          <ul>
+            <li><span>Reine · picturesque</span> <span class="highlight">photo</span></li>
+            <li><span>Hiking (Reinebringen)</span> <span class="price">free</span></li>
+            <li><span>Rorbu (fisherman cabin)</span> <span class="price">~$180</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Oslo · Viking ships</h3>
+          <div class="sub">museums & modern architecture</div>
+          <ul>
+            <li><span>Viking Ship Museum</span> <span class="price">$18</span></li>
+            <li><span>Munch Museum</span> <span class="price">$20</span></li>
+            <li><span>Opera house roof</span> <span class="highlight">free</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESTAURANTS -->
+    <div class="section">
+      <div class="section-title">
+        🍽️ Restaurants <span>from casual to Nordic fine</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Fjellskål · Bergen</h3>
+          <div class="sub">seafood with a view</div>
+          <ul>
+            <li><span>Fish soup</span> <span class="price">$28</span></li>
+            <li><span>Grilled salmon</span> <span class="price">$38</span></li>
+            <li><span>Local mussels</span> <span class="price">$32</span></li>
+          </ul>
+          <div class="resto-note">📍 Bryggen · $$</div>
+        </div>
+        <div class="card">
+          <h3>Maaemo · Oslo</h3>
+          <div class="sub">3 Michelin stars · Nordic</div>
+          <ul>
+            <li><span>Tasting menu</span> <span class="price">~$350</span></li>
+            <li><span>Wine pairing</span> <span class="price">+$200</span></li>
+          </ul>
+          <div class="resto-note">🌟🌟🌟 · book in advance</div>
+        </div>
+        <div class="card">
+          <h3>Fiskekrogen · Lofoten</h3>
+          <div class="sub">fisherman’s kitchen</div>
+          <ul>
+            <li><span>Stockfish stew</span> <span class="price">$30</span></li>
+            <li><span>Arctic char</span> <span class="price">$36</span></li>
+            <li><span>King crab</span> <span class="price">$55</span></li>
+          </ul>
+          <div class="resto-note">📍 Svolvær · casual</div>
+        </div>
+        <div class="card">
+          <h3>Kaffebønna · Oslo</h3>
+          <div class="sub">hygge café & bakery</div>
+          <ul>
+            <li><span>Cardamom bun</span> <span class="price">$6</span></li>
+            <li><span>Open sandwich</span> <span class="price">$14</span></li>
+            <li><span>Flat white</span> <span class="price">$6.5</span></li>
+          </ul>
+          <div class="resto-note">☕ local favourite</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTELS -->
+    <div class="section">
+      <div class="section-title">
+        🏨 Hotels & stays <span>comfortable & character</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Hotel Ullensvang · Hardanger</h3>
+          <div class="sub">fjord view · historic</div>
+          <ul>
+            <li><span>Double room</span> <span class="price">$250 / night</span></li>
+            <li><span>Suite with balcony</span> <span class="price">$390</span></li>
+          </ul>
+          <div class="hotel-tag">✨ pool · sauna</div>
+        </div>
+        <div class="card">
+          <h3>Det Lille Hotel · Bergen</h3>
+          <div class="sub">boutique, city centre</div>
+          <ul>
+            <li><span>Standard double</span> <span class="price">$180</span></li>
+            <li><span>Attic room</span> <span class="price">$210</span></li>
+          </ul>
+          <div class="hotel-tag">📍 near Bryggen</div>
+        </div>
+        <div class="card">
+          <h3>Eliassen Rorbuer · Lofoten</h3>
+          <div class="sub">traditional fisherman cabin</div>
+          <ul>
+            <li><span>Small rorbu (2 pers)</span> <span class="price">$220</span></li>
+            <li><span>Large rorbu (4–6)</span> <span class="price">$330</span></li>
+          </ul>
+          <div class="hotel-tag">🌊 waterfront · kitchen</div>
+        </div>
+        <div class="card">
+          <h3>Grand Hotel · Oslo</h3>
+          <div class="sub">classic, central</div>
+          <ul>
+            <li><span>Double room</span> <span class="price">$270</span></li>
+            <li><span>Junior suite</span> <span class="price">$410</span></li>
+          </ul>
+          <div class="hotel-tag">🍸 rooftop bar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- extra note: practical -->
+    <hr>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+        <span style="background: #e5edf0; border-radius: 40px; padding: 0.2rem 1.2rem; font-size: 0.9rem;">💳 card accepted everywhere</span>
+        <span style="background: #e5edf0; border-radius: 40px; padding: 0.2rem 1.2rem; font-size: 0.9rem;">🔌 plug C/F · 230V</span>
+        <span style="background: #e5edf0; border-radius: 40px; padding: 0.2rem 1.2rem; font-size: 0.9rem;">🚰 tap water is perfect</span>
+      </div>
+      <span style="color: #3f6b7a; font-weight: 400; font-size: 0.95rem;">⏰ prices in USD · approx. 2026</span>
+    </div>
+
+    <div class="footer">
+      <small>✧ simple & aesthetic · norway travel · all you need ✧</small><br>
+      <span style="opacity: 0.5; font-size: 0.75rem;">— curated for curious travellers —</span>
+    </div>
+  </div>
+</body>
+</html>
