@@ -58,6 +58,21 @@
       "thumbnail": "./thumbnails/discover-vietnam.jpg"
     },
     {
+      "title": "Fourteen Days in Sweden",
+      "description": "A 14-day loop itinerary through Stockholm, Gotland, Swedish Lapland, Gothenburg and the south of Sweden.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Travel"
+      ],
+      "name": "holiday-to-sweden",
+      "path": "./students/holiday-to-sweden/index.html",
+      "thumbnail": "./thumbnails/holiday-to-sweden.jpg"
+    },
+    {
       "title": "StudySupply",
       "description": "Affordable school supplies made simple, with a student-friendly catalogue and easy shopping cart.",
       "category": "Student Site",
