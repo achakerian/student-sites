@@ -1,0 +1,376 @@
+/* ---------- Tokens ---------- */
+:root {
+  --ink: #1B3A34;
+  --ink-soft: #2B4E46;
+  --paper: #F6F1E4;
+  --paper-dark: #EAE1C9;
+  --gold: #B8892B;
+  --stamp: #C1440E;
+  --text: #2B2B26;
+  --text-soft: #6B6455;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+/* ---------- Reset ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--paper);
+  line-height: 1.6;
+}
+
+a { color: inherit; }
+
+img, svg { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- Cover / hero (section 1) ---------- */
+.cover {
+  position: relative;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4rem 1.5rem 6rem;
+  overflow: hidden;
+}
+
+.cover-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cover-emblem {
+  font-size: 2rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.cover-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+
+.cover-tag {
+  font-size: 1.05rem;
+  color: #D9E2DD;
+  max-width: 34ch;
+  margin: 0 auto 2rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  color: var(--paper);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn:hover, .btn:focus-visible {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.btn:active { transform: translateY(1px); }
+
+.cover-stamp {
+  position: absolute;
+  right: -2rem;
+  bottom: -2.5rem;
+  width: 180px;
+  opacity: 0.9;
+  transform: rotate(-9deg);
+  z-index: 1;
+}
+
+.stamp-svg {
+  width: 100%;
+  height: auto;
+}
+
+.stamp-ring {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2.5;
+}
+
+.stamp-ring-inner {
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+
+.stamp-text {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--gold);
+  text-anchor: middle;
+  letter-spacing: 1px;
+}
+
+.stamp-year {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  fill: var(--gold);
+  text-anchor: middle;
+  letter-spacing: 1px;
+}
+
+/* ---------- Shared section layout ---------- */
+main { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+
+.section { padding: 4.5rem 0; }
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  color: var(--stamp);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+  max-width: 20ch;
+}
+
+/* ---------- About / steps (section 2) ---------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  border-top: 1px dashed var(--paper-dark);
+  padding-top: 2.5rem;
+}
+
+.step-number {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--gold);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.step h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.step p { color: var(--text-soft); font-size: 0.95rem; }
+
+/* ---------- Events (section 3) ---------- */
+.events-counter {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  background: var(--paper-dark);
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 2.5rem;
+  transition: background 0.2s ease;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.75rem;
+}
+
+.ticket {
+  position: relative;
+  display: flex;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(27, 58, 52, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--paper-dark);
+}
+
+.ticket-main {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.ticket-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  margin-bottom: 0.2rem;
+}
+
+.ticket-dest {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.ticket-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ticket-value {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.ticket-stub {
+  position: relative;
+  width: 130px;
+  flex-shrink: 0;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1rem 0.75rem;
+  border-left: 2px dashed var(--paper-dark);
+}
+
+/* perforation dots between ticket and stub */
+.ticket-stub::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+.ticket-stub::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.ticket-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.save-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.save-btn:hover, .save-btn:focus-visible {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.save-btn[data-saved="true"] {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.stamp-mark {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg) scale(0.6);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+  color: var(--stamp);
+  border: 3px solid var(--stamp);
+  border-radius: 8px;
+  padding: 0.3rem 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: rgba(246, 241, 228, 0.94);
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.ticket[data-saved="true"] .stamp-mark {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(-14deg) scale(1);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--ink);
+  color: var(--paper-dark);
+  text-align: center;
+  padding: 1.75rem 1.5rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .steps { grid-template-columns: 1fr; }
+  .ticket { flex-direction: column; }
+  .ticket-stub {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    border-left: none;
+    border-top: 2px dashed var(--paper-dark);
+  }
+  .ticket-stub::before, .ticket-stub::after { display: none; }
+  .cover-stamp { width: 130px; right: -1.5rem; bottom: -1.5rem; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .btn, .save-btn, .stamp-mark { transition: none; }
+}
