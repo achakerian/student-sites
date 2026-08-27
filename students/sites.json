@@ -30,6 +30,21 @@
       "thumbnail": "./thumbnails/campus-event-guide.jpg"
     },
     {
+      "title": "Coast Traveller",
+      "description": "A questionnaire that turns your budget, trip length and interests into a personalised Gold Coast plan of places to stay, things to do and spots to visit.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Travel"
+      ],
+      "name": "coast-traveller",
+      "path": "./students/coast-traveller/index.html",
+      "thumbnail": "./thumbnails/coast-traveller.jpg"
+    },
+    {
       "title": "Cocobella Website",
       "description": "Student site",
       "category": "a",
