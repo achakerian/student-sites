@@ -204,6 +204,21 @@
       "thumbnail": "./thumbnails/passport-to-dream-destination.jpg"
     },
     {
+      "title": "My Dream Holiday in Shanghai",
+      "description": "A one-page student website sharing my dream holiday plans and favourite places to visit in Shanghai.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Travel"
+      ],
+      "name": "shanghai-dream",
+      "path": "./students/shanghai-dream/index.html",
+      "thumbnail": "./thumbnails/shanghai-dream.jpg"
+    },
+    {
       "title": "Singapore Escape",
       "description": "A one-page holiday guide to Singapore's top attractions, food and shopping, with Kuala Lumpur featured as a backup destination.",
       "category": "",
