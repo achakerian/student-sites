@@ -1,0 +1,387 @@
+/* ---------------------------------------------------------
+   Tokens
+--------------------------------------------------------- */
+:root {
+  --cream: #F4EEDD;
+  --paper: #FBF8F0;
+  --ink: #1E2620;
+  --forest: #2E4A3A;
+  --slate: #33465C;
+  --gold: #C79A3D;
+  --rust: #9C4A32;
+  --line: #C9BE9E;
+
+  --display: "Fraunces", "Iowan Old Style", serif;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --max: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 3px;
+}
+
+/* faint paper grain, pure CSS, no image asset */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image:
+    radial-gradient(circle at 20% 30%, #000 0.5px, transparent 0.5px),
+    radial-gradient(circle at 60% 70%, #000 0.5px, transparent 0.5px),
+    radial-gradient(circle at 85% 15%, #000 0.5px, transparent 0.5px);
+  background-size: 3px 3px, 5px 5px, 4px 4px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  margin: 0;
+  color: var(--ink);
+}
+
+em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rust);
+}
+
+p { margin: 0; }
+
+/* ---------------------------------------------------------
+   Hero
+--------------------------------------------------------- */
+.hero {
+  position: relative;
+  background: linear-gradient(175deg, var(--forest) 0%, #26382C 55%, var(--slate) 100%);
+  color: var(--paper);
+  overflow: hidden;
+  padding-bottom: 4rem;
+}
+
+.topbar {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.topbar-sub {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+.hero-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 2rem;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.1rem;
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.05;
+  font-weight: 500;
+  max-width: 15ch;
+}
+
+.hero-sub {
+  margin-top: 1.75rem;
+  max-width: 46ch;
+  font-size: 1.08rem;
+  color: #E4E0D0;
+}
+
+.hero-cta {
+  display: inline-block;
+  margin-top: 2.25rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  color: var(--cream);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 3px;
+  transition: opacity 0.2s ease;
+}
+.hero-cta:hover { opacity: 0.7; }
+
+.hero-river {
+  display: block;
+  width: 100%;
+  height: 110px;
+}
+
+/* ---------------------------------------------------------
+   Stats strip
+--------------------------------------------------------- */
+.stats {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stat-num {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--rust);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+/* ---------------------------------------------------------
+   Intro / route map
+--------------------------------------------------------- */
+.intro {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 0.9rem;
+}
+
+.intro-text h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.25;
+  max-width: 18ch;
+  margin-bottom: 1.25rem;
+}
+
+.intro-text p { max-width: 52ch; opacity: 0.9; }
+
+.route-map { width: 100%; height: auto; }
+
+.route-path {
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 7;
+  stroke-linecap: round;
+}
+
+.route-node circle { fill: var(--rust); }
+.route-node text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink);
+}
+
+/* ---------------------------------------------------------
+   Itinerary
+--------------------------------------------------------- */
+.itinerary {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+.leg {
+  margin-bottom: 4rem;
+  border-left: 3px solid var(--leg-color);
+  padding-left: 1.75rem;
+}
+
+.leg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  margin-bottom: 1.75rem;
+}
+
+.leg-num {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 2.1rem;
+  color: var(--leg-color);
+}
+
+.leg-head h3 {
+  font-size: 1.5rem;
+}
+
+.leg-head p {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  opacity: 0.65;
+  margin-top: 0.25rem;
+}
+
+.day {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 1.25rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.day.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.day-marker span {
+  display: inline-block;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--paper);
+  background: var(--leg-color);
+  border-radius: 999px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-body h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.day-body p { opacity: 0.88; max-width: 62ch; }
+
+/* ---------------------------------------------------------
+   Practical
+--------------------------------------------------------- */
+.practical {
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  padding: 4.5rem 1.5rem;
+}
+
+.practical h2 {
+  max-width: var(--max);
+  margin: 0 auto 2.25rem;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  padding: 0 0;
+}
+
+.practical-grid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.practical-card {
+  padding: 1.75rem;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.practical-icon {
+  font-size: 1.5rem;
+}
+
+.practical-card h3 {
+  font-size: 1.05rem;
+  margin: 0.9rem 0 0.6rem;
+}
+
+.practical-card p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------
+   Footer
+--------------------------------------------------------- */
+.site-footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem 3rem;
+  font-size: 0.82rem;
+  color: var(--ink);
+  opacity: 0.6;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 760px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .intro { grid-template-columns: 1fr; }
+  .practical-grid { grid-template-columns: 1fr; }
+  .day { grid-template-columns: 48px 1fr; }
+  .day-marker span { width: 36px; height: 36px; font-size: 0.82rem; }
+}
