@@ -73,6 +73,19 @@
       "thumbnail": "./thumbnails/holiday-to-sweden.jpg"
     },
     {
+      "title": "Jj Consulting",
+      "description": "Student site",
+      "category": "a",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS"
+      ],
+      "name": "jj-consulting",
+      "path": "./students/jj-consulting/index.html",
+      "thumbnail": "./thumbnails/jj-consulting.jpg"
+    },
+    {
       "title": "StudySupply",
       "description": "Affordable school supplies made simple, with a student-friendly catalogue and easy shopping cart.",
       "category": "Student Site",
