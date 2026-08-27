@@ -1,238 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fourteen Days in Sweden</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A polished ten-day student itinerary through Paris, Amsterdam and Berlin with precise daily timing, booking notes and a practical budget.">
+  <title>Eurobound — 10 Days Across Europe</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
+  <header class="hero" id="top">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Eurobound home">EUROBOUND<span>°</span></a>
+      <div class="nav-links">
+        <a href="#journey">Journey</a>
+        <a href="#budget">Budget</a>
+        <a href="#field-guide">Field guide</a>
+      </div>
+    </nav>
 
-<header class="topbar">
-  <span class="topbar__mark">SE&nbsp;14</span>
-  <nav class="topbar__nav" aria-label="Trip legs">
-    <a href="#stockholm">Stockholm</a>
-    <a href="#gotland">Gotland</a>
-    <a href="#lapland">Lapland</a>
-    <a href="#gothenburg">Gothenburg</a>
-    <a href="#south">South</a>
-  </nav>
-</header>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+    <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
 
-<main>
+    <div class="hero-content">
+      <p class="eyebrow">STUDENT GRAND TOUR · 10 DAYS · 3 CITIES</p>
+      <h1>Europe,<br><em>beautifully timed.</em></h1>
+      <p class="hero-copy">A refined first-Europe itinerary built around art, architecture, neighbourhoods and rail — ambitious enough to feel unforgettable, realistic enough to actually follow.</p>
 
-  <section class="hero">
-    <p class="hero__eyebrow">A route, not a checklist</p>
-    <h1 class="hero__title">Fourteen days<br>the long way round<br>Sweden</h1>
-    <p class="hero__sub">Stockholm's islands, a limestone coast on Gotland, the midnight sun above the Arctic Circle, and the granite shoreline of the west &mdash; end to end, one loop, no backtracking.</p>
-    <div class="hero__meta">
-      <span>14 days</span>
-      <span aria-hidden="true">&middot;</span>
-      <span>5 regions</span>
-      <span aria-hidden="true">&middot;</span>
-      <span>best June&ndash;Aug</span>
-    </div>
-  </section>
-
-  <section class="route" aria-label="Route overview">
-    <svg class="route__line" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M 40 90 C 200 20, 260 20, 320 60 S 480 100, 560 55 S 700 15, 760 50 S 900 95, 960 45" />
-    </svg>
-    <ol class="route__stops">
-      <li><a href="#stockholm"><span class="route__num">01</span><span class="route__name">Stockholm</span><span class="route__days">Days 1&ndash;4</span></a></li>
-      <li><a href="#gotland"><span class="route__num">02</span><span class="route__name">Gotland</span><span class="route__days">Days 5&ndash;6</span></a></li>
-      <li><a href="#lapland"><span class="route__num">03</span><span class="route__name">Swedish Lapland</span><span class="route__days">Days 7&ndash;9</span></a></li>
-      <li><a href="#gothenburg"><span class="route__num">04</span><span class="route__name">Gothenburg &amp; coast</span><span class="route__days">Days 10&ndash;12</span></a></li>
-      <li><a href="#south"><span class="route__num">05</span><span class="route__name">Malm&ouml; &amp; Lund</span><span class="route__days">Days 13&ndash;14</span></a></li>
-    </ol>
-  </section>
-
-  <!-- LEG 1 — STOCKHOLM -->
-  <section class="leg leg--birch" id="stockholm">
-    <div class="leg__head">
-      <svg class="leg__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 52h52M10 52V30l6-10 6 10-2 22M22 52V26l6-11 6 11-2 26M34 52V32l6-9 6 9-2 20M46 52V36l4-7 4 7-1 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
-      <div>
-        <p class="leg__label">Leg 01 &mdash; Days 1&ndash;4</p>
-        <h2 class="leg__title">Stockholm</h2>
-        <p class="leg__intro">Fourteen islands stitched together by bridges and ferries. Start here to get your bearings before the loop pulls you outward.</p>
+      <div class="hero-stats" aria-label="Trip summary">
+        <div><span>01</span><strong>Paris</strong><small>3 nights</small></div>
+        <div><span>02</span><strong>Amsterdam</strong><small>3 nights</small></div>
+        <div><span>03</span><strong>Berlin</strong><small>3 nights</small></div>
       </div>
     </div>
 
-    <div class="days">
-      <article class="day">
-        <p class="day__num">Day 1</p>
-        <h3 class="day__title">Arrive &amp; find Gamla Stan</h3>
-        <p class="day__time">Afternoon</p>
-        <p class="day__text">Drop your bags and walk straight into the old town. Narrow lanes open onto Stortorget, the square where Stockholm actually began &mdash; go at golden hour if your flight allows it.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 2</p>
-        <h3 class="day__title">Royal Palace &amp; the Vasa</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">Catch the changing of the guard, then cross to Djurg&aring;rden for the Vasa Museum &mdash; a warship that sank eighteen minutes into its maiden voyage in 1628 and stayed intact under mud for 333 years.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 3</p>
-        <h3 class="day__title">Djurg&aring;rden &amp; Skansen</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">A parkland island of museums and waterfront paths, capped by Skansen &mdash; the world's oldest open-air museum, with transplanted historic buildings and Nordic wildlife on one hill.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 4</p>
-        <h3 class="day__title">Out to the archipelago</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">Take a ferry out to Vaxholm or Fj&auml;derholmarna. This is the Sweden locals actually go to on a Saturday &mdash; red-and-white cottages, still water, no itinerary needed once you're on the boat.</p>
-      </article>
+    <div class="route-ribbon" aria-label="Route Paris to Amsterdam to Berlin">
+      <span>PAR</span><i></i><span>AMS</span><i></i><span>BER</span>
     </div>
-  </section>
+  </header>
 
-  <!-- LEG 2 — GOTLAND -->
-  <section class="leg leg--ink" id="gotland">
-    <div class="leg__head">
-      <svg class="leg__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 48c8-4 8 4 16 0s8 4 16 0 8 4 16 0 8 4 8 4M10 40l3-14 3 14M28 42l3-18 3 18M46 40l2-10 2 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div>
-        <p class="leg__label">Leg 02 &mdash; Days 5&ndash;6</p>
-        <h2 class="leg__title">Gotland</h2>
-        <p class="leg__intro">A three-hour ferry from Nyn&auml;shamn to a walled medieval town and a limestone coast that looks like nowhere else in Sweden.</p>
+  <main>
+    <section id="journey" class="section journey-section">
+      <div class="section-heading">
+        <p class="kicker">01 — THE JOURNEY</p>
+        <h2>Ten days, choreographed.</h2>
+        <p>This version is designed to begin on a <strong>Wednesday</strong>, keeping major museum days away from common weekly closures. Times are deliberately precise, while rail departures are marked as targets because exact timetables change by travel date.</p>
       </div>
-    </div>
 
-    <div class="days">
-      <article class="day">
-        <p class="day__num">Day 5</p>
-        <h3 class="day__title">Ferry to Visby</h3>
-        <p class="day__time">Morning crossing</p>
-        <p class="day__text">Visby's town wall is still standing, mostly intact, from the 1200s. Rose bushes grow out of church ruins. Spend the afternoon just walking &mdash; it's a small enough town that you can't really get lost.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 6</p>
-        <h3 class="day__title">The raukar coastline</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">Rent a bike or a car and head out to the raukar &mdash; limestone sea stacks carved by the Baltic over thousands of years &mdash; and the small fishing villages strung along the coast road.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- LEG 3 — LAPLAND -->
-  <section class="leg leg--ink" id="lapland">
-    <div class="leg__head">
-      <svg class="leg__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 46 20 22l8 12 6-8 6 10 6-14 14 26z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><circle cx="48" cy="14" r="4" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
-      <div>
-        <p class="leg__label">Leg 03 &mdash; Days 7&ndash;9</p>
-        <h2 class="leg__title">Swedish Lapland</h2>
-        <p class="leg__intro">A short flight erases seventeen hours of driving. This is a different country up here &mdash; Arctic Circle, midnight sun, and almost nobody around.</p>
+      <div class="route-map" aria-label="Stylised route from Paris through Amsterdam to Berlin">
+        <svg viewBox="0 0 1200 360" role="img" aria-labelledby="route-title route-desc">
+          <title id="route-title">Paris to Amsterdam to Berlin rail route</title>
+          <desc id="route-desc">A stylised line connects Paris, Amsterdam and Berlin.</desc>
+          <path class="map-contour" d="M65 278 C170 172 232 145 322 159 C405 174 431 111 540 118 C621 123 684 93 758 111 C829 129 875 70 966 82 C1040 93 1104 119 1140 88"/>
+          <path class="route-line" d="M225 258 C350 183 430 178 538 123 S785 103 969 129"/>
+          <circle class="route-dot" cx="225" cy="258" r="8"/>
+          <circle class="route-dot" cx="538" cy="123" r="8"/>
+          <circle class="route-dot" cx="969" cy="129" r="8"/>
+        </svg>
+        <div class="map-label label-paris"><span>01</span><strong>Paris</strong><small>Days 1–3</small></div>
+        <div class="map-label label-amsterdam"><span>02</span><strong>Amsterdam</strong><small>Days 4–6</small></div>
+        <div class="map-label label-berlin"><span>03</span><strong>Berlin</strong><small>Days 7–10</small></div>
       </div>
-    </div>
 
-    <div class="days">
-      <article class="day">
-        <p class="day__num">Day 7</p>
-        <h3 class="day__title">Fly north to Kiruna</h3>
-        <p class="day__time">Travel day</p>
-        <p class="day__text">Ferry back to Stockholm, then a short domestic flight into Sweden's northernmost town. Kiruna sits above the Arctic Circle &mdash; the sun won't fully set here in summer.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 8</p>
-        <h3 class="day__title">Kiruna &amp; the Icehotel</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">The Icehotel's permanent &ldquo;Art Suites&rdquo; wing, kept frozen year-round, is open for daytime visits even outside winter. Spend the rest of the day in Kiruna itself, a mining town being physically relocated a few kilometres east.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 9</p>
-        <h3 class="day__title">Abisko National Park</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">Hike a stretch of the Kungsleden trail or take the chairlift up Nuolja for a view over Torneträsk lake. Under the midnight sun, there's no real reason to be back before dark &mdash; it doesn't get dark.</p>
-      </article>
-    </div>
-  </section>
+      <div class="itinerary">
+        <article class="day-card featured-day">
+          <div class="day-number">DAY 01</div>
+          <div class="day-title"><p>WEDNESDAY · PARIS</p><h3>Arrive softly.</h3><span>Seine · Île de la Cité · Eiffel Tower</span></div>
+          <div class="schedule">
+            <div><time>14:00</time><p><strong>Check in + reset.</strong> Leave luggage, shower, fill a water bottle and keep this first afternoon intentionally light.</p></div>
+            <div><time>16:00</time><p><strong>Walk the Seine.</strong> Start around Île de la Cité, cross toward the Left Bank and follow the river west rather than rushing between monuments.</p></div>
+            <div><time>18:30</time><p><strong>Student dinner.</strong> Eat before the evening attraction so you are not hunting for food at peak tourist time.</p></div>
+            <div><time>20:15</time><p><strong>Eiffel Tower area.</strong> Arrive roughly 45 minutes before a pre-booked evening slot. Official hours vary by date and season, so confirm your selected day before paying.</p></div>
+            <div><time>22:15</time><p><strong>Trocadéro walk-back.</strong> Finish with the city lights, then use Métro rather than extending the day with another attraction.</p></div>
+          </div>
+        </article>
 
-  <!-- LEG 4 — GOTHENBURG -->
-  <section class="leg leg--birch" id="gothenburg">
-    <div class="leg__head">
-      <svg class="leg__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 50h52M14 50V16M14 16h8M14 24h20M14 32h30M50 50V28l-8-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
-      <div>
-        <p class="leg__label">Leg 04 &mdash; Days 10&ndash;12</p>
-        <h2 class="leg__title">Gothenburg &amp; the coast</h2>
-        <p class="leg__intro">Back down to sea level on the west coast &mdash; a working harbour city with better caf&eacute;s than Stockholm will ever admit to, and a jagged granite coastline just north of it.</p>
+        <article class="day-card">
+          <div class="day-number">DAY 02</div>
+          <div class="day-title"><p>THURSDAY · PARIS</p><h3>Masterpieces & Montmartre.</h3><span>Louvre · Tuileries · Palais Royal · Sacré-Cœur</span></div>
+          <div class="schedule">
+            <div><time>08:30</time><p><strong>Arrive at the Louvre precinct.</strong> Be ready before opening instead of entering the morning queue at its busiest.</p></div>
+            <div><time>09:00</time><p><strong>Louvre highlights.</strong> Give yourself three focused hours. The museum normally opens 09:00–18:00 on Thursday and is closed Tuesday.</p></div>
+            <div><time>12:30</time><p><strong>Tuileries picnic lunch.</strong> Buy something simple nearby and recover outdoors.</p></div>
+            <div><time>14:00</time><p><strong>Palais Royal + covered passages.</strong> A slower architecture-and-streets block after the museum.</p></div>
+            <div><time>17:30</time><p><strong>Montmartre.</strong> Climb through the side streets before sunset; save Sacré-Cœur for the end rather than starting at the summit.</p></div>
+            <div><time>20:00</time><p><strong>Dinner below the hill.</strong> Choose a menu away from the busiest square, then return before midnight.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-number">DAY 03</div>
+          <div class="day-title"><p>FRIDAY · PARIS</p><h3>The elegant left bank.</h3><span>Latin Quarter · Luxembourg Garden · Arc de Triomphe</span></div>
+          <div class="schedule">
+            <div><time>08:30</time><p><strong>Latin Quarter breakfast walk.</strong> Start before the streets fill and wander toward the Panthéon area.</p></div>
+            <div><time>10:30</time><p><strong>Luxembourg Garden.</strong> Take an unhurried hour and make this the trip’s first deliberate pause.</p></div>
+            <div><time>12:30</time><p><strong>Lunch + free time.</strong> Keep two hours unscheduled for a bookstore, café or anything you noticed earlier.</p></div>
+            <div><time>15:30</time><p><strong>Champs-Élysées approach.</strong> Walk only the most interesting stretch rather than treating the whole avenue as a destination.</p></div>
+            <div><time>17:30</time><p><strong>Arc de Triomphe area.</strong> Time the visit toward golden hour, then have an early dinner.</p></div>
+            <div><time>21:00</time><p><strong>Pack for rail day.</strong> Charge devices, download tickets and place tomorrow’s essentials in one day bag.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card transit-day">
+          <div class="day-number">DAY 04</div>
+          <div class="day-title"><p>SATURDAY · PARIS → AMSTERDAM</p><h3>City-centre to city-centre.</h3><span>Eurostar · Canal Ring · Jordaan</span></div>
+          <div class="schedule">
+            <div><time>07:35</time><p><strong>Reach Gare du Nord.</strong> Eurostar recommends arriving about 20 minutes before departure; this plan adds extra student-proof buffer.</p></div>
+            <div><time>08:20</time><p><strong>Target direct Eurostar.</strong> Book the closest direct morning service for your actual date. Typical direct journey time is about 3h20.</p></div>
+            <div><time>11:40</time><p><strong>Amsterdam Centraal.</strong> Walk or tram to accommodation, leave bags and reset.</p></div>
+            <div><time>13:30</time><p><strong>Jordaan + Nine Streets.</strong> Explore on foot with no museum booking immediately after the train.</p></div>
+            <div><time>17:00</time><p><strong>Canal-ring golden hour.</strong> Follow the quieter western canals and bridges.</p></div>
+            <div><time>19:30</time><p><strong>Dinner.</strong> Keep the first Dutch night relaxed; tomorrow is the major museum day.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-number">DAY 05</div>
+          <div class="day-title"><p>SUNDAY · AMSTERDAM</p><h3>Art before the city wakes.</h3><span>Rijksmuseum · Vondelpark · De Pijp</span></div>
+          <div class="schedule">
+            <div><time>08:30</time><p><strong>Arrive Museumplein.</strong> Coffee nearby, then be ready for your timed entry.</p></div>
+            <div><time>09:00</time><p><strong>Rijksmuseum.</strong> It opens daily 09:00–17:00 and requires a booked start time. Spend about 2½ hours on highlights.</p></div>
+            <div><time>12:00</time><p><strong>Lunch.</strong> Eat before moving south; do not stack another museum immediately.</p></div>
+            <div><time>13:30</time><p><strong>Vondelpark.</strong> Walk or cycle one relaxed loop.</p></div>
+            <div><time>16:00</time><p><strong>De Pijp.</strong> Browse streets and the market area, then settle somewhere casual.</p></div>
+            <div><time>20:15</time><p><strong>Night canal walk.</strong> Return toward the canal belt once the lamps reflect on the water.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-number">DAY 06</div>
+          <div class="day-title"><p>MONDAY · AMSTERDAM</p><h3>History, then open space.</h3><span>Anne Frank House · Jordaan · Free ferry · Noord</span></div>
+          <div class="schedule">
+            <div><time>09:15</time><p><strong>Arrive early for Anne Frank House.</strong> Entry is only with an online timed ticket; tickets are released six weeks ahead on Tuesdays at 10:00 CEST.</p></div>
+            <div><time>09:30</time><p><strong>Museum visit.</strong> The house is normally open daily 09:00–22:00; allow about 75–90 minutes.</p></div>
+            <div><time>11:15</time><p><strong>Jordaan slow walk.</strong> Coffee, small shops and canals rather than another ticketed attraction.</p></div>
+            <div><time>13:00</time><p><strong>Lunch near Centraal.</strong> Then cross behind the station.</p></div>
+            <div><time>14:15</time><p><strong>Free ferry to Amsterdam Noord.</strong> Explore the waterfront and creative district at a slower pace.</p></div>
+            <div><time>18:30</time><p><strong>Return + early night.</strong> Pack before dinner so rail day does not begin in a panic.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card transit-day">
+          <div class="day-number">DAY 07</div>
+          <div class="day-title"><p>TUESDAY · AMSTERDAM → BERLIN</p><h3>The long rail day, used well.</h3><span>Direct ICE · Brandenburg Gate · Reichstag</span></div>
+          <div class="schedule">
+            <div><time>07:15</time><p><strong>Amsterdam Centraal.</strong> Breakfast in hand; aim to board early enough to stow luggage calmly.</p></div>
+            <div><time>08:00</time><p><strong>Target direct ICE.</strong> Choose the closest direct morning service on your dates. The fastest advertised journey is about 5h51.</p></div>
+            <div><time>14:00</time><p><strong>Berlin Hbf + check-in.</strong> Leave bags, eat something proper and take 45 minutes off your feet.</p></div>
+            <div><time>16:30</time><p><strong>Brandenburg Gate + government quarter.</strong> Walk this cluster rather than crossing the city again.</p></div>
+            <div><time>18:30</time><p><strong>Reichstag dome.</strong> Admission is free but advance registration is required. Pick a sunset-adjacent slot if available.</p></div>
+            <div><time>20:15</time><p><strong>Dinner around Mitte.</strong> Finish early after the six-hour train day.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-number">DAY 08</div>
+          <div class="day-title"><p>WEDNESDAY · BERLIN</p><h3>Ancient art, modern edges.</h3><span>Neues Museum · Museum Island · East Side Gallery</span></div>
+          <div class="schedule">
+            <div><time>09:30</time><p><strong>Reach Museum Island.</strong> Walk the riverfront before the doors open.</p></div>
+            <div><time>10:00</time><p><strong>Neues Museum.</strong> It normally opens Tuesday–Sunday 10:00–18:00 and closes Monday.</p></div>
+            <div><time>12:30</time><p><strong>Lunch around Hackescher Markt.</strong> Sit down — this is intentionally not a grab-and-go day.</p></div>
+            <div><time>14:30</time><p><strong>East Side Gallery.</strong> Take S-Bahn east and walk the preserved Wall section at your own pace.</p></div>
+            <div><time>17:00</time><p><strong>Kreuzberg wander.</strong> Canal, street life and an inexpensive dinner.</p></div>
+            <div><time>20:30</time><p><strong>Back to base.</strong> Leave nightlife optional; the schedule never depends on it.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-number">DAY 09</div>
+          <div class="day-title"><p>THURSDAY · BERLIN</p><h3>Layers of the city.</h3><span>Berlin Wall Memorial · Mitte · Tempelhofer Feld</span></div>
+          <div class="schedule">
+            <div><time>09:00</time><p><strong>Berlin Wall Memorial.</strong> Begin outdoors while your energy is high and the city is quieter.</p></div>
+            <div><time>11:30</time><p><strong>Mitte lunch + independent hour.</strong> Use it for a café, design shop or photography rather than another compulsory stop.</p></div>
+            <div><time>14:00</time><p><strong>Architecture loop.</strong> Move south through central Berlin and keep transport simple.</p></div>
+            <div><time>16:30</time><p><strong>Tempelhofer Feld.</strong> The former airport grounds give you the trip’s biggest open-space reset.</p></div>
+            <div><time>19:00</time><p><strong>Final-night dinner.</strong> Spend the remaining budget deliberately, not accidentally.</p></div>
+            <div><time>21:30</time><p><strong>Pack + photo backup.</strong> Put passport, rail/flight documents and charging cable together.</p></div>
+          </div>
+        </article>
+
+        <article class="day-card final-day">
+          <div class="day-number">DAY 10</div>
+          <div class="day-title"><p>FRIDAY · BERLIN</p><h3>Leave with space.</h3><span>Breakfast · Souvenirs · Departure</span></div>
+          <div class="schedule">
+            <div><time>08:30</time><p><strong>Breakfast + check-out prep.</strong> Keep the room until the last sensible moment.</p></div>
+            <div><time>10:00</time><p><strong>One final neighbourhood walk.</strong> Buy small souvenirs only after everything fits into your luggage.</p></div>
+            <div><time>11:30</time><p><strong>Collect bags.</strong> Check transport disruption before leaving accommodation.</p></div>
+            <div><time>12:00+</time><p><strong>Departure window.</strong> Build airport or onward-rail buffer around your actual ticket rather than adding another attraction.</p></div>
+          </div>
+        </article>
       </div>
-    </div>
+    </section>
 
-    <div class="days">
-      <article class="day">
-        <p class="day__num">Day 10</p>
-        <h3 class="day__title">South to Gothenburg</h3>
-        <p class="day__time">Travel day</p>
-        <p class="day__text">Fly south, usually connecting through Stockholm. You'll land by early evening &mdash; enough time for a first walk along the harbour before dinner.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 11</p>
-        <h3 class="day__title">Haga &amp; the waterfront</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">Wooden houses and slow cafés in Haga &mdash; this is where Sweden's fika culture is least self-conscious about itself. Follow the harbour out toward Liseberg if you want an afternoon with less nuance and more rollercoasters.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 12</p>
-        <h3 class="day__title">The Bohusl&auml;n coast</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">A car is worth it here. Fj&auml;llbacka and Sm&ouml;gen are the names people mention, but the coast road between the fishing villages is most of the point &mdash; red boathouses, bare granite, and cold water you'll regret swimming in and be glad you did.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- LEG 5 — SOUTH -->
-  <section class="leg leg--ink" id="south">
-    <div class="leg__head">
-      <svg class="leg__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 40h56M10 40l4-10h36l4 10M20 40V26M44 40V26M32 26V14l-6 6M32 14l6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
-      <div>
-        <p class="leg__label">Leg 05 &mdash; Days 13&ndash;14</p>
-        <h2 class="leg__title">Malm&ouml; &amp; Lund</h2>
-        <p class="leg__intro">The loop closes in the &Ouml;resund region &mdash; close enough to Denmark that Copenhagen is a 35-minute train ride if your flight home leaves from there instead.</p>
+    <section id="budget" class="section budget-section">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="kicker">02 — THE STUDENT LEDGER</p>
+          <h2>Spend on the memories,<br>not the mistakes.</h2>
+        </div>
+        <p>The budget below is a planning target, not a live quote. Rail and accommodation change dramatically by date, so book the fixed pieces early and protect a daily food-and-local-transport allowance.</p>
       </div>
-    </div>
 
-    <div class="days">
-      <article class="day">
-        <p class="day__num">Day 13</p>
-        <h3 class="day__title">Malm&ouml;, then Lund</h3>
-        <p class="day__time">Full day</p>
-        <p class="day__text">Turning Torso and the canals in the morning, M&ouml;llev&aring;ngen's markets around lunch, then a short train to Lund &mdash; a compact university town built around a Romanesque cathedral that predates the university by a century.</p>
-      </article>
-      <article class="day">
-        <p class="day__num">Day 14</p>
-        <h3 class="day__title">Depart</h3>
-        <p class="day__time">Morning</p>
-        <p class="day__text">Fly out from Gothenburg, or take the train across the &Ouml;resund Bridge and fly from Copenhagen instead &mdash; whichever suits your route home.</p>
-      </article>
-    </div>
-  </section>
+      <div class="budget-layout">
+        <div class="budget-total">
+          <p>PLANNING TARGET</p>
+          <strong>€1,050–1,450</strong>
+          <span>per student · excluding flights to/from Europe</span>
+          <div class="budget-rule"></div>
+          <small>Assumes shared hostel / simple room, advance rail fares, mostly casual food and a selective museum list.</small>
+        </div>
 
-  <section class="essentials">
-    <h2 class="essentials__title">Before you go</h2>
-    <div class="essentials__grid">
-      <div class="essentials__card">
-        <p class="essentials__label">Getting around</p>
-        <p>Stockholm&ndash;Kiruna is a 90-minute flight or a 17-hour train &mdash; fly it. South of Stockholm, SJ high-speed trains connect every city on this route comfortably; a rental car earns its keep only on the Bohusl&auml;n coast day.</p>
+        <div class="budget-lines">
+          <div class="budget-line"><span>Sleep · 9 nights</span><strong>€420–620</strong><i style="--w: 83%"></i></div>
+          <div class="budget-line"><span>Intercity rail · 2 legs</span><strong>€90–180</strong><i style="--w: 46%"></i></div>
+          <div class="budget-line"><span>Food · 10 days</span><strong>€280–360</strong><i style="--w: 62%"></i></div>
+          <div class="budget-line"><span>Local transport</span><strong>€90–120</strong><i style="--w: 33%"></i></div>
+          <div class="budget-line"><span>Paid sights</span><strong>€110–150</strong><i style="--w: 40%"></i></div>
+          <div class="budget-line"><span>Buffer</span><strong>€60–80</strong><i style="--w: 22%"></i></div>
+        </div>
       </div>
-      <div class="essentials__card">
-        <p class="essentials__label">Pace</p>
-        <p>This route is full but not frantic. If you'd rather slow down, Gotland is the easiest leg to shorten &mdash; even one day there is worthwhile.</p>
+
+      <div class="booking-grid">
+        <article><span>01</span><h3>Book first</h3><p><strong>Accommodation + intercity rail.</strong> These are usually the largest sources of price creep. Eurostar advertises Paris–Amsterdam from about €35 on selected dates; Amsterdam–Berlin fares can start from about €38 when booked early.</p></article>
+        <article><span>02</span><h3>Book next</h3><p><strong>Anne Frank House + Reichstag.</strong> Anne Frank House is timed-ticket only. Reichstag admission is free, but registration is required, so “free” does not mean “walk in”.</p></article>
+        <article><span>03</span><h3>Then museums</h3><p><strong>Louvre + Rijksmuseum.</strong> The Louvre can require reservations in peak periods; Rijksmuseum requires a start time. Do not leave these until the morning of your visit.</p></article>
+        <article><span>04</span><h3>Protect cash</h3><p><strong>Use one daily cap.</strong> Put food, coffee and local transport into a daily envelope — digital or literal — so the last two days do not become survival mode.</p></article>
       </div>
-      <div class="essentials__card">
-        <p class="essentials__label">Pack for</p>
-        <p>Layers everywhere, even in July &mdash; Lapland nights stay cool under the midnight sun. Rain is always plausible, wherever you are.</p>
+    </section>
+
+    <section id="field-guide" class="section guide-section">
+      <div class="guide-intro">
+        <p class="kicker">03 — THE FIELD GUIDE</p>
+        <h2>Travel like you<br>planned it.</h2>
+        <p>Beautiful trips are mostly logistics that disappear at the right moment. These are the small rules that keep the itinerary smooth without turning it into a military exercise.</p>
       </div>
-    </div>
-  </section>
 
-</main>
+      <div class="guide-grid">
+        <article><span>RAIL</span><h3>Carry less than you can.</h3><p>One cabin-size case or backpack plus one small day bag is far easier on platforms, stairs and crowded trains.</p></article>
+        <article><span>TIME</span><h3>Protect the first hour.</h3><p>After every city change, do not book a major museum immediately. Check in, eat, then start exploring.</p></article>
+        <article><span>MONEY</span><h3>Split your payment methods.</h3><p>Keep one backup card separate from your main wallet and carry only modest emergency cash.</p></article>
+        <article><span>PHONE</span><h3>Make the trip offline-proof.</h3><p>Save tickets, accommodation details and essential maps to your phone before each rail day.</p></article>
+        <article><span>PACE</span><h3>One anchor, one wander.</h3><p>Each day has one high-priority attraction and one flexible neighbourhood block. That is why the plan still works when queues happen.</p></article>
+        <article><span>SAFETY</span><h3>Return together at night.</h3><p>Agree on a meeting point, keep devices charged and use well-lit public transport routes after dark.</p></article>
+      </div>
 
-<footer class="footer">
-  <p>Fourteen days, five legs, one loop &mdash; adjust freely.</p>
-</footer>
+      <div class="reveal-wrap">
+        <div>
+          <p class="kicker">THE 24-HOUR CHECK</p>
+          <h3>Before every city change.</h3>
+        </div>
+        <button id="revealChecklist" type="button" aria-expanded="false" aria-controls="checklistPanel">Open the departure checklist</button>
+      </div>
 
-<script src="script.js"></script>
+      <div id="checklistPanel" class="checklist-panel" hidden>
+        <div><span>01</span><p>Confirm the train number, departure station and platform information in the operator’s app or website.</p></div>
+        <div><span>02</span><p>Screenshot every ticket and timed-entry confirmation so weak mobile signal cannot block access.</p></div>
+        <div><span>03</span><p>Check tomorrow’s weather, charge the power bank and pack one layer you can reach without opening the main suitcase.</p></div>
+        <div><span>04</span><p>Set two alarms, agree on a lobby departure time and leave enough station buffer that one missed tram does not ruin the day.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">EUROBOUND°</div>
+    <p>Research checked against official visitor information from the Eiffel Tower, Louvre, Eurostar, Rijksmuseum, Anne Frank House, NS International, German Bundestag and Staatliche Museen zu Berlin in August 2026. Opening hours, prices and transport schedules can change — reconfirm for your exact travel dates.</p>
+    <p class="footer-note">Class showcase concept · original layout, writing and vector artwork · no external libraries or image assets.</p>
+  </footer>
 </body>
 </html>
