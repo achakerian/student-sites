@@ -160,6 +160,25 @@
       "thumbnail": "./thumbnails/mq-social.jpg"
     },
     {
+      "title": "MQBS1000 — The 5PM Class",
+      "description": "A futuristic Macquarie University showcase for the legendary 5PM MQBS1000 class, combining GEM-inspired design with controlled neon energy, signal graphics and interactive class-energy effects.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "MQBS1000",
+        "Macquarie University",
+        "GEM",
+        "5PM Class",
+        "Class Showcase",
+        "Futuristic",
+        "Neon",
+        "HTML"
+      ],
+      "name": "mqbs1000-neon-gem-final",
+      "path": "./students/mqbs1000-neon-gem-final/index.html",
+      "thumbnail": "./thumbnails/mqbs1000-neon-gem-final.jpg"
+    },
+    {
       "title": "MuscleLife",
       "description": "A beginner-friendly workout guide where you pick a muscle group and get simple exercises to try.",
       "category": "showcase",
