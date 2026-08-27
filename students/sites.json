@@ -132,6 +132,20 @@
       "thumbnail": "./thumbnails/my-cooking-diary.jpg"
     },
     {
+      "title": "Passport to Dream Destination",
+      "description": "A one-page site where students plan and save dream trips to Europe.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "name": "passport-to-dream-destination",
+      "path": "./students/passport-to-dream-destination/index.html",
+      "thumbnail": "./thumbnails/passport-to-dream-destination.jpg"
+    },
+    {
       "title": "WatchNow",
       "description": "A one-page weekend watchlist site where you pick from three movies and build your own watchlist.",
       "category": "showcase",
