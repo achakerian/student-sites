@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coast Traveller — plan your Gold Coast trip</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="hero">
+    <img class="hero-photo" src="images/gold-coast-hero.jpg"
+         alt="Aerial view of the Gold Coast: high-rise towers along a long white beach with turquoise water.">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Queensland, Australia</p>
+        <h1>Coast Traveller</h1>
+        <p class="tagline">Answer five quick questions and we'll build you a Gold Coast trip — where to sleep, what to do and where to go.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ---------- THE QUESTIONNAIRE ---------- -->
+    <section class="card" id="quiz">
+      <h2>Tell us about your trip</h2>
+
+      <form id="trip-form">
+
+        <!-- Q1: accommodation budget -->
+        <div class="question">
+          <label for="stay-budget">1. Budget for accommodation</label>
+          <p class="hint">Per night, for the whole booking, in Australian dollars.</p>
+          <div class="slider-row">
+            <input type="range" id="stay-budget" min="40" max="500" step="10" value="200">
+            <output id="stay-budget-out">$200 a night</output>
+          </div>
+        </div>
+
+        <!-- Q2: activity budget -->
+        <div class="question">
+          <label for="fun-budget">2. Budget for activities</label>
+          <p class="hint">Roughly what you'd spend per person, per day, on things to do.</p>
+          <div class="slider-row">
+            <input type="range" id="fun-budget" min="0" max="300" step="10" value="100">
+            <output id="fun-budget-out">$100 a day</output>
+          </div>
+        </div>
+
+        <!-- Q3: length of stay -->
+        <div class="question">
+          <label for="nights">3. How long are you staying?</label>
+          <div class="slider-row">
+            <input type="range" id="nights" min="1" max="14" step="1" value="4">
+            <output id="nights-out">4 nights</output>
+          </div>
+        </div>
+
+        <!-- Q4: interests -->
+        <div class="question">
+          <label>4. What are you into? <span class="hint-inline">Pick as many as you like.</span></label>
+          <div class="chips" id="interests">
+            <label class="chip"><input type="checkbox" value="themeparks"> Theme parks</label>
+            <label class="chip"><input type="checkbox" value="beaches"> Beaches &amp; surf</label>
+            <label class="chip"><input type="checkbox" value="nature"> Nature &amp; hiking</label>
+            <label class="chip"><input type="checkbox" value="wildlife"> Wildlife</label>
+            <label class="chip"><input type="checkbox" value="thrills"> Thrills</label>
+            <label class="chip"><input type="checkbox" value="food"> Food &amp; markets</label>
+            <label class="chip"><input type="checkbox" value="shopping"> Shopping</label>
+            <label class="chip"><input type="checkbox" value="nightlife"> Nightlife</label>
+            <label class="chip"><input type="checkbox" value="arts"> Arts &amp; culture</label>
+            <label class="chip"><input type="checkbox" value="views"> Views &amp; lookouts</label>
+            <label class="chip"><input type="checkbox" value="relax"> Relaxing</label>
+          </div>
+        </div>
+
+        <!-- Q5: reason for the trip -->
+        <div class="question">
+          <label for="reason">5. What's bringing you to the Gold Coast?</label>
+          <select id="reason">
+            <option value="family">A family holiday</option>
+            <option value="couples">A getaway for two</option>
+            <option value="solo">Travelling solo or backpacking</option>
+            <option value="friends">A trip with friends</option>
+            <option value="relax">To rest and do very little</option>
+            <option value="themeparks">Mainly for the theme parks</option>
+            <option value="nature">For the rainforest and the hinterland</option>
+            <option value="event">For an event, comp or conference</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary">Plan my trip</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ---------- THE RESULTS ---------- -->
+    <section id="results" hidden>
+
+      <div class="results-head">
+        <div>
+          <h2>Your Gold Coast plan</h2>
+          <p id="summary" class="summary"></p>
+        </div>
+        <div class="results-buttons">
+          <button type="button" id="refresh" class="primary">Show me different options</button>
+          <button type="button" id="restart" class="ghost">Change my answers</button>
+        </div>
+      </div>
+
+      <h3 class="group-title">Where to stay</h3>
+      <div class="grid" id="stay-results"></div>
+
+      <h3 class="group-title">Things to do</h3>
+      <div class="grid" id="fun-results"></div>
+
+      <h3 class="group-title">Places to visit</h3>
+      <div class="grid" id="place-results"></div>
+
+      <p class="disclaimer">
+        The <strong>match percentage</strong> is worked out from your own answers — it shows how
+        well an option fits what you asked for. It is not a review score.
+        Prices are rough guides in Australian dollars and change with the season —
+        always check the official site before you book. Some activities are seasonal.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Coast Traveller — a class project by Bailey and [add your partner's first name].</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
