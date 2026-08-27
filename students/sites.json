@@ -234,6 +234,21 @@
       "thumbnail": "./thumbnails/shuyaoyizhou-dreamholiday.jpg"
     },
     {
+      "title": "Fourteen Days in Luxembourg",
+      "description": "A two-week route through Luxembourg's fortress capital, Moselle vineyards, Mullerthal gorges, castle valleys, and the Ardennes.",
+      "category": "",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Travel"
+      ],
+      "name": "trip-luxembourg",
+      "path": "./students/trip-luxembourg/index.html",
+      "thumbnail": "./thumbnails/trip-luxembourg.jpg"
+    },
+    {
       "title": "WatchNow",
       "description": "A one-page weekend watchlist site where you pick from three movies and build your own watchlist.",
       "category": "showcase",
