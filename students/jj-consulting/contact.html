@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | JJ CONSULTING</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .contact-form {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--white);
+            font-size: 0.95rem;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-group select option {
+            background: var(--bg-surface);
+            color: var(--white);
+        }
+        .info-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+        .info-box h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.35rem;
+        }
+        .info-item {
+            margin-bottom: 1.75rem;
+        }
+        .info-item strong {
+            display: block;
+            color: var(--accent-secondary);
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+        .info-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        @media (max-width: 968px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">JJ <span>CONSULTING</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" style="padding: 6rem 2rem 4rem;">
+        <div class="hero-content">
+            <div class="hero-badge">Get in Touch</div>
+            <h1>Initiate Your Strategic Partnership</h1>
+            <p>Connect with our advisory team to discuss your corporate objectives and project requirements.</p>
+        </div>
+    </section>
+
+    <div class="container" style="padding-top: 2rem;">
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h3 style="color: var(--white); margin-bottom: 1.75rem; font-size: 1.35rem;">Send an Inquiry</h3>
+                <form onsubmit="event.preventDefault(); alert('문의가 성공적으로 전송되었습니다. 검토 후 빠른 시일 내에 연락드리겠습니다.');">
+                    <div class="form-group">
+                        <label for="name">성함 / Name</label>
+                        <input type="text" id="name" required placeholder="홍길동 / John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일 / Email</label>
+                        <input type="email" id="email" required placeholder="name@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">관심 분야 / Service Area</label>
+                        <select id="service">
+                            <option>Strategic Advisory</option>
+                            <option>Financial Modeling & Valuation</option>
+                            <option>Digital & Business Intelligence</option>
+                            <option>Corporate Governance</option>
+                            <option>Other Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용 / Message</label>
+                        <textarea id="message" rows="5" required placeholder="프로젝트 목적 및 주요 요구사항을 입력해 주세요..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Submit Inquiry</button>
+                </form>
+            </div>
+
+            <div class="info-box">
+                <h3>Global Headquarters</h3>
+                <div class="info-item">
+                    <strong>Sydney Office</strong>
+                    <p>Macquarie Park, NSW 2113, Australia</p>
+                </div>
+                <div class="info-item">
+                    <strong>Seoul Office</strong>
+                    <p>Teheran-ro, Gangnam-gu, Seoul, South Korea</p>
+                </div>
+                <div class="info-item">
+                    <strong>Direct Contact</strong>
+                    <p>Email: contact@jj-consulting.com<br>Phone: +61 2 9000 0000</p>
+                </div>
+                <div class="info-item">
+                    <strong>Business Hours</strong>
+                    <p>Monday – Friday: 9:00 AM – 6:00 PM (AEST / KST)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">JJ <span>CONSULTING</span></div>
+            <p>&copy; 2026 JJ CONSULTING. All rights reserved. Sydney &middot; Seoul</p>
+        </div>
+    </footer>
+</body>
+</html>
