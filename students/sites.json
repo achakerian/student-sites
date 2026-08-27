@@ -190,6 +190,19 @@
       "thumbnail": "./thumbnails/my-cooking-diary.jpg"
     },
     {
+      "title": "Norway Info",
+      "description": "Student site",
+      "category": "a",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS"
+      ],
+      "name": "norway-info",
+      "path": "./students/norway-info/index.html",
+      "thumbnail": "./thumbnails/norway-info.jpg"
+    },
+    {
       "title": "Passport to Dream Destination",
       "description": "A one-page site where students plan and save dream trips to Europe.",
       "category": "showcase",
