@@ -102,6 +102,21 @@
       "thumbnail": "./thumbnails/mq-social.jpg"
     },
     {
+      "title": "MuscleLife",
+      "description": "A beginner-friendly workout guide where you pick a muscle group and get simple exercises to try.",
+      "category": "showcase",
+      "popular": false,
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Fitness"
+      ],
+      "name": "musclelife",
+      "path": "./students/musclelife/index.html",
+      "thumbnail": "./thumbnails/musclelife.jpg"
+    },
+    {
       "title": "My Cooking Diary",
       "description": "A playful student cooking diary with easy recipes, simple filters and a random meal picker.",
       "category": "showcase",
