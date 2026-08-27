@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passport to Dream Destination</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="cover">
+    <div class="cover-inner">
+      <span class="cover-emblem" aria-hidden="true">&#9992;</span>
+      <p class="cover-eyebrow">Student Travel Club</p>
+      <h1 class="cover-title">Passport to<br>Dream Destination</h1>
+      <p class="cover-tag">Plan your dream trip away — Europe, on a student budget.</p>
+      <a href="#events" class="btn btn-ghost">See upcoming departures &darr;</a>
+    </div>
+    <div class="cover-stamp" aria-hidden="true">
+      <svg viewBox="0 0 160 160" class="stamp-svg">
+        <circle cx="80" cy="80" r="72" class="stamp-ring"></circle>
+        <circle cx="80" cy="80" r="58" class="stamp-ring stamp-ring-inner"></circle>
+        <text x="80" y="60" class="stamp-text">EUROPE</text>
+        <text x="80" y="102" class="stamp-text">ONLY</text>
+        <text x="80" y="86" class="stamp-year">EST. THIS SEMESTER</text>
+      </svg>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section about" id="about">
+      <p class="section-eyebrow">How it works</p>
+      <h2 class="section-title">Three steps to your next stamp</h2>
+      <div class="steps">
+        <article class="step">
+          <span class="step-number">01</span>
+          <h3>Browse the board</h3>
+          <p>Scroll the upcoming departures below. Every trip is student-organised and Europe-only, so flights stay cheap and trains stay easy.</p>
+        </article>
+        <article class="step">
+          <span class="step-number">02</span>
+          <h3>Pick a date &amp; time</h3>
+          <p>Each card lists exactly when the group meets to plan the trip together — no guessing, no group chat archaeology.</p>
+        </article>
+        <article class="step">
+          <span class="step-number">03</span>
+          <h3>Save your spot</h3>
+          <p>Tap save on any card and it gets stamped into your passport, right there on the page. Change your mind any time.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section events" id="events">
+      <p class="section-eyebrow">Departures board</p>
+      <h2 class="section-title">Upcoming trip-planning meetups</h2>
+      <p class="events-counter" id="savedCounter">0 trips saved so far — go stamp one!</p>
+
+      <div class="cards">
+
+        <article class="ticket" data-destination="Spain">
+          <div class="ticket-main">
+            <p class="ticket-label">Destination</p>
+            <h3 class="ticket-dest">Spain</h3>
+            <div class="ticket-details">
+              <div>
+                <p class="ticket-label">Meet up</p>
+                <p class="ticket-value">Friday, 6:00 PM</p>
+              </div>
+              <div>
+                <p class="ticket-label">Vibe</p>
+                <p class="ticket-value">Tapas &amp; trip talk</p>
+              </div>
+            </div>
+          </div>
+          <div class="ticket-stub">
+            <p class="ticket-code">ES · FRI</p>
+            <button type="button" class="save-btn">Save event</button>
+          </div>
+            <div class="stamp-mark" aria-hidden="true">SAVED</div>
+        </article>
+
+        <article class="ticket" data-destination="Italy">
+          <div class="ticket-main">
+            <p class="ticket-label">Destination</p>
+            <h3 class="ticket-dest">Italy</h3>
+            <div class="ticket-details">
+              <div>
+                <p class="ticket-label">Meet up</p>
+                <p class="ticket-value">Saturday, 11:00 AM</p>
+              </div>
+              <div>
+                <p class="ticket-label">Vibe</p>
+                <p class="ticket-value">Gelato &amp; route planning</p>
+              </div>
+            </div>
+          </div>
+          <div class="ticket-stub">
+            <p class="ticket-code">IT · SAT</p>
+            <button type="button" class="save-btn">Save event</button>
+          </div>
+            <div class="stamp-mark" aria-hidden="true">SAVED</div>
+        </article>
+
+        <article class="ticket" data-destination="Portugal">
+          <div class="ticket-main">
+            <p class="ticket-label">Destination</p>
+            <h3 class="ticket-dest">Portugal</h3>
+            <div class="ticket-details">
+              <div>
+                <p class="ticket-label">Meet up</p>
+                <p class="ticket-value">Sunday, 3:00 PM</p>
+              </div>
+              <div>
+                <p class="ticket-label">Vibe</p>
+                <p class="ticket-value">Pastel de nata &amp; budgeting</p>
+              </div>
+            </div>
+          </div>
+          <div class="ticket-stub">
+            <p class="ticket-code">PT · SUN</p>
+            <button type="button" class="save-btn">Save event</button>
+          </div>
+            <div class="stamp-mark" aria-hidden="true">SAVED</div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Passport to Dream Destination &middot; a student travel-planning club &middot; Europe only</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
