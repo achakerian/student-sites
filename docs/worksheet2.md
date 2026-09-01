@@ -1,12 +1,14 @@
-# Grow your website with AI — Week 2: add an itinerary
+# Design a holiday for a classmate — travel PDF week
 
-**Your site lives at:** `student-sites.org/students/<site-name>/`
-**Submit updates at:** student-sites.org/submit — **Class passcode:** `greatestclass`
+**Instructions online:** student-sites.org/start
+**Submit at:** student-sites.org/travelpdf/submit — **Class passcode:** `greatestclass`
+**Published PDFs appear at:** student-sites.org/travelpdf/
 
-This week you go back to the website you built, use your favourite LLM to add an
-**itinerary page**, and republish it to Student Sites. The written parts of this
-worksheet are raw material for **Assessment 1 — AI and Me: A Professional
-Reflection** (individual, 800–1000 words). Fill them in as you go, not at the end.
+This week you interview another student about their perfect holiday, use your
+favourite LLM to design an itinerary just for them, and publish it as a PDF.
+The written parts of this worksheet are raw material for **Assessment 1 —
+AI and Me: A Professional Reflection** (individual, 800–1000 words). Fill them
+in as you go, not at the end.
 
 ---
 
@@ -14,14 +16,13 @@ Reflection** (individual, 800–1000 words). Fill them in as you go, not at the 
 
 | | Write it here |
 |---|---|
-| My **site name** (exactly as published, e.g. `sams-recipes`) | ______________________ |
-| My site address: `student-sites.org/students/` | ______________________ `/` |
+| My classmate (first name) | ______________________ |
+| My **PDF name** (lowercase letters, numbers, hyphens — e.g. `nadias-week-in-tokyo`) | ______________________ |
 | The **LLM I'll use** — name *and* version (e.g. ChatGPT — GPT-5, Claude — Fable 5) | ______________________ |
-| My itinerary topic — an itinerary that fits my site's theme (food tour for a cooking site, movie-marathon schedule for a movie site, 3-day trip for a travel site…) | ______________________ |
 
 **Prediction (write 2–3 sentences before you start):**
-What do you expect the AI to do *well* when updating your site, and where do you
-expect it to *struggle or get things wrong*?
+What do you expect the AI to do *well* when designing a holiday for a real
+person, and where do you expect it to *struggle or get things wrong*?
 
 > ____________________________________________________________
 > ____________________________________________________________
@@ -31,41 +32,39 @@ expect it to *struggle or get things wrong*?
 
 ---
 
-## Part B — Get your files back (5 min)
+## Part B — The interview (10 min)
 
-You'll work from the **published** version of your site, so it doesn't matter if
-you lost your Week 1 folder.
+Interview your classmate about their perfect holiday. Write their answers here —
+this is the brief you'll give the AI, so the better you listen, the better the
+itinerary.
 
-1. Go to **github.com/achakerian/student-sites**.
-2. Click the green **Code** button → **Download ZIP**.
-3. Unzip it, open the `students` folder, and find the folder matching your **site name**.
-4. Copy that whole folder to your Desktop. This is your working folder — it has
-   everything: `index.html`, `styles.css`, `script.js`, `meta.json`, any images,
-   and the `CLAUDE.md` / `PROMPT.md` rules files from the starter kit.
+| Question | Their answer |
+|---|---|
+| Where in the world? | |
+| How long, and roughly when? | |
+| What do they love doing? (beaches, museums, hiking, shopping, gaming…) | |
+| Food — what must they eat, what won't they touch? | |
+| Travel style — backpacker, mid-range, or five-star? | |
+| One thing that would ruin the trip for them | |
+| Anything else they said that matters | |
+
+Then swap — they interview you for their PDF.
 
 ---
 
-## Part C — Add the itinerary with your LLM (25 min)
+## Part C — Design it with your LLM (20 min)
 
-**Path 1 — chat LLM (ChatGPT, Claude, Gemini, Copilot):**
-Upload (or paste) your site's files into the chat, then ask for the change.
-A good first prompt:
+Give the AI everything from Part B and ask for a day-by-day itinerary. A good
+first prompt:
 
-> "Here is my website. Add a new page `itinerary.html` containing a
-> [your topic] itinerary. Link to it from the navigation on `index.html`,
-> and match the existing style in `styles.css`. Give me back the complete
-> updated files."
+> "Design a [length] itinerary in [destination] for a person with these
+> preferences: [your interview notes]. Day by day, with times, places, food
+> stops and short descriptions. Make it realistic and ready to present as a
+> one-page document."
 
-Download every updated file the LLM gives you and save it into your working
-folder, replacing the old versions.
-
-**Path 2 — Claude Code:**
-Open a terminal in your working folder, run `claude`, and describe the itinerary
-page you want. It reads `CLAUDE.md` automatically and edits the files in place.
-
-**Check it:** double-click `index.html` — can you reach the itinerary page from
-the homepage? Does it look like it belongs to the same site? Keep iterating
-until you're happy.
+**Show your classmate the draft.** Would they actually take this trip? Refine
+it with the AI until the answer is yes — and **check every fact** (places,
+opening times, distances, prices) before it's published under your name.
 
 ### Prompt log — fill in as you go (at least 3 rows)
 
@@ -75,39 +74,36 @@ until you're happy.
 | | | |
 | | | |
 
-*(This log is evidence for your reflection — "the AI hallucinated opening hours
-for a café that doesn't exist" is worth far more in Assessment 1 than "it
-worked fine".)*
+*(This log is evidence for your reflection — "it invented a night market that
+closed in 2019" is worth far more in Assessment 1 than "it worked fine".)*
 
 ---
 
-## Part D — Republish to Student Sites (10 min)
+## Part D — Export and submit (10 min)
 
 Tick each box:
 
-- [ ] The itinerary page opens and is linked from my homepage
-- [ ] The style matches the rest of my site
-- [ ] I **checked every fact** the AI put on my pages (places, times, prices, claims)
-- [ ] `meta.json` still describes my site correctly (update it if the description or tags should change)
-- [ ] My working folder contains **ALL my site's files, not just the new ones** — your upload *replaces* the published site completely, so a zip with only `itinerary.html` deletes everything else
-- [ ] Zipped the whole folder (right-click → *Compress* on Mac, *Send to → Compressed folder* on Windows), under 10 MB
-- [ ] Submitted at **student-sites.org/submit** with the **same site name** and the passcode
-- [ ] Kept my **review link** — my update goes live once it's approved
+- [ ] Exported as **one PDF**, under 10 MB
+- [ ] It has a clear **title** (e.g. "Nadia's Week in Tokyo") — that's what shows on the Travel PDFs page
+- [ ] My classmate has seen the final version and would take the trip
+- [ ] I checked every fact the AI put in it
+- [ ] Submitted at **student-sites.org/travelpdf/submit** with my PDF name, title, first names and the passcode
+- [ ] Kept my **review link** — my PDF is listed once it's approved. Resubmit with the same PDF name to replace it.
 
-Same rules as Week 1: plain HTML/CSS/JS, classroom-appropriate, first names
-only, only images you're allowed to use.
+Rules: classroom-appropriate, first names only, only content and images you're
+allowed to use.
 
 ---
 
 ## Part E — Reflection (15 min — do not skip)
 
-These five boxes map directly onto the Assessment 1 rubric. Write in full
-sentences; specific beats polished.
+These boxes map directly onto the Assessment 1 rubric. Write in full sentences;
+specific beats polished.
 
 **1. Explain it plainly (ULO1).** In 2–3 sentences a non-technical friend would
-understand: what did the AI actually *do* when it "updated your website"? Where
-does its ability come from, and give **one concrete example from today** of a
-limitation you ran into.
+understand: what did the AI actually *do* when it "designed the itinerary"?
+Where does its ability come from, and give **one concrete example from today**
+of a limitation you ran into.
 
 > ____________________________________________________________
 > ____________________________________________________________
@@ -115,16 +111,16 @@ limitation you ran into.
 > ____________________________________________________________
 
 **2. Prediction vs reality (ULO5).** Reread your Part A prediction. What
-surprised you? How has your view of what AI can and can't do shifted since
-Week 1?
+surprised you? How well did the AI capture what a *real person* actually
+wanted, compared with what you expected?
 
 > ____________________________________________________________
 > ____________________________________________________________
 > ____________________________________________________________
 
-**3. Opportunities and risks (ULO2).** Imagine a real business building its
-website the way you just did. Name **one opportunity and one risk**, each tied
-to something that actually happened in your session today.
+**3. Opportunities and risks (ULO2).** Imagine a real travel agency designing
+trips this way. Name **one opportunity and one risk**, each tied to something
+that actually happened in your session today.
 
 > Opportunity: ______________________________________________
 > ____________________________________________________________
@@ -132,17 +128,17 @@ to something that actually happened in your session today.
 > ____________________________________________________________
 
 **4. Accountability stance (ULO3).** The itinerary is published under *your*
-name on *your* site. Who is responsible if it contains something wrong,
-copied, or inappropriate — you or the AI? Did you check everything it
-produced? Name **one thing you would not let an AI decide** on your site, and
-state your accountability stance in one sentence.
+name, for a real classmate. Who is responsible if it's wrong, copied, or
+inappropriate — you or the AI? Did you check everything it produced? Name
+**one thing you would not let an AI decide** when planning for another person,
+and state your accountability stance in one sentence.
 
 > ____________________________________________________________
 > ____________________________________________________________
 > ____________________________________________________________
 
 **5. One step in your learning plan (ULO5).** Based on today, name **one AI
-skill you want to improve** (e.g. writing better prompts, verifying AI output,
+skill you want to improve** (e.g. writing better briefs, verifying AI output,
 understanding how these models work), and **one concrete thing you'll do about
 it, by when**.
 
