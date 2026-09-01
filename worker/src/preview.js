@@ -7,6 +7,7 @@ const TYPES = {
   json: 'application/json; charset=utf-8', md: 'text/markdown; charset=utf-8', txt: 'text/plain; charset=utf-8',
   png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp',
   svg: 'image/svg+xml', ico: 'image/x-icon', woff: 'font/woff', woff2: 'font/woff2',
+  pdf: 'application/pdf',
 };
 
 export function contentTypeFor(path) {
@@ -42,7 +43,20 @@ export async function handlePreview(request, env) {
     return page(400, 'Bad request', 'That path is not valid.');
   }
 
-  const api = `https://api.github.com/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/contents/students/${slug}/${rest}?ref=${encodeURIComponent(`site/${slug}`)}`;
+  return serveFromBranch(env, { path: `students/${slug}/${rest}`, ref: `site/${slug}`, contentType: contentTypeFor(rest) });
+}
+
+// Serves a submitted (unmerged) travel PDF from its pdf/<slug> branch.
+export async function handlePdfPreview(request, env) {
+  const match = new URL(request.url).pathname.match(/^\/preview-pdf\/([^/]+)$/);
+  if (!match) return page(404, 'Not found', '');
+  const slug = match[1];
+  if (!SLUG_RE.test(slug)) return page(400, 'Bad request', 'That site name is not valid.');
+  return serveFromBranch(env, { path: `travelpdf/files/${slug}/itinerary.pdf`, ref: `pdf/${slug}`, contentType: 'application/pdf' });
+}
+
+async function serveFromBranch(env, { path, ref, contentType }) {
+  const api = `https://api.github.com/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/contents/${path}?ref=${encodeURIComponent(ref)}`;
   const upstream = await fetch(api, {
     headers: {
       Authorization: `Bearer ${env.GITHUB_TOKEN}`,
@@ -60,7 +74,7 @@ export async function handlePreview(request, env) {
   return new Response(upstream.body, {
     status: 200,
     headers: {
-      'Content-Type': contentTypeFor(rest),
+      'Content-Type': contentType,
       'Cache-Control': 'public, max-age=30',
       'X-Robots-Tag': 'noindex',
     },

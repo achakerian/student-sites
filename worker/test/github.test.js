@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { strToU8 } from 'fflate';
 import {
-  createGitHubClient, planTreeEntries, pushSite, upsertPullRequest,
+  createGitHubClient, planTreeEntries, pushSite, pushFiles, upsertPullRequest, upsertPdfPullRequest,
   buildPrBody, parseSubmissionNumber, toBase64, GitHubError,
 } from '../src/github.js';
 
@@ -45,9 +45,9 @@ describe('toBase64', () => {
 });
 
 describe('planTreeEntries', () => {
-  it('adds uploaded files under students/<slug> and deletes stale existing files', () => {
+  it('adds uploaded files under the prefix and deletes stale existing files', () => {
     const entries = planTreeEntries({
-      slug: 'demo',
+      prefix: 'students/demo/',
       uploaded: [{ path: 'index.html', sha: 'A' }, { path: 'img/x.png', sha: 'B' }],
       existingPaths: ['students/demo/index.html', 'students/demo/old.css', 'students/other/index.html', 'index.html'],
     });
@@ -93,6 +93,37 @@ describe('pushSite', () => {
     await pushSite(client, { slug: 'demo', files, names: '' });
     const create = calls.find(c => c.method === 'POST' && c.path === '/git/refs');
     expect(create.body).toEqual({ ref: 'refs/heads/site/demo', sha: 'NEWCOMMIT' });
+  });
+});
+
+describe('pushFiles', () => {
+  const files = [{ path: 'itinerary.pdf', data: strToU8('%PDF-x') }];
+  const routes = {
+    'GET /git/ref/heads/main': { object: { sha: 'MAIN' } },
+    'GET /git/commits/MAIN': { tree: { sha: 'TREE' } },
+    'GET /git/trees/TREE?recursive=1': {
+      tree: [
+        { path: 'travelpdf/files/demo/old.pdf', type: 'blob' },
+        { path: 'travelpdf/files/other/itinerary.pdf', type: 'blob' },
+      ],
+    },
+    'POST /git/blobs': { sha: 'BLOB' },
+    'POST /git/trees': { sha: 'NEWTREE' },
+    'POST /git/commits': { sha: 'NEWCOMMIT' },
+    'PATCH /git/refs/heads/pdf/demo': { ok: true },
+  };
+
+  it('pushes to the given branch and prefix, deleting stale files only under that prefix', async () => {
+    const { client, calls } = fakeGitHub(routes);
+    const result = await pushFiles(client, {
+      branch: 'pdf/demo', prefix: 'travelpdf/files/demo/', files, message: 'PDF: demo',
+    });
+    expect(result).toEqual({ branch: 'pdf/demo', commitSha: 'NEWCOMMIT' });
+    const tree = calls.find(c => c.path === '/git/trees' && c.method === 'POST').body.tree;
+    expect(tree).toContainEqual({ path: 'travelpdf/files/demo/itinerary.pdf', mode: '100644', type: 'blob', sha: 'BLOB' });
+    expect(tree).toContainEqual({ path: 'travelpdf/files/demo/old.pdf', mode: '100644', type: 'blob', sha: null });
+    expect(tree).not.toContainEqual(expect.objectContaining({ path: 'travelpdf/files/other/itinerary.pdf' }));
+    expect(calls.find(c => c.path === '/git/commits').body.message).toBe('PDF: demo');
   });
 });
 
@@ -147,5 +178,39 @@ describe('upsertPullRequest', () => {
     expect(result.prUrl).toBe('https://gh/pr/7');
     expect(result.submission).toBe(5);
     expect(parseSubmissionNumber(calls.find(c => c.method === 'PATCH').body.body)).toBe(5);
+  });
+});
+
+describe('upsertPdfPullRequest', () => {
+  const args = {
+    owner: OWNER, repo: REPO, slug: 'demo', names: 'Sam', title: 'Three Days in Hanoi',
+    files: [{ path: 'itinerary.pdf', data: new Uint8Array(10) }],
+    previewBase: 'https://w.example', now: new Date('2026-09-01T00:00:00Z'),
+  };
+
+  it('creates a PDF: PR from the pdf/<slug> branch with a preview link and title in the body', async () => {
+    const { client, calls } = fakeGitHub({
+      'GET /pulls?head=octo:pdf/demo&state=open&per_page=1': [],
+      'GET /pulls?head=octo:pdf/demo&state=all&per_page=100': [],
+      'POST /pulls': { html_url: 'https://gh/pr/2' },
+    });
+    const result = await upsertPdfPullRequest(client, args);
+    expect(result.prUrl).toBe('https://gh/pr/2');
+    expect(result.submission).toBe(1);
+    expect(result.previewUrl).toBe('https://w.example/preview-pdf/demo');
+    const create = calls.find(c => c.method === 'POST' && c.path === '/pulls').body;
+    expect(create).toMatchObject({ title: 'PDF: demo', head: 'pdf/demo', base: 'main' });
+    expect(create.body).toContain('Three Days in Hanoi');
+    expect(create.body).toContain('travelpdf');
+  });
+
+  it('updates an open PDF PR and increments its submission number', async () => {
+    const { client, calls } = fakeGitHub({
+      'GET /pulls?head=octo:pdf/demo&state=open&per_page=1': [{ number: 8, html_url: 'https://gh/pr/8', body: '<!-- submission:2 -->' }],
+      'PATCH /pulls/8': { html_url: 'https://gh/pr/8' },
+    });
+    const result = await upsertPdfPullRequest(client, args);
+    expect(result.submission).toBe(3);
+    expect(parseSubmissionNumber(calls.find(c => c.method === 'PATCH').body.body)).toBe(3);
   });
 });

@@ -40,9 +40,36 @@ export function buildManifest(studentsDir) {
   return { sites };
 }
 
+// Regenerates travelpdf/list.json from the folders under travelpdf/files/.
+export function buildPdfManifest(travelpdfDir) {
+  const filesDir = join(travelpdfDir, 'files');
+  if (!existsSync(filesDir)) return { pdfs: [] };
+  const pdfs = readdirSync(filesDir)
+    .filter(name => statSync(join(filesDir, name)).isDirectory())
+    .filter(name => existsSync(join(filesDir, name, 'itinerary.pdf')))
+    .sort()
+    .map(name => ({
+      title: titleCase(name),
+      names: '',
+      submitted: null,
+      ...readMeta(join(filesDir, name)),
+      // Derived from the folder, never from meta.json.
+      name,
+      path: `./files/${name}/itinerary.pdf`,
+    }));
+  return { pdfs };
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const dir = resolve(process.argv[2] || 'students');
   const manifest = buildManifest(dir);
   writeFileSync(join(dir, 'sites.json'), JSON.stringify(manifest, null, 2) + '\n');
   console.log(`Wrote ${manifest.sites.length} site(s) to ${join(dir, 'sites.json')}`);
+
+  const travelpdfDir = resolve(process.argv[3] || 'travelpdf');
+  if (existsSync(travelpdfDir)) {
+    const pdfManifest = buildPdfManifest(travelpdfDir);
+    writeFileSync(join(travelpdfDir, 'list.json'), JSON.stringify(pdfManifest, null, 2) + '\n');
+    console.log(`Wrote ${pdfManifest.pdfs.length} PDF(s) to ${join(travelpdfDir, 'list.json')}`);
+  }
 }

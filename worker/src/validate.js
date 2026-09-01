@@ -2,8 +2,10 @@ import { unzipSync } from 'fflate';
 
 export const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{1,38}[a-z0-9])$/;
 export const MAX_ZIP_BYTES = 10 * 1024 * 1024;
+export const MAX_PDF_BYTES = 10 * 1024 * 1024;
 export const MAX_FILES = 200;
 export const MAX_NAMES_LENGTH = 80;
+export const MAX_TITLE_LENGTH = 80;
 export const ALLOWED_EXTENSIONS = new Set([
   'html', 'css', 'js', 'json', 'md', 'txt',
   'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'ico', 'woff', 'woff2',
@@ -32,6 +34,26 @@ export function validateNames(input) {
     throw new ValidationError(`Names must be ${MAX_NAMES_LENGTH} characters or fewer — first names only.`);
   }
   return names;
+}
+
+export function validateTitle(input) {
+  const title = String(input ?? '').trim();
+  if (!title || title.length > MAX_TITLE_LENGTH) {
+    throw new ValidationError(`Please give your PDF a title, up to ${MAX_TITLE_LENGTH} characters.`);
+  }
+  return title;
+}
+
+const PDF_MAGIC = [0x25, 0x50, 0x44, 0x46, 0x2d]; // %PDF-
+
+export function validatePdf(bytes) {
+  if (bytes.byteLength > MAX_PDF_BYTES) {
+    throw new ValidationError('Your PDF is over 10 MB. Export it again with smaller images and try again.');
+  }
+  if (!PDF_MAGIC.every((b, i) => bytes[i] === b)) {
+    throw new ValidationError("That file doesn't look like a PDF. Export your itinerary as a .pdf and try again.");
+  }
+  return bytes;
 }
 
 function extensionOf(path) {

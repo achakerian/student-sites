@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travel PDFs — Student Sites</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-theme="dark">
+  <header>
+    <a class="brand" href="../" style="text-decoration:none">Student Sites</a>
+  </header>
+
+  <main class="page">
+    <h1>Travel PDFs</h1>
+    <p>Itinerary PDFs made by students with their favourite AI. Got one to add? <a href="./submit/">Drop it here</a> — your teacher approves each one before it's listed.</p>
+
+    <ul class="index-list" id="pdf-list"></ul>
+    <p class="empty" id="empty" hidden>No PDFs published yet — yours could be first.</p>
+  </main>
+
+  <script>
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    (async () => {
+      const list = document.getElementById('pdf-list');
+      const empty = document.getElementById('empty');
+      let pdfs = [];
+      try {
+        pdfs = (await (await fetch('./list.json', { cache: 'no-cache' })).json()).pdfs || [];
+      } catch {}
+      if (!pdfs.length) { empty.hidden = false; return; }
+      list.innerHTML = pdfs.map(p => `
+        <li class="index-item">
+          <a class="index-link" href="${escapeHtml(p.path)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>
+          <span class="index-tag">${escapeHtml(p.names || p.name)}</span>
+        </li>
+      `).join('');
+    })();
+  </script>
+</body>
+</html>

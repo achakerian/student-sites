@@ -40,8 +40,7 @@ export function toBase64(u8) {
   return btoa(binary);
 }
 
-export function planTreeEntries({ slug, uploaded, existingPaths }) {
-  const prefix = `students/${slug}/`;
+export function planTreeEntries({ prefix, uploaded, existingPaths }) {
   const entries = uploaded.map(({ path, sha }) => ({ path: prefix + path, mode: '100644', type: 'blob', sha }));
   const uploadedPaths = new Set(entries.map(e => e.path));
   for (const path of existingPaths) {
@@ -65,8 +64,7 @@ async function mapWithConcurrency(items, limit, fn) {
   return results;
 }
 
-export async function pushSite(client, { slug, files, names }) {
-  const branch = `site/${slug}`;
+export async function pushFiles(client, { branch, prefix, files, message }) {
   const mainSha = (await client.api('GET', '/git/ref/heads/main')).object.sha;
   const baseTreeSha = (await client.api('GET', `/git/commits/${mainSha}`)).tree.sha;
   const baseTree = await client.api('GET', `/git/trees/${baseTreeSha}?recursive=1`);
@@ -79,13 +77,9 @@ export async function pushSite(client, { slug, files, names }) {
 
   const tree = await client.api('POST', '/git/trees', {
     base_tree: baseTreeSha,
-    tree: planTreeEntries({ slug, uploaded, existingPaths }),
+    tree: planTreeEntries({ prefix, uploaded, existingPaths }),
   });
-  const commit = await client.api('POST', '/git/commits', {
-    message: `Site: ${slug} — submission${names ? ` by ${names}` : ''}`,
-    tree: tree.sha,
-    parents: [mainSha],
-  });
+  const commit = await client.api('POST', '/git/commits', { message, tree: tree.sha, parents: [mainSha] });
 
   try {
     await client.api('PATCH', `/git/refs/heads/${branch}`, { sha: commit.sha, force: true });
@@ -94,6 +88,15 @@ export async function pushSite(client, { slug, files, names }) {
     await client.api('POST', '/git/refs', { ref: `refs/heads/${branch}`, sha: commit.sha });
   }
   return { branch, commitSha: commit.sha };
+}
+
+export function pushSite(client, { slug, files, names }) {
+  return pushFiles(client, {
+    branch: `site/${slug}`,
+    prefix: `students/${slug}/`,
+    files,
+    message: `Site: ${slug} — submission${names ? ` by ${names}` : ''}`,
+  });
 }
 
 const SUBMISSION_RE = /<!-- submission:(\d+) -->/;
@@ -128,26 +131,66 @@ export function buildPrBody({ slug, names, submission, files, externals, preview
   return lines.join('\n');
 }
 
-export async function upsertPullRequest(client, { owner, repo, slug, names, files, externals, previewBase, now = new Date() }) {
-  const branch = `site/${slug}`;
+async function upsertPr(client, { owner, branch, title, buildBody }) {
   const head = `${owner}:${branch}`;
-  const previewUrl = previewBase
-    ? `${previewBase}/preview/${slug}/`
-    : `https://raw.githack.com/${owner}/${repo}/${branch}/students/${slug}/index.html`;
-  const timestamp = now.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
-
   const [open] = await client.api('GET', `/pulls?head=${encodeURIComponent(head)}&state=open&per_page=1`);
 
   let submission, prUrl;
   if (open) {
     submission = (parseSubmissionNumber(open.body) ?? 0) + 1;
-    const body = buildPrBody({ slug, names, submission, files, externals, previewUrl, timestamp });
-    prUrl = (await client.api('PATCH', `/pulls/${open.number}`, { body })).html_url;
+    prUrl = (await client.api('PATCH', `/pulls/${open.number}`, { body: buildBody(submission) })).html_url;
   } else {
     const previous = await client.api('GET', `/pulls?head=${encodeURIComponent(head)}&state=all&per_page=100`);
     submission = previous.length + 1;
-    const body = buildPrBody({ slug, names, submission, files, externals, previewUrl, timestamp });
-    prUrl = (await client.api('POST', '/pulls', { title: `Site: ${slug}`, head: branch, base: 'main', body })).html_url;
+    prUrl = (await client.api('POST', '/pulls', { title, head: branch, base: 'main', body: buildBody(submission) })).html_url;
   }
-  return { prUrl, submission, previewUrl };
+  return { prUrl, submission };
+}
+
+function formatTimestamp(now) {
+  return now.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+}
+
+export async function upsertPullRequest(client, { owner, repo, slug, names, files, externals, previewBase, now = new Date() }) {
+  const branch = `site/${slug}`;
+  const previewUrl = previewBase
+    ? `${previewBase}/preview/${slug}/`
+    : `https://raw.githack.com/${owner}/${repo}/${branch}/students/${slug}/index.html`;
+  const timestamp = formatTimestamp(now);
+
+  const result = await upsertPr(client, {
+    owner, branch, title: `Site: ${slug}`,
+    buildBody: submission => buildPrBody({ slug, names, submission, files, externals, previewUrl, timestamp }),
+  });
+  return { ...result, previewUrl };
+}
+
+export function buildPdfPrBody({ slug, names, title, submission, files, previewUrl, timestamp }) {
+  const totalBytes = files.reduce((sum, f) => sum + f.data.byteLength, 0);
+  return [
+    `<!-- submission:${submission} -->`,
+    `**PDF:** \`${slug}\` · **Submission #${submission}** · ${timestamp}`,
+    `**Title:** ${title}`,
+    `**Students:** ${names || '_not given_'}`,
+    '',
+    `### 👀 [Preview this PDF](${previewUrl})`,
+    '',
+    `Merge to list it on \`https://student-sites.org/travelpdf/\`. Close with a comment to reject.`,
+    '',
+    `${formatBytes(totalBytes)} in ${files.length} file(s).`,
+  ].join('\n');
+}
+
+export async function upsertPdfPullRequest(client, { owner, repo, slug, names, title, files, previewBase, now = new Date() }) {
+  const branch = `pdf/${slug}`;
+  const previewUrl = previewBase
+    ? `${previewBase}/preview-pdf/${slug}`
+    : `https://raw.githack.com/${owner}/${repo}/${branch}/travelpdf/files/${slug}/itinerary.pdf`;
+  const timestamp = formatTimestamp(now);
+
+  const result = await upsertPr(client, {
+    owner, branch, title: `PDF: ${slug}`,
+    buildBody: submission => buildPdfPrBody({ slug, names, title, submission, files, previewUrl, timestamp }),
+  });
+  return { ...result, previewUrl };
 }

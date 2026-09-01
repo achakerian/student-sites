@@ -16,8 +16,19 @@ function request({ slug = 'demo', names = 'Sam', passcode = 'open-sesame', zip =
   return new Request(`https://worker.test${path}`, { method, body: method === 'POST' ? form : undefined, headers: { Origin: origin } });
 }
 
-function stubGitHub() {
+function pdfRequest({ slug = 'demo', names = 'Sam', title = 'Three Days in Hanoi', passcode = 'open-sesame', bytes = strToU8('%PDF-1.4 test'), origin = 'https://student-sites.org' } = {}) {
+  const form = new FormData();
+  form.set('slug', slug);
+  form.set('names', names);
+  form.set('title', title);
+  form.set('passcode', passcode);
+  form.set('file', new File([bytes], 'itinerary.pdf', { type: 'application/pdf' }));
+  return new Request('https://worker.test/submit-pdf', { method: 'POST', body: form, headers: { Origin: origin } });
+}
+
+function stubGitHub(extraRoutes = {}) {
   const routes = {
+    ...extraRoutes,
     'GET /git/ref/heads/main': { object: { sha: 'MAIN' } },
     'GET /git/commits/MAIN': { tree: { sha: 'TREE' } },
     'GET /git/trees/TREE': { tree: [] },
@@ -87,6 +98,47 @@ describe('worker', () => {
       previewUrl: 'https://worker.test/preview/demo/',
     });
     expect(res.headers.get('Access-Control-Allow-Origin')).toBe('https://student-sites.org');
+  });
+
+  it('rejects a wrong passcode on /submit-pdf with 401', async () => {
+    const res = await worker.fetch(pdfRequest({ passcode: 'nope' }), env);
+    expect(res.status).toBe(401);
+  });
+
+  it('400s a /submit-pdf upload that is not a PDF', async () => {
+    const res = await worker.fetch(pdfRequest({ bytes: strToU8('<html>x</html>') }), env);
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toMatch(/PDF/i);
+  });
+
+  it('400s a /submit-pdf upload without a title', async () => {
+    const res = await worker.fetch(pdfRequest({ title: '  ' }), env);
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toMatch(/title/i);
+  });
+
+  it('pushes the PDF branch and opens a PDF: PR on success', async () => {
+    const spy = stubGitHub({ 'PATCH /git/refs/heads/pdf/demo': { ok: true } });
+    const res = await worker.fetch(pdfRequest(), env);
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({
+      ok: true, slug: 'demo', submission: 1, prUrl: 'https://gh/pr/1',
+      previewUrl: 'https://worker.test/preview-pdf/demo',
+    });
+    const prCall = spy.mock.calls.find(([url, init]) => init?.method === 'POST' && String(url).endsWith('/pulls'));
+    const prBody = JSON.parse(prCall[1].body);
+    expect(prBody.title).toBe('PDF: demo');
+    expect(prBody.head).toBe('pdf/demo');
+  });
+
+  it('serves a PDF preview from the pdf branch with the pdf content type', async () => {
+    const upstream = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('%PDF-1.4', { status: 200 }));
+    const res = await worker.fetch(new Request('https://worker.test/preview-pdf/demo'), env);
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toBe('application/pdf');
+    const url = String(upstream.mock.calls[0][0]);
+    expect(url).toContain('/contents/travelpdf/files/demo/itinerary.pdf');
+    expect(url).toContain(encodeURIComponent('pdf/demo'));
   });
 
   it('returns the generic 500 message when GitHub fails', async () => {

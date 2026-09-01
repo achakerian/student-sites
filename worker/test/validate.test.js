@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { zipSync, strToU8 } from 'fflate';
 import {
-  ValidationError, validateSlug, validateNames, extractSite, findExternalResources,
+  ValidationError, validateSlug, validateNames, validateTitle, validatePdf,
+  extractSite, findExternalResources, MAX_PDF_BYTES,
 } from '../src/validate.js';
 
 const zip = (entries) => zipSync(Object.fromEntries(
@@ -24,6 +25,31 @@ describe('validateNames', () => {
   });
   it('rejects over 80 chars', () => {
     expect(() => validateNames('x'.repeat(81))).toThrow(ValidationError);
+  });
+});
+
+describe('validateTitle', () => {
+  it('trims a good title', () => {
+    expect(validateTitle('  Three Days in Hanoi ')).toBe('Three Days in Hanoi');
+  });
+  it.each(['', '   ', null, 'x'.repeat(81)])('rejects %j', (bad) => {
+    expect(() => validateTitle(bad)).toThrow(ValidationError);
+  });
+});
+
+describe('validatePdf', () => {
+  const pdf = (body = 'x') => strToU8(`%PDF-1.4 ${body}`);
+
+  it('accepts bytes starting with the PDF magic number', () => {
+    expect(() => validatePdf(pdf())).not.toThrow();
+  });
+  it('rejects bytes that are not a PDF', () => {
+    expect(() => validatePdf(strToU8('<html>nope</html>'))).toThrow(ValidationError);
+  });
+  it('rejects an oversized PDF', () => {
+    const big = new Uint8Array(MAX_PDF_BYTES + 1);
+    big.set(strToU8('%PDF-'));
+    expect(() => validatePdf(big)).toThrow(ValidationError);
   });
 });
 

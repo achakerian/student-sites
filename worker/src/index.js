@@ -1,8 +1,9 @@
 import {
-  ValidationError, validateSlug, validateNames, extractSite, findExternalResources, MAX_ZIP_BYTES,
+  ValidationError, validateSlug, validateNames, validateTitle, validatePdf,
+  extractSite, findExternalResources, MAX_ZIP_BYTES, MAX_PDF_BYTES,
 } from './validate.js';
-import { createGitHubClient, pushSite, upsertPullRequest } from './github.js';
-import { handlePreview } from './preview.js';
+import { createGitHubClient, pushSite, pushFiles, upsertPullRequest, upsertPdfPullRequest } from './github.js';
+import { handlePreview, handlePdfPreview } from './preview.js';
 
 const GENERIC_ERROR = 'Something went wrong on our side — try again in a minute, or tell your teacher.';
 
@@ -67,6 +68,44 @@ async function handleSubmit(request, env) {
   return { ok: true, slug, ...result };
 }
 
+async function handleSubmitPdf(request, env) {
+  const previewBase = new URL(request.url).origin;
+  const form = await request.formData();
+
+  if (!env.PASSCODE || !safeEqual(form.get('passcode') ?? '', env.PASSCODE)) {
+    throw new AuthError("That passcode isn't right — check your worksheet.");
+  }
+  const slug = validateSlug(form.get('slug'));
+  const names = validateNames(form.get('names'));
+  const title = validateTitle(form.get('title'));
+
+  const file = form.get('file');
+  if (!(file instanceof File) || file.size === 0) {
+    throw new ValidationError('Please choose the .pdf of your itinerary to upload.');
+  }
+  if (file.size > MAX_PDF_BYTES) {
+    throw new ValidationError('Your PDF is over 10 MB. Export it again with smaller images and try again.');
+  }
+  const bytes = validatePdf(new Uint8Array(await file.arrayBuffer()));
+
+  const files = [
+    { path: 'itinerary.pdf', data: bytes },
+    { path: 'meta.json', data: new TextEncoder().encode(JSON.stringify({ title, names, submitted: new Date().toISOString() }, null, 2) + '\n') },
+  ];
+
+  const client = createGitHubClient({ token: env.GITHUB_TOKEN, owner: env.GITHUB_OWNER, repo: env.GITHUB_REPO });
+  await pushFiles(client, {
+    branch: `pdf/${slug}`,
+    prefix: `travelpdf/files/${slug}/`,
+    files,
+    message: `PDF: ${slug} — submission${names ? ` by ${names}` : ''}`,
+  });
+  const result = await upsertPdfPullRequest(client, {
+    owner: env.GITHUB_OWNER, repo: env.GITHUB_REPO, slug, names, title, files, previewBase,
+  });
+  return { ok: true, slug, ...result };
+}
+
 export default {
   async fetch(request, env) {
     const cors = corsHeaders(request.headers.get('Origin') || '', env.ALLOWED_ORIGINS);
@@ -74,12 +113,14 @@ export default {
 
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
     if ((request.method === 'GET' || request.method === 'HEAD') && url.pathname.startsWith('/preview/')) return handlePreview(request, env);
-    if (request.method !== 'POST' || url.pathname !== '/submit') {
+    if ((request.method === 'GET' || request.method === 'HEAD') && url.pathname.startsWith('/preview-pdf/')) return handlePdfPreview(request, env);
+    if (request.method !== 'POST' || (url.pathname !== '/submit' && url.pathname !== '/submit-pdf')) {
       return json({ ok: false, error: 'Not found' }, 404, cors);
     }
+    const handler = url.pathname === '/submit-pdf' ? handleSubmitPdf : handleSubmit;
 
     try {
-      return json(await handleSubmit(request, env), 200, cors);
+      return json(await handler(request, env), 200, cors);
     } catch (err) {
       if (err instanceof AuthError) return json({ ok: false, error: err.message }, 401, cors);
       if (err instanceof ValidationError) return json({ ok: false, error: err.message }, 400, cors);

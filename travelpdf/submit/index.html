@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Submit your travel PDF — Student Sites</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body data-theme="dark">
+  <header>
+    <a class="brand" href="../../" style="text-decoration:none">Student Sites</a>
+  </header>
+
+  <main class="page">
+    <h1>Submit your travel PDF</h1>
+    <p>Upload the itinerary PDF you made with your favourite AI. Your teacher will review it before it appears on the <a href="../">Travel PDFs page</a>.</p>
+
+    <form id="submit-form" novalidate>
+      <div class="form-field">
+        <label for="slug">Site name</label>
+        <input id="slug" name="slug" type="text" required autocomplete="off" spellcheck="false"
+               placeholder="sams-recipes" pattern="[a-z0-9][a-z0-9-]{1,38}[a-z0-9]" />
+        <p class="hint">The same name as your website. Use it every time you resubmit.</p>
+      </div>
+      <div class="form-field">
+        <label for="title">PDF title</label>
+        <input id="title" name="title" type="text" required maxlength="80" placeholder="Three Days in Hanoi" />
+        <p class="hint">This is what shows on the Travel PDFs page.</p>
+      </div>
+      <div class="form-field">
+        <label for="names">Your first names</label>
+        <input id="names" name="names" type="text" maxlength="80" placeholder="Sam and Alex" />
+      </div>
+      <div class="form-field">
+        <label for="passcode">Class passcode</label>
+        <input id="passcode" name="passcode" type="text" required autocomplete="off" placeholder="From your worksheet" />
+      </div>
+      <div class="form-field">
+        <label for="file">Your itinerary (.pdf)</label>
+        <input id="file" name="file" type="file" accept=".pdf,application/pdf" required />
+        <p class="hint">Max 10 MB. One PDF per site name — a new upload replaces your old one.</p>
+      </div>
+      <div class="form-field">
+        <button class="btn" type="submit" id="submit-btn">Submit for review</button>
+      </div>
+    </form>
+
+    <div id="notice" class="notice" hidden></div>
+  </main>
+
+  <script>
+    // Set after `npx wrangler deploy` prints the Worker URL.
+    const WORKER_URL = 'https://student-sites-submit.achakerian.workers.dev';
+
+    const form = document.getElementById('submit-form');
+    const button = document.getElementById('submit-btn');
+    const notice = document.getElementById('notice');
+    const slugInput = document.getElementById('slug');
+
+    slugInput.addEventListener('input', () => {
+      slugInput.value = slugInput.value.toLowerCase().replace(/\s+/g, '-');
+    });
+
+    try {
+      slugInput.value = localStorage.getItem('slug') || '';
+      document.getElementById('names').value = localStorage.getItem('names') || '';
+    } catch {}
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function show(kind, html) {
+      notice.className = `notice ${kind}`;
+      notice.innerHTML = html;
+      notice.hidden = false;
+      notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const file = data.get('file');
+      if (!file || !file.size) return show('error', 'Please choose your .pdf file.');
+      if (file.size > 10 * 1024 * 1024) return show('error', 'Your PDF is over 10 MB. Export it again with smaller images and try again.');
+
+      try { localStorage.setItem('slug', data.get('slug')); localStorage.setItem('names', data.get('names')); } catch {}
+
+      button.disabled = true;
+      button.textContent = 'Uploading…';
+      show('', 'Uploading and checking your PDF — this takes a few seconds.');
+
+      try {
+        const response = await fetch(`${WORKER_URL}/submit-pdf`, { method: 'POST', body: data });
+        const result = await response.json().catch(() => ({ ok: false, error: 'Unexpected reply from the server.' }));
+        if (!response.ok || !result.ok) {
+          show('error', `<strong>Not submitted.</strong> ${escapeHtml(result.error || 'Something went wrong.')}`);
+          return;
+        }
+        show('success', `
+          <strong>Submitted!</strong> This is submission #${Number(result.submission)} for <code>${escapeHtml(result.slug)}</code>.
+          <p>Your review link — bookmark this: <a href="${escapeHtml(result.prUrl)}" target="_blank" rel="noopener">${escapeHtml(result.prUrl)}</a></p>
+          <p>Preview (unreviewed): <a href="${escapeHtml(result.previewUrl)}" target="_blank" rel="noopener">${escapeHtml(result.previewUrl)}</a></p>
+          <p>Once your teacher merges it, it's listed at <code>https://student-sites.org/travelpdf/</code>.</p>
+        `);
+        form.file.value = '';
+      } catch (err) {
+        show('error', "<strong>Couldn't reach the server.</strong> Check your connection and try again, or tell your teacher.");
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Submit for review';
+      }
+    });
+  </script>
+</body>
+</html>

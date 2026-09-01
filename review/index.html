@@ -87,15 +87,17 @@ gh pr close 12 --delete-branch --comment "Please remove the surnames on the Abou
     // The Worker writes a structured PR body; pull the bits we display back out of it.
     function parseBody(pr) {
       const body = pr.body || '';
-      const slug = pr.title.replace(/^Site:\s*/, '').trim();
+      const isPdf = pr.title.startsWith('PDF:');
+      const slug = pr.title.replace(/^(?:Site|PDF):\s*/, '').trim();
       const submission = Number((body.match(/<!-- submission:(\d+) -->/) || [])[1]) || 1;
       const names = (body.match(/\*\*Students:\*\*\s*(.+)/) || [])[1]?.replace(/_/g, '').trim() || '';
-      const preview = (body.match(/\]\((https:\/\/[^)]*\/preview\/[^)]+)\)/) || [])[1]
-        || `${WORKER_URL}/preview/${slug}/`;
+      const pdfTitle = (body.match(/\*\*Title:\*\*\s*(.+)/) || [])[1]?.trim() || '';
+      const preview = (body.match(/\]\((https:\/\/[^)]*\/preview(?:-pdf)?\/[^)]+)\)/) || [])[1]
+        || (isPdf ? `${WORKER_URL}/preview-pdf/${slug}` : `${WORKER_URL}/preview/${slug}/`);
       const externalsBlock = body.split('### ⚠️ External resources')[1]?.split('<details>')[0] || '';
       const externals = [...externalsBlock.matchAll(/^- `([^`]+)`/gm)].map(m => m[1]);
       const fileSummary = (body.match(/<summary>([^<]+)<\/summary>/) || [])[1] || '';
-      return { slug, submission, names, preview, externals, fileSummary };
+      return { slug, submission, names, preview, externals, fileSummary, isPdf, pdfTitle };
     }
 
     function card(pr) {
@@ -104,10 +106,10 @@ gh pr close 12 --delete-branch --comment "Please remove the surnames on the Abou
         <article class="review-card">
           <div class="review-card-head">
             <div>
-              <h3><code>${esc(m.slug)}</code></h3>
+              <h3><code>${esc(m.slug)}</code>${m.isPdf ? ` — ${esc(m.pdfTitle)}` : ''}</h3>
               <p class="muted">${esc(m.names) || '<em>no names given</em>'} · submission #${m.submission} · ${timeAgo(pr.updated_at)}${m.fileSummary ? ' · ' + esc(m.fileSummary) : ''}</p>
             </div>
-            <span class="pill">PR #${pr.number}</span>
+            <span class="pill">${m.isPdf ? '📄 PDF · ' : ''}PR #${pr.number}</span>
           </div>
           ${m.externals.length ? `<div class="flag">⚠️ Loads from other domains:<ul>${m.externals.map(e => `<li><code>${esc(e)}</code></li>`).join('')}</ul></div>` : ''}
           <div class="review-frame">
@@ -134,13 +136,13 @@ gh pr close 12 --delete-branch --comment "Please remove the surnames on the Abou
           gh('/pulls?state=open&per_page=100&sort=updated&direction=desc'),
           gh('/pulls?state=closed&per_page=15&sort=updated&direction=desc'),
         ]);
-        const sites = open.filter(pr => pr.title.startsWith('Site:'));
+        const sites = open.filter(pr => pr.title.startsWith('Site:') || pr.title.startsWith('PDF:'));
         queue.innerHTML = sites.length
           ? sites.map(card).join('')
           : '<p class="empty">Nothing waiting for review. 🎉</p>';
         status.textContent = `${sites.length} waiting for review · updated ${new Date().toLocaleTimeString()} · auto-refreshes every minute`;
 
-        const recent = closed.filter(pr => pr.title.startsWith('Site:'));
+        const recent = closed.filter(pr => pr.title.startsWith('Site:') || pr.title.startsWith('PDF:'));
         decided.innerHTML = recent.length
           ? recent.map(pr => {
               const m = parseBody(pr);
@@ -148,7 +150,7 @@ gh pr close 12 --delete-branch --comment "Please remove the surnames on the Abou
               return `<li>
                 <span class="pill ${merged ? 'pill-ok' : 'pill-no'}">${merged ? 'Published' : 'Rejected'}</span>
                 <code>${esc(m.slug)}</code> <span class="muted">${esc(m.names)} · #${m.submission} · ${timeAgo(pr.closed_at)}</span>
-                ${merged ? `<a href="../students/${esc(m.slug)}/" target="_blank" rel="noopener">view live</a>` : ''}
+                ${merged ? `<a href="${m.isPdf ? '../travelpdf/' : `../students/${esc(m.slug)}/`}" target="_blank" rel="noopener">view live</a>` : ''}
                 <a href="${esc(pr.html_url)}" target="_blank" rel="noopener">PR #${pr.number}</a>
               </li>`;
             }).join('')

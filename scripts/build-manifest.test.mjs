@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { buildManifest } from './build-manifest.mjs';
+import { buildManifest, buildPdfManifest } from './build-manifest.mjs';
 
 function fixture() {
   const dir = mkdtempSync(join(tmpdir(), 'students-'));
@@ -40,6 +40,36 @@ test('falls back to defaults when meta.json is invalid', () => {
   assert.equal(bad.title, 'Bad Meta');
   assert.equal(bad.description, 'Student site');
   assert.deepEqual(bad.tags, ['HTML', 'CSS']);
+});
+
+function pdfFixture() {
+  const dir = mkdtempSync(join(tmpdir(), 'travelpdf-'));
+  mkdirSync(join(dir, 'files', 'zeta-trip'), { recursive: true });
+  writeFileSync(join(dir, 'files', 'zeta-trip', 'itinerary.pdf'), '%PDF-1.4');
+  mkdirSync(join(dir, 'files', 'alpha-trip'), { recursive: true });
+  writeFileSync(join(dir, 'files', 'alpha-trip', 'itinerary.pdf'), '%PDF-1.4');
+  writeFileSync(join(dir, 'files', 'alpha-trip', 'meta.json'), JSON.stringify({ title: 'Three Days in Hanoi', names: 'Sam', submitted: '2026-09-01T00:00:00.000Z' }));
+  mkdirSync(join(dir, 'files', 'no-pdf'));
+  writeFileSync(join(dir, 'files', 'no-pdf', 'meta.json'), JSON.stringify({ title: 'Nope' }));
+  return dir;
+}
+
+test('lists folders with itinerary.pdf, sorted, merging meta.json over defaults', () => {
+  const { pdfs } = buildPdfManifest(pdfFixture());
+  assert.deepEqual(pdfs.map(p => p.name), ['alpha-trip', 'zeta-trip']);
+  const alpha = pdfs[0];
+  assert.equal(alpha.title, 'Three Days in Hanoi');
+  assert.equal(alpha.names, 'Sam');
+  assert.equal(alpha.path, './files/alpha-trip/itinerary.pdf');
+  const zeta = pdfs[1];
+  assert.equal(zeta.title, 'Zeta Trip');
+  assert.equal(zeta.names, '');
+  assert.equal(zeta.path, './files/zeta-trip/itinerary.pdf');
+});
+
+test('pdf manifest is empty when the files directory is missing', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'travelpdf-empty-'));
+  assert.deepEqual(buildPdfManifest(dir), { pdfs: [] });
 });
 
 test('meta.json cannot override name, path or thumbnail', () => {
