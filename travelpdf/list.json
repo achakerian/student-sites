@@ -62,6 +62,13 @@
       "submitted": "2026-09-01T08:10:11.342Z",
       "name": "swizerland-trip",
       "path": "./files/swizerland-trip/itinerary.pdf"
+    },
+    {
+      "title": "vietnam-14-day-relaxed travel",
+      "names": "Yuxin",
+      "submitted": "2026-09-01T08:00:14.472Z",
+      "name": "vietnam-14-day",
+      "path": "./files/vietnam-14-day/itinerary.pdf"
     }
   ]
 }
