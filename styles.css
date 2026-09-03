@@ -370,7 +370,8 @@ header .brand:hover {
 
 /* Index List View */
 .index-list {
-  display: none;
+  display: block;
+  list-style: none;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -579,11 +580,13 @@ header .brand:hover {
   list-style: none;
   display: inline-flex;
   align-items: center;
-  padding: 8px 12px;
-  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border: none;
   border-radius: 6px;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text);
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
@@ -591,14 +594,13 @@ header .brand:hover {
 }
 
 .nav-menu summary::-webkit-details-marker { display: none; }
-.nav-menu summary:hover { opacity: 0.7; }
-.nav-menu[open] summary { border-color: var(--muted); }
+.nav-menu summary:hover { opacity: 0.85; }
 
 .nav-menu-list {
   position: absolute;
   right: 0;
   top: calc(100% + 6px);
-  min-width: 180px;
+  min-width: 230px;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -619,3 +621,15 @@ header .brand:hover {
 }
 
 .nav-menu-list a:hover { background: var(--bg); }
+
+.nav-menu-desc {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.nav-menu-divider {
+  border-top: 1px solid var(--border);
+  margin: 6px 4px;
+}
