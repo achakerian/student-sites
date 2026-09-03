@@ -6,6 +6,7 @@
   <title>Student Sites</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="api.js"></script>
+  <script src="nav.js" defer></script>
 </head>
 <body data-theme="dark">
   <header>
@@ -18,6 +19,16 @@
       <div class="nav-buttons">
         <a class="nav-cta" href="start/">Submit your travel PDF →</a>
         <button id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+        <details class="nav-menu">
+          <summary>Menu ▾</summary>
+          <ul class="nav-menu-list">
+            <li><a href="./">Websites</a></li>
+            <li><a href="travelpdf/">Travel PDFs</a></li>
+            <li><a href="submit/">Submit a site</a></li>
+            <li><a href="travelpdf/submit/">Submit a PDF</a></li>
+            <li><a href="start/">Start here</a></li>
+          </ul>
+        </details>
       </div>
     </nav>
   </header>
